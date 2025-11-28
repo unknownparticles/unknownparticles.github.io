@@ -15,7 +15,7 @@
 更为详细的教程戳这 [《利用 GitHub Pages 快速搭建个人博客》](http://www.jianshu.com/p/e68fba58f75c) 或 [wiki](https://github.com/unknownparticles/unknownparticles.github.io/wiki/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8E)
 
 >
-### [查看博客戳这里 👆](http://unknownparticles.github.io)
+### [查看博客戳这里 👆](https://alunapp.asia)
 
 
 
@@ -61,6 +61,9 @@ description: "记录编程学习与生活点滴"	   	   # 随便说点，描述�
 github_username: unknownparticles     # 你的github账号
 jianshu_username: unknownparticles  # 你的简书ID。
 
+# Domain settings
+url: "https://alunapp.asia"          # 博客域名
+
 # Build settings
 # paginate: 10              # 一页你准备放几篇文章
 ```
@@ -100,7 +103,7 @@ tags:
 # Sidebar settings
 sidebar: true  #添加侧边栏
 sidebar-about-description: "简单的描述一下你自己"
-sidebar-avatar: /img/avatar_m.jpg     #你的大头贴，请使用绝对地址.注意：名字区分大小写！后缀名也是
+sidebar-avatar: /img/IMG_1544.jpeg     #你的大头贴，请使用绝对地址.注意：名字区分大小写！后缀名也是
 ```
 
 侧边栏是响应式布局的，当屏幕尺寸小于992px的时候，侧边栏就会移动到底部。具体请见bootstrap栅格系统 <http://v3.bootcss.com/css/>
@@ -155,8 +158,12 @@ friends: [
         href: "https://github.com/unknownparticles"
     },
     {
+        title: "开源项目",
+        href: "https://alunapp.asia/projects.html"
+    },
+    {
         title: "技术分享",
-        href: "https://unknownparticles.github.io"
+        href: "https://alunapp.asia"
     }
 ]
 ```
@@ -227,7 +234,7 @@ ba_track_id: b50bf2b12b5338a1845e33832976fd68
 
 # Google Analytics
 ga_track_id: 'UA-90855596-1'            # 你用Google账号去注册一个就会给你一个这样的id
-ga_domain: unknownparticles.github.io			# 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
+ga_domain: alunapp.asia			# 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
 ```
 
 ### Customization

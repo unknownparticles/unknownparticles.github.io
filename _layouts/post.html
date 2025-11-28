@@ -7,22 +7,7 @@ layout: default
 <!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
 
 <!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        position: relative;
-        background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')
-    }
-
-    {% if page.header-mask %}
-    header.intro-header .header-mask{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        background: rgba(0,0,0, {{ page.header-mask }});
-    }
-    {% endif %}
-</style>
-<header class="intro-header" >
+<header class="intro-header" style="position: relative; background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
     <div class="header-mask"></div>
     <div class="container">
         <div class="row">
@@ -93,13 +78,13 @@ layout: default
                 <script src="{{ site.baseurl }}/js/md5.min.js"></script>
                 <script type="text/javascript">
                     var gitalk = new Gitalk({
-                    clientID: '{{site.gitalk.clientID}}',
-                    clientSecret: '{{site.gitalk.clientSecret}}',
-                    repo: '{{site.gitalk.repo}}',
-                    owner: '{{site.gitalk.owner}}',
-                    admin: ['{{site.gitalk.admin}}'],
-                    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
-                    id: md5(location.pathname),
+                        clientID: '{{site.gitalk.clientID}}',
+                        clientSecret: '{{site.gitalk.clientSecret}}',
+                        repo: '{{site.gitalk.repo}}',
+                        owner: '{{site.gitalk.owner}}',
+                        admin: ['{{site.gitalk.admin}}'],
+                        distractionFreeMode: {{site.gitalk.distractionFreeMode}},
+                        id: md5(location.pathname)
                     });
                     gitalk.render('gitalk-container');
                 </script>

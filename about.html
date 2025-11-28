@@ -1,146 +1,144 @@
 ---
 layout: page
-title: "关于我"
+title: "关于 me"
 description: "Hey, this is Alun."
-header-img: "img/post-bg-rwd.jpg"
+header-img: "img/IMG_1544.jpeg"
 ---
 
-<!-- Language Selector -->
-<!-- <select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英文 English </option>
-</select> -->
+<div class="post-container">
+    <blockquote>
+        <p>Hey，我是阿伦（Alun），一名热爱编程、喜欢深挖技术细节的开发者。</p>
+    </blockquote>
 
-<!-- Chinese Version -->
-<div class="zh post-container">
+    <p>在 <strong>CSDN</strong> 我的主页是 <a href="https://blog.csdn.net/particles">blog.csdn.net/particles</a>，<strong>GitHub</strong> 是 <a href="https://github.com/unknownparticles">github.com/unknownparticles</a>。</p>
 
-    <!--copied from markdown -->
-    <blockquote><p>保持好奇心，持续学习<br>
-    每一次尝试都是成长的机会</p></blockquote>
+    <p>我喜欢把"好玩的想法"转化为"可运行的代码"，也喜欢把"代码的细节"打磨成"可以复用的工具"。</p>
 
-    <p>Hey，我是<strong>阿伦(Alun)</strong>，一名热爱编程的技术爱好者。</p>
-
-    <p>我喜欢探索新技术，享受编程带来的乐趣。在工作和学习之余，我也喜欢阅读、运动和尝试各种新鲜事物。</p>
-
-    <p>这是我的个人技术博客，记录我在编程学习和工作中的点点滴滴。欢迎访问我的GitHub主页<a href="https://github.com/unknownparticles">👉GitHub·Alun</a>。如果有什么问题或想法，欢迎交流讨论~</p>
-
-    <p></p>
-    
-    <h5>Talks</h5>
+    <h2 id="我的技术轨迹">🔍 我的技术轨迹</h2>
 
     <ul>
-        <li><a href="https://github.com/unknownparticles">GitHub</a></li>
-        <li><a href="https://developer.apple.com/">Apple Developer</a></li>
-        <li><a href="https://stackoverflow.com/">Stack Overflow</a></li> 
-        <li><a href="https://developer.mozilla.org/">MDN Web Docs</a></li>
+        <li>在 <strong>CSDN</strong> 上，我撰写了多篇关于 <strong>前端动画特效、Canvas/粒子系统、手势交互、Flutter UI 组件实战</strong> 的文章，记录技术探索过程，也整理了不少实用技巧。</li>
+        <li>在 <strong>GitHub</strong> 上，我发布了多个开源项目，包括图像处理脚本、交互工具、分析器等（可在 <code>unknownparticles</code> 仓库中查看）。这些项目从 Python 脚本、Flutter 插件、前端组件到自动化构建工具，覆盖了较宽的技术栈。</li>
     </ul>
-</div>
 
-<!-- English Version -->
-<!-- <div class="en post-container">
-    <blockquote><p>Yet another Developer. <br>
-    Yet another Life-long Student.</p></blockquote>
-
-    <p>Hi, I am <strong>Alun</strong>, you can call me <strong>Alun</strong>. I am a software engineer and technology enthusiast</p>
-
-    <p>This is my personal blog, through making Github Pages and Jekyll.My GitHub  👉 <a href="http://github.com/unknownparticles">Github·Alun</a>.</p>
-    
-    <p>I am a technology enthusiast, I like programming, reading and exploring new things.</p>
-
-    <h5>Talks</h5>
+    <h2 id="我正在做的技术方向">🛠 我正在做的技术方向</h2>
 
     <ul>
-    <li><a href="https://github.com/unknownparticles">GitHub</a></li>
-    <li><a href="https://developer.apple.com/">Apple Developer</a></li>
-    <li><a href="https://pages.github.com/">GitHub Pages</a></li>
-    <li><a href="https://unknownparticles.github.io">Alun</a></li>
+        <li><strong>Flutter + 自定义组件</strong>：开发跨平台 UI，深度定制手势、动画、裁剪、图像处理流程。</li>
+        <li><strong>前端/Canvas动画特效</strong>：使用原生 Canvas、WebGL 或 JS 库实现粒子、背景、交互动画。</li>
+        <li><strong>AI 与自动化工具链</strong>：将大语言模型、图像识别、CI/CD 流程融入开发工具之中。</li>
+        <li><strong>DevOps 和构建系统</strong>：自动化脚本、构建流水线、部署流程、镜像同步、日志系统。</li>
     </ul>
-</div> -->
 
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
+    <p>这是我的个人技术博客/作品集：记录 "从想法到代码" 的过程，也展示 "从代码到工具" 的能力。</p>
 
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
+    <p>如果你对前端交互、Flutter 组件、AI 整合、自动化系统这些话题也感兴趣，欢迎访问我的 GitHub 👉 <a href="https://github.com/unknownparticles">github.com/unknownparticles</a> ，或者直接私聊交流～</p>
 
-    // handle render
-    function _render(){
-        var _hash = window.location.hash;
-        // en
-        if(_hash == "#en"){
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        // zh by default
-        }else{
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
-    }
+    <h2 id="技术栈">🛠 技术栈</h2>
 
-    // handle select change
-    function onLanChange(index){
-        if(index == 0){
-            window.location.hash = "#zh"
-        }else{
-            window.location.hash = "#en"
-        }
-    }
-
-    // init
-    _render();
-</script>
-
-
-<!-- Gitalk 评论 start  -->
-{% if site.gitalk.enable %}
-<!-- Gitalk link  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-    <script type="text/javascript">
-    var gitalk = new Gitalk({
-    clientID: '{{site.gitalk.clientID}}',
-    clientSecret: '{{site.gitalk.clientSecret}}',
-    repo: '{{site.gitalk.repo}}',
-    owner: '{{site.gitalk.owner}}',
-    admin: ['{{site.gitalk.admin}}'],
-    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
-    id: 'about',
-    });
-    gitalk.render('gitalk-container');
-</script>
-{% endif %}
-<!-- Gitalk end -->
-
- <!-- disqus 评论框 start  -->
-{% if site.disqus.enable %}
-
-<div class="comment">
-    <div id="disqus_thread" class="disqus-thread">
+    <div class="skills-grid">
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">Dart</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Vue.js</span>
+        <span class="skill-tag">Canvas</span>
+        <span class="skill-tag">WebGL</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">CI/CD</span>
     </div>
+
+    <h2 id="项目经验">💼 项目经验</h2>
+
+    <ul>
+        <li><strong>图像处理工具</strong>：开发了多个图像处理脚本和工具，包括粒子系统、图像识别等</li>
+        <li><strong>前端动画库</strong>：实现了多种Canvas动画特效和交互组件</li>
+        <li><strong>Flutter组件库</strong>：创建了自定义UI组件和手势识别库</li>
+        <li><strong>自动化工具</strong>：构建了CI/CD流水线和部署工具</li>
+    </ul>
+
+    <h2 id="学习与分享">📚 学习与分享</h2>
+
+    <ul>
+        <li>在 CSDN 上分享技术实践和学习心得</li>
+        <li>在 GitHub 上开源个人项目和工具</li>
+        <li>持续学习新技术，关注前端和移动端发展</li>
+        <li>乐于技术交流和知识分享</li>
+    </ul>
+
+    <h2 id="联系方式">📧 联系方式</h2>
+
+    <ul>
+        <li>Email: <a href="mailto:unknownparticles@gmail.com">unknownparticles@gmail.com</a></li>
+        <li>GitHub: <a href="https://github.com/unknownparticles">https://github.com/unknownparticles</a></li>
+        <li>CSDN: <a href="https://blog.csdn.net/particles">https://blog.csdn.net/particles</a></li>
+        <li>技术博客: <a href="https://alunapp.asia">https://alunapp.asia</a></li>
+    </ul>
+
+    <h2 id="开源贡献">🎯 开源贡献</h2>
+
+    <p>我积极参与开源社区，贡献代码和工具。如果你对我的项目感兴趣，欢迎：</p>
+    <ul>
+        <li>⭐ 给我的项目点赞</li>
+        <li>🐛 提交 Issue 报告问题</li>
+        <li>💡 提出功能建议</li>
+        <li>🤝 提交 Pull Request 贡献代码</li>
+    </ul>
 </div>
-<!-- disqus 评论框 end -->
 
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus.username}}";
-    var disqus_identifier = "{{site.disqus.username}}/{{page.url}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
+<style>
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
 
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-{% endif %}
+.skill-tag {
+    background: #e5e7eb;
+    color: #374151;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-1px);
+}
+
+blockquote {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #495057;
+}
+
+h2 {
+    color: #007bff;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+ul {
+    line-height: 1.6;
+}
+
+code {
+    background: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+</style>
