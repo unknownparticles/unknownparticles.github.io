@@ -5,35 +5,41 @@ description: "我参与的开源项目和作品"
 header-img: "img/post-bg-universe.jpg"
 ---
 
-<div class="post-container project-page">
-    <h2>🌟 GitHub 开源项目</h2>
-    <p>页面会自动拉取 <a href="https://github.com/unknownparticles?tab=repositories" target="_blank" rel="noopener">unknownparticles 的仓库列表</a>，无需手动维护。</p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-container">
+                <h2>🌟 GitHub 开源项目</h2>
+                <p>页面会自动拉取 <a href="https://github.com/unknownparticles?tab=repositories" target="_blank">unknownparticles 的仓库列表</a>，无需手动维护。</p>
 
-    <hr>
+                <hr>
 
-    <h3>🌐 GitHub Pages Demo 展示</h3>
-    <p>自动筛选 GitHub Pages 仓库（包含 Pages 开启、主页含 github.io，或已知 Pages 项目），并优先展示 GitHub Pages/主页地址。</p>
-    <div id="pages-status" class="project-status">正在获取 GitHub 数据...</div>
-    <div id="pages-grid" class="project-grid"></div>
+                <h3>🌐 GitHub Pages Demo 展示</h3>
+                <p>自动筛选仓库名包含 <strong>page</strong> 的项目，并优先展示 GitHub Pages/主页地址。</p>
+                <div id="pages-status" class="project-status">正在获取 GitHub 数据...</div>
+                <div id="pages-grid" class="project-grid"></div>
 
-    <hr>
+                <hr>
 
-    <h3>📦 GitHub 仓库浏览</h3>
-    <p>自动拉取所有公开仓库，支持搜索与排序，点击卡片即可进入仓库主页。</p>
-    <div class="repo-controls">
-        <input id="repo-search" class="repo-search" type="search" placeholder="搜索仓库名称或描述..." aria-label="搜索仓库">
-        <select id="repo-sort" class="repo-sort" aria-label="排序仓库">
-            <option value="updated">最近更新</option>
-            <option value="stars">Star 数</option>
-            <option value="name">名称</option>
-        </select>
-    </div>
-    <div class="repo-summary" id="repo-summary">共加载 0 个仓库</div>
-    <div id="repos-status" class="project-status">正在获取 GitHub 数据...</div>
-    <div id="repos-grid" class="project-grid"></div>
+                <h3>📦 GitHub 仓库浏览</h3>
+                <p>自动拉取所有公开仓库，支持搜索与排序，点击卡片即可进入仓库主页。</p>
+                <div class="repo-controls">
+                    <input id="repo-search" class="repo-search" type="search" placeholder="搜索仓库名称或描述..." aria-label="搜索仓库">
+                    <select id="repo-sort" class="repo-sort" aria-label="排序仓库">
+                        <option value="updated">最近更新</option>
+                        <option value="stars">Star 数</option>
+                        <option value="name">名称</option>
+                    </select>
+                </div>
+                <div class="repo-summary" id="repo-summary">共加载 0 个仓库</div>
+                <div id="repos-status" class="project-status">正在获取 GitHub 数据...</div>
+                <div id="repos-grid" class="project-grid"></div>
 
-    <div class="contribution-info">
-        <p>查看 GitHub 主页：<a href="https://github.com/unknownparticles" target="_blank" rel="noopener">https://github.com/unknownparticles</a></p>
+                <div class="contribution-info">
+                    <p>查看 GitHub 主页：<a href="https://github.com/unknownparticles" target="_blank">https://github.com/unknownparticles</a></p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -114,37 +120,6 @@ header-img: "img/post-bg-universe.jpg"
     letter-spacing: 0;
 }
 
-.project-links .btn-primary {
-    background: #0366d6;
-    border-color: #0366d6;
-}
-
-.project-links .btn-primary:hover,
-.project-links .btn-primary:focus {
-    background: #0256b3;
-    border-color: #0256b3;
-}
-
-.project-links .btn-demo {
-    background: #10b981;
-    border-color: #10b981;
-    color: #fff;
-}
-
-.project-links .btn-demo:hover,
-.project-links .btn-demo:focus {
-    background: #0f9b6b;
-    border-color: #0f9b6b;
-    color: #fff;
-}
-
-.project-links .btn-disabled {
-    background: #e5e7eb;
-    border-color: #d1d5db;
-    color: #9ca3af;
-    pointer-events: none;
-}
-
 .project-meta {
     display: flex;
     justify-content: space-between;
@@ -212,21 +187,6 @@ header-img: "img/post-bg-universe.jpg"
 <script>
 const GITHUB_USER = "unknownparticles";
 const API_BASE = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
-const KNOWN_PAGES_REPOS = new Set([
-    "todo",
-    "chess",
-    "my-note",
-    "alive",
-    "raro",
-    "happy-new-year",
-    "snake",
-    "tetris",
-    "whattoeattoday",
-    "wageaware",
-    "unknownparticles.github.io",
-    "dice",
-    "minesweeper"
-]);
 
 const pagesStatus = document.getElementById("pages-status");
 const reposStatus = document.getElementById("repos-status");
@@ -269,21 +229,10 @@ const getDemoUrl = (repo) => {
     return "";
 };
 
-const isPagesRepo = (repo) => {
-    const repoName = repo.name.toLowerCase();
-    const homepage = (repo.homepage || "").toLowerCase();
-    return (
-        repo.has_pages ||
-        homepage.includes("github.io") ||
-        repoName.includes("page") ||
-        KNOWN_PAGES_REPOS.has(repoName)
-    );
-};
-
 const renderCard = (repo, options = {}) => {
     const demoUrl = options.showDemo ? getDemoUrl(repo) : "";
     const demoLabel = demoUrl ? "Live Demo" : "暂无 Demo";
-    const demoClass = demoUrl ? "btn-demo" : "btn-disabled";
+    const demoClass = demoUrl ? "btn-info" : "btn-default";
 
     return `
         <div class="project-card">
@@ -346,14 +295,14 @@ const renderRepoLists = (repos) => {
 };
 
 const renderPagesList = (repos) => {
-    const pageRepos = repos.filter((repo) => isPagesRepo(repo));
+    const pageRepos = repos.filter((repo) => repo.name.toLowerCase().includes("page"));
     if (pageRepos.length === 0) {
-        pagesStatus.textContent = "暂无 GitHub Pages 仓库。";
+        pagesStatus.textContent = "暂无包含 page 的仓库。";
         pagesGrid.innerHTML = "";
         return;
     }
 
-    pagesStatus.textContent = `已找到 ${pageRepos.length} 个 GitHub Pages 仓库`;
+    pagesStatus.textContent = `已找到 ${pageRepos.length} 个包含 page 的仓库`;
     pagesGrid.innerHTML = pageRepos.map((repo) => renderCard(repo, { showDemo: true })).join("");
 };
 
