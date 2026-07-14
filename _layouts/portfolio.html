@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+{% assign portfolio = site.data.portfolio %}
+<header class="portfolio-hero" style="background-image: url('{{ site.baseurl }}/{{ page.header-img }}')">
+    <div class="container portfolio-hero__inner">
+        <div class="portfolio-identity">
+            <img class="portfolio-avatar" src="{{ portfolio.avatar_url }}" alt="{{ portfolio.profile_name }}的 GitHub 头像" width="80" height="80">
+            <div>
+                <p class="portfolio-eyebrow">@{{ portfolio.username }} · GitHub Portfolio</p>
+                <h1>{{ portfolio.profile_name }}</h1>
+            </div>
+        </div>
+        <p class="portfolio-intro">{{ portfolio.bio }}</p>
+        <div class="portfolio-actions">
+            <a class="portfolio-button portfolio-button--primary" href="{{ portfolio.github_url }}" target="_blank" rel="noopener">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                GitHub 主页
+            </a>
+            <a class="portfolio-button portfolio-button--secondary" href="mailto:{{ site.email }}">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                联系我
+            </a>
+        </div>
+    </div>
+</header>
+
+<main id="main-content" class="portfolio-main">
+    <div class="container">
+        {{ content }}
+    </div>
+</main>

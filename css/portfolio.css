@@ -1,0 +1,441 @@
+.portfolio-hero {
+    position: relative;
+    display: flex;
+    min-height: 520px;
+    height: 68vh;
+    max-height: 680px;
+    align-items: flex-end;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+}
+
+.portfolio-hero::before {
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 18, 22, 0.7);
+    content: "";
+}
+
+.portfolio-hero__inner {
+    position: relative;
+    z-index: 1;
+    padding-top: 120px;
+    padding-bottom: 72px;
+}
+
+.portfolio-identity {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.portfolio-avatar {
+    flex: 0 0 auto;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    background: #fff;
+    object-fit: cover;
+}
+
+.portfolio-eyebrow {
+    margin: 0 0 6px;
+    color: #b8e4d2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.portfolio-hero h1 {
+    margin: 0;
+    font-size: 52px;
+    line-height: 1.08;
+    letter-spacing: 0;
+}
+
+.portfolio-intro {
+    max-width: 720px;
+    margin: 24px 0 0;
+    color: #f5f7f6;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.portfolio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.portfolio-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+
+.portfolio-button:hover,
+.portfolio-button:focus {
+    text-decoration: none;
+}
+
+.portfolio-button--primary {
+    border-color: #fff;
+    background: #fff;
+    color: #18201d;
+}
+
+.portfolio-button--primary:hover,
+.portfolio-button--primary:focus {
+    border-color: #b8e4d2;
+    background: #b8e4d2;
+    color: #18201d;
+}
+
+.portfolio-button--secondary {
+    border-color: rgba(255, 255, 255, 0.72);
+    background: rgba(12, 18, 22, 0.34);
+    color: #fff;
+}
+
+.portfolio-button--secondary:hover,
+.portfolio-button--secondary:focus {
+    border-color: #fff;
+    color: #fff;
+}
+
+.portfolio-main {
+    background: #fff;
+    color: #202624;
+}
+
+.portfolio-section {
+    padding: 72px 0;
+    border-bottom: 1px solid #e4e8e6;
+}
+
+.portfolio-section:last-child {
+    border-bottom: 0;
+}
+
+.portfolio-section__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+    gap: 48px;
+    align-items: end;
+    margin-bottom: 32px;
+}
+
+.portfolio-kicker {
+    margin: 0 0 10px;
+    color: #14704a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.portfolio-section h2 {
+    margin: 0;
+    color: #171c1a;
+    font-size: 34px;
+    line-height: 1.22;
+    letter-spacing: 0;
+}
+
+.portfolio-section__summary {
+    margin: 0;
+    color: #5a6460;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.portfolio-project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.portfolio-project {
+    display: flex;
+    min-height: 238px;
+    flex-direction: column;
+    padding: 24px;
+    border: 1px solid #dfe4e1;
+    border-radius: 6px;
+    background: #fff;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.portfolio-project:hover {
+    border-color: #aebbb5;
+    box-shadow: 0 10px 26px rgba(19, 31, 26, 0.08);
+    transform: translateY(-2px);
+}
+
+.portfolio-project__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.portfolio-project__language {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #5b6561;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+.portfolio-language-dot {
+    width: 11px;
+    height: 11px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+}
+
+.portfolio-live-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #14704a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.portfolio-live-label::before {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #1f9d62;
+    content: "";
+}
+
+.portfolio-project h3 {
+    margin: 22px 0 10px;
+    color: #171c1a;
+    font-size: 22px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    letter-spacing: 0;
+}
+
+.portfolio-project__description {
+    flex: 1;
+    margin: 0;
+    color: #59635f;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.portfolio-project__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.portfolio-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #176a91;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.portfolio-text-link:hover,
+.portfolio-text-link:focus {
+    color: #0e4f70;
+}
+
+.portfolio-demo-list {
+    border-top: 1px solid #dfe4e1;
+}
+
+.portfolio-demo {
+    display: grid;
+    grid-template-columns: 56px minmax(180px, 0.8fr) minmax(260px, 1.5fr) auto;
+    gap: 24px;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px solid #dfe4e1;
+}
+
+.portfolio-demo__index {
+    color: #8a9490;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+}
+
+.portfolio-demo h3 {
+    margin: 0 0 4px;
+    color: #171c1a;
+    font-size: 18px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    letter-spacing: 0;
+}
+
+.portfolio-demo__repo {
+    margin: 0;
+    color: #74807b;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-demo__description {
+    margin: 0;
+    color: #59635f;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.portfolio-demo__actions {
+    display: flex;
+    gap: 14px;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.portfolio-snapshot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 34px 0;
+}
+
+.portfolio-snapshot p {
+    margin: 0;
+    color: #4e5955;
+    line-height: 1.7;
+}
+
+.portfolio-snapshot strong {
+    color: #171c1a;
+}
+
+.portfolio-snapshot .portfolio-button--primary {
+    border-color: #171c1a;
+    background: #171c1a;
+    color: #fff;
+}
+
+.portfolio-snapshot .portfolio-button--primary:hover,
+.portfolio-snapshot .portfolio-button--primary:focus {
+    border-color: #14704a;
+    background: #14704a;
+    color: #fff;
+}
+
+@media (max-width: 767px) {
+    .portfolio-hero {
+        min-height: 560px;
+        height: auto;
+    }
+
+    .portfolio-hero__inner {
+        padding-top: 112px;
+        padding-bottom: 56px;
+    }
+
+    .portfolio-identity {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .portfolio-avatar {
+        width: 64px;
+        height: 64px;
+    }
+
+    .portfolio-eyebrow {
+        font-size: 12px;
+    }
+
+    .portfolio-hero h1 {
+        font-size: 38px;
+    }
+
+    .portfolio-intro {
+        font-size: 17px;
+    }
+
+    .portfolio-actions,
+    .portfolio-button {
+        width: 100%;
+    }
+
+    .portfolio-section {
+        padding: 52px 0;
+    }
+
+    .portfolio-section__header,
+    .portfolio-project-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .portfolio-section__header {
+        gap: 16px;
+    }
+
+    .portfolio-section h2 {
+        font-size: 28px;
+    }
+
+    .portfolio-project {
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .portfolio-demo {
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 12px 14px;
+    }
+
+    .portfolio-demo__description,
+    .portfolio-demo__actions {
+        grid-column: 2;
+    }
+
+    .portfolio-demo__actions {
+        justify-content: flex-start;
+        white-space: normal;
+    }
+
+    .portfolio-snapshot {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .portfolio-demo {
+        grid-template-columns: 48px minmax(180px, 0.8fr) minmax(220px, 1.2fr);
+    }
+
+    .portfolio-demo__actions {
+        grid-column: 2 / 4;
+        justify-content: flex-start;
+    }
+}

@@ -26,6 +26,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ "/css/hux-blog.min.css" | prepend: site.baseurl }}">
+    {% if page.stylesheet %}
+    <link rel="stylesheet" href="{{ page.stylesheet | prepend: site.baseurl }}">
+    {% endif %}
 
     <!-- Pygments Github CSS -->
     <link rel="stylesheet" href="{{ "/css/syntax.css" | prepend: site.baseurl }}">

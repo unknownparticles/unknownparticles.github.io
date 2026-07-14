@@ -6,8 +6,9 @@
  * Register service worker.
  * ========================================================== */
 
-const PRECACHE = 'precache-v1';
-const RUNTIME = 'runtime';
+const PRECACHE = 'precache-v2';
+const RUNTIME = 'runtime-v2';
+const LEGACY_CACHES = ['precache-v1', 'runtime'];
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
   "huangxuan.me",
@@ -95,7 +96,13 @@ self.addEventListener('install', e => {
  */
 self.addEventListener('activate',  event => {
   console.log('service worker activated.')
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    Promise.all([
+      self.clients.claim(),
+      // Only remove caches owned by this worker so project demos keep their own data.
+      Promise.all(LEGACY_CACHES.map(cacheName => caches.delete(cacheName)))
+    ])
+  );
 });
 
 

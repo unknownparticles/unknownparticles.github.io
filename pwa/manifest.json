@@ -1,7 +1,8 @@
 {
-  "name": "BY Blog",
-  "short_name": "BY Blog",
-  "description": "A personal blog by engineer",
+  "name": "阿伦的博客",
+  "short_name": "Alun",
+  "description": "不明栗子的技术博客与作品集",
+  "lang": "zh-CN",
   "icons": [{
     "src": "icons/pwa_icon_128.png",
     "sizes": "128x128",
