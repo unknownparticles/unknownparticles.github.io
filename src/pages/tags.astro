@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllPosts, getPostUrl, getTagCounts, formatDate } from '../lib/posts';
+
+const posts = await getAllPosts();
+const tags = getTagCounts(posts);
+---
+
+<BaseLayout title="标签索引" description="按技术主题浏览文章，快速回到某个问题域。">
+  <header class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">Index / Topics</p>
+      <h1>标签索引</h1>
+      <p class="page-hero__description">按技术主题浏览文章，快速回到某个问题域。</p>
+    </div>
+  </header>
+
+  <main class="site-main" id="main-content">
+    <div class="page-content prose">
+      <nav class="tag-index" aria-label="全部文章标签">
+        {tags.map((tag) => <a class="tag" href={`#${tag.name}`}>{tag.name} · {tag.count}</a>)}
+      </nav>
+
+      {tags.map((tag, index) => {
+        const tagPosts = posts.filter((post) => post.data.tags.includes(tag.name));
+        return (
+          <section class="tag-group" id={tag.name} aria-labelledby={`tag-${index}`}>
+            <h2 class="tag-group__title" id={`tag-${index}`}>{tag.name} <span>{tag.count} 篇</span></h2>
+            <ol class="tag-posts">
+              {tagPosts.map((post) => (
+                <li>
+                  <a href={getPostUrl(post)}>
+                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                    <strong>{post.data.title}</strong>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        );
+      })}
+    </div>
+  </main>
+</BaseLayout>

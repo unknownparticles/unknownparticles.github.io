@@ -1,0 +1,96 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config';
+import { formatDate, getAllPosts, getExcerpt, getPostPath, getPostUrl, type Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  newer?: Post;
+  older?: Post;
+}
+
+export const getStaticPaths = (async () => {
+  const posts = await getAllPosts();
+  return posts.map((post, index) => ({
+    params: { slug: getPostPath(post) },
+    props: {
+      post,
+      newer: posts[index - 1],
+      older: posts[index + 1],
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await render(post);
+const headerImage = `/${post.data['header-img']}`;
+const description = post.data.subtitle ?? getExcerpt(post.body ?? '', 160);
+const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 4);
+---
+
+<BaseLayout title={post.data.title} description={description} image={headerImage} type="article">
+  <header class="post-hero" style={`background-image: url('${headerImage}')`}>
+    <div class="post-hero__inner">
+      <time class="post-date" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)} · {post.data.author}</time>
+      <h1>{post.data.title}</h1>
+      {post.data.subtitle && <p class="post-hero__subtitle">{post.data.subtitle}</p>}
+      {post.data.tags.length > 0 && (
+        <div class="post-card__tags" aria-label="文章标签">
+          {post.data.tags.map((tag) => <a class="tag" href={`/tags/#${tag}`}>{tag}</a>)}
+        </div>
+      )}
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class:list={['post-layout', !post.data.catalog && 'post-layout--single']}>
+      <article class="post-container prose">
+        <Content />
+
+        <nav class="post-navigation" aria-label="相邻文章">
+          {newer ? (
+            <a href={getPostUrl(newer)}><span>更新一篇</span><strong>{newer.data.title}</strong></a>
+          ) : <span aria-hidden="true"></span>}
+          {older && (
+            <a class="post-navigation__next" href={getPostUrl(older)}><span>更早一篇</span><strong>{older.data.title}</strong></a>
+          )}
+        </nav>
+
+        <section class="comments" aria-label="文章评论">
+          <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" is:inline></script>
+          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+          <script src="/js/md5.min.js" is:inline></script>
+          <div id="gitalk-container"></div>
+          <script is:inline define:vars={{ gitalkConfig: SITE.gitalk }}>
+            var GitalkClient = Function('return window.Gitalk')();
+            var gitalk = new GitalkClient({
+              clientID: gitalkConfig.clientID,
+              clientSecret: gitalkConfig.clientSecret,
+              repo: gitalkConfig.repo,
+              owner: gitalkConfig.owner,
+              admin: [gitalkConfig.owner],
+              distractionFreeMode: true,
+              id: md5(window.location.pathname)
+            });
+            gitalk.render('gitalk-container');
+          </script>
+        </section>
+      </article>
+
+      {post.data.catalog && catalogHeadings.length > 0 && (
+        <aside class="post-catalog" aria-label="文章目录">
+          <div class="post-catalog__inner">
+            <span class="catalog-title">本页目录</span>
+            <ol class="catalog-list">
+              {catalogHeadings.map((heading) => (
+                <li class={`h${heading.depth}_nav`}><a href={`#${heading.slug}`}>{heading.text}</a></li>
+              ))}
+            </ol>
+          </div>
+        </aside>
+      )}
+    </div>
+  </main>
+</BaseLayout>

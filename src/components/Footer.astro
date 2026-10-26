@@ -1,0 +1,22 @@
+---
+import { SITE } from '../config';
+---
+
+<footer class="site-footer">
+  <div class="shell site-footer__top">
+    <div>
+      <span class="footer-label">Keep building</span>
+      <h2>把技术问题拆开，也把解决过程写下来。</h2>
+    </div>
+    <ul class="footer-links" aria-label="站外链接">
+      <li><a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener">GitHub ↗</a></li>
+      <li><a href="https://blog.csdn.net/particles" target="_blank" rel="noopener">CSDN ↗</a></li>
+      <li><a href={`mailto:${SITE.email}`}>邮件</a></li>
+      <li><a href="/feed.xml">RSS</a></li>
+    </ul>
+  </div>
+  <div class="shell site-footer__bottom">
+    <p>© {new Date().getFullYear()} Alun. 内容与代码保留原作者权利。</p>
+    <p>Built with Astro · Hosted on GitHub Pages</p>
+  </div>
+</footer>

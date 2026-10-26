@@ -1,0 +1,35 @@
+---
+import type { GetStaticPaths } from 'astro';
+import HomePage from '../components/HomePage.astro';
+import { getAllPosts, type Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  allPosts: Post[];
+  pageNumber: number;
+  totalPages: number;
+}
+
+export const getStaticPaths = (async () => {
+  const allPosts = await getAllPosts();
+  const pageSize = 10;
+  const totalPages = Math.ceil(allPosts.length / pageSize);
+
+  return Array.from({ length: Math.max(totalPages - 1, 0) }, (_, index) => {
+    const pageNumber = index + 2;
+    return {
+      params: { page: `page${pageNumber}` },
+      props: {
+        posts: allPosts.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),
+        allPosts,
+        pageNumber,
+        totalPages,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { posts, allPosts, pageNumber, totalPages } = Astro.props;
+---
+
+<HomePage posts={posts} allPosts={allPosts} pageNumber={pageNumber} totalPages={totalPages} />

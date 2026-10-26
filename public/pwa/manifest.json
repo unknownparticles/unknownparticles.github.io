@@ -1,0 +1,23 @@
+{
+  "name": "Alun / 开发笔记",
+  "short_name": "ALUN.LOG",
+  "description": "Alun 的技术博客与开源作品集",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icons/pwa_icon_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/pwa_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#f3f6f3",
+  "theme_color": "#13241e",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any"
+}

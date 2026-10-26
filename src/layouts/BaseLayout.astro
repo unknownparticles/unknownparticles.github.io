@@ -1,0 +1,81 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config';
+import '../styles/site.css';
+import '../styles/portfolio.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  hideFooter?: boolean;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  image = '/img/apple-touch-icon.png',
+  type = 'website',
+  hideFooter = false,
+} = Astro.props;
+const pageTitle = title === SITE.title ? title : `${title} · ${SITE.title}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
+const socialImage = new URL(image, Astro.site ?? SITE.url);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="阿伦, Alun, unknownparticles, 编程, Flutter, 前端, 图像处理, 技术博客" />
+    <meta name="theme-color" content="#13241e" />
+    <meta name="color-scheme" content="light" />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="manifest" href="/pwa/manifest.json" />
+    <link rel="icon" href="/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <Header currentPath={Astro.url.pathname} />
+    <slot />
+    {!hideFooter && <Footer />}
+    <script src="/js/site.js" is:inline defer></script>
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function (error) {
+            console.warn('Service Worker registration failed:', error);
+          });
+        });
+      }
+    </script>
+    <script is:inline define:vars={{ googleId: SITE.analytics.googleId, googleDomain: SITE.analytics.googleDomain }}>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', googleId, googleDomain);
+      ga('send', 'pageview');
+    </script>
+    <script is:inline define:vars={{ baiduId: SITE.analytics.baiduId }}>
+      window._hmt = window._hmt || [];
+      (function() {
+        var hm = document.createElement('script');
+        hm.src = 'https://hm.baidu.com/hm.js?' + baiduId;
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(hm, firstScript);
+      })();
+    </script>
+  </body>
+</html>

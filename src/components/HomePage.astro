@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from './PostList.astro';
+import { SITE } from '../config';
+import type { Post } from '../lib/posts';
+import { getTagCounts } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  allPosts: Post[];
+  pageNumber: number;
+  totalPages: number;
+}
+
+const { posts, allPosts, pageNumber, totalPages } = Astro.props;
+const tags = getTagCounts(allPosts).slice(0, 6);
+const previousUrl = pageNumber === 2 ? '/' : `/page${pageNumber - 1}/`;
+const nextUrl = `/page${pageNumber + 1}/`;
+---
+
+<BaseLayout>
+  <header class="home-hero">
+    <div class="shell home-hero__inner">
+      <p class="hero-status">持续记录 / 持续构建</p>
+      <h1>Alun 的开发笔记</h1>
+      <p class="home-hero__lede">记录 Flutter、前端交互、图像处理与自动化实践，也分享把想法变成可运行工具的过程。</p>
+      <div class="hero-actions">
+        <a class="button button--primary" href="#latest-posts">阅读最新文章 ↓</a>
+        <a class="button button--light" href="/projects/">查看作品 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main" id="main-content">
+    <div class="shell home-content">
+      <section aria-labelledby="latest-posts">
+        <div class="feed-header">
+          <h2 id="latest-posts">{pageNumber === 1 ? '最新文章' : `文章归档 · ${pageNumber}`}</h2>
+          <p>{allPosts.length} 篇公开笔记</p>
+        </div>
+        <PostList posts={posts} offset={(pageNumber - 1) * 10} />
+        {totalPages > 1 && (
+          <nav class="post-navigation" aria-label="文章分页">
+            {pageNumber > 1 ? (
+              <a href={previousUrl}><span>上一页</span><strong>更新的文章</strong></a>
+            ) : <span aria-hidden="true"></span>}
+            {pageNumber < totalPages && (
+              <a class="post-navigation__next" href={nextUrl}><span>下一页</span><strong>更早的文章</strong></a>
+            )}
+          </nav>
+        )}
+      </section>
+
+      <aside class="home-sidebar" aria-label="作者与主题">
+        <section class="sidebar-block">
+          <div class="sidebar-profile">
+            <img src={SITE.avatar} alt="Alun 的头像" width="56" height="56" />
+            <div><strong>Alun</strong><span>@{SITE.github}</span></div>
+          </div>
+          <p>{SITE.authorDescription}</p>
+          <ul class="sidebar-links">
+            <li><a href="/about/">了解更多</a></li>
+            <li><a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </section>
+        <section class="sidebar-block">
+          <span class="section-label">常写主题</span>
+          <ul class="topic-list">
+            {tags.map((tag) => <li><a href={`/tags/#${tag.name}`} data-count={tag.count}>{tag.name}</a></li>)}
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>
