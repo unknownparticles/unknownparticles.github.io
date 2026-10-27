@@ -17,7 +17,7 @@
   display: block;
   width: 96px;
   height: 96px;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   object-fit: cover;
   outline: var(--rule-hair) solid var(--color-rule);
   outline-offset: -1px;
@@ -59,7 +59,7 @@
 
 .profile-links a,
 .section-heading > a {
-  color: var(--color-accent-2);
+  color: var(--color-accent);
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 500;
@@ -124,20 +124,19 @@
 
 .home-project {
   display: flex;
-  min-height: 200px;
+  min-height: 188px;
   flex-direction: column;
   justify-content: space-between;
   padding: var(--space-lg);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-card);
   background: var(--color-sheet);
-  transition: transform 220ms var(--motion), border-color 220ms var(--motion), box-shadow 220ms var(--motion);
+  transition: border-color 160ms var(--motion), box-shadow 160ms var(--motion);
 }
 
 .home-project:hover {
-  transform: translateY(-3px);
   border-color: var(--color-accent);
-  box-shadow: 0 12px 30px oklch(35% 0.04 18 / 0.08);
+  box-shadow: 0 1px 0 oklch(30% 0.02 255 / 0.04);
 }
 
 .home-project h3 {
@@ -190,11 +189,10 @@
   border-bottom: var(--rule-hair) solid var(--color-rule);
   color: var(--color-ink);
   text-decoration: none;
-  transition: background-color 180ms var(--motion), padding-inline 220ms var(--motion);
+  transition: background-color 160ms var(--motion);
 }
 
 .home-post:hover {
-  padding-inline: var(--space-md);
   background: var(--color-accent-wash);
 }
 
@@ -282,7 +280,7 @@
   .profile-avatar {
     width: 72px;
     height: 72px;
-    border-radius: 18px;
+    border-radius: var(--radius-card);
   }
 
   .profile-copy h1 {

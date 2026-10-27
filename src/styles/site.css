@@ -1,24 +1,24 @@
-/* Personal site system · references: antfu.me, cassidoo.co, paco.me
- * Direction: compact profile, warm paper, coral signal, list-first content. */
+/* Primer-inspired component system for a content-first personal site.
+ * Reference: GitHub Primer CSS (MIT), adapted without its runtime or package. */
 
 /* Almanac: cool slate stock, blue-black ink, one deep chart magenta. */
 :root {
   color-scheme: light;
-  --color-paper: oklch(98% 0.006 35);
-  --color-paper-2: oklch(95.5% 0.012 35);
-  --color-paper-3: oklch(92% 0.018 35);
+  --color-paper: oklch(98.5% 0.003 255);
+  --color-paper-2: oklch(96.5% 0.005 255);
+  --color-paper-3: oklch(93.5% 0.008 255);
   --color-sheet: oklch(100% 0 0);
-  --color-ink: oklch(20% 0.018 25);
-  --color-ink-2: oklch(31% 0.02 25);
-  --color-muted: oklch(47% 0.018 25);
-  --color-subtle: oklch(58% 0.016 25);
-  --color-rule: oklch(88% 0.014 30);
-  --color-rule-2: oklch(40% 0.025 25);
-  --color-accent: oklch(62% 0.2 18);
-  --color-accent-2: oklch(54% 0.18 18);
-  --color-accent-ink: oklch(99% 0.004 35);
-  --color-accent-wash: oklch(94% 0.035 18);
-  --color-focus: oklch(60% 0.21 18);
+  --color-ink: oklch(22% 0.025 255);
+  --color-ink-2: oklch(32% 0.025 255);
+  --color-muted: oklch(47% 0.02 255);
+  --color-subtle: oklch(58% 0.018 255);
+  --color-rule: oklch(88% 0.012 255);
+  --color-rule-2: oklch(42% 0.025 255);
+  --color-accent: oklch(54% 0.19 255);
+  --color-accent-2: oklch(46% 0.17 255);
+  --color-accent-ink: oklch(99% 0.003 255);
+  --color-accent-wash: oklch(96% 0.025 255);
+  --color-focus: oklch(58% 0.2 255);
   --color-focus: oklch(46% 0.19 350);
   --color-warning: oklch(52% 0.12 60);
   --color-danger: oklch(50% 0.16 25);
@@ -61,10 +61,10 @@
 
   --shell: 1024px;
   --reading: 680px;
-  --radius-card: 12px;
-  --radius-pill: 999px;
+  --radius-card: 6px;
+  --radius-pill: 6px;
   --radius-sm: 6px;
-  --radius: 12px;
+  --radius: 6px;
   --rule-hair: 1px;
   --rule-bar: 2px;
   --motion: cubic-bezier(0.22, 1, 0.36, 1);
