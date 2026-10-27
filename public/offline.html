@@ -3,16 +3,91 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#13241e">
-  <title>暂时无法连接网络 · Alun / 开发笔记</title>
+  <meta name="theme-color" content="#10140f">
+  <meta name="description" content="当前网络不可用，恢复连接后可以重新加载 Alun 的开发笔记。">
+  <title>暂时无法连接网络: Alun / 开发笔记</title>
   <style>
-    *{box-sizing:border-box}body{display:grid;min-height:100vh;margin:0;place-items:center;background:#e5eee9;color:#13241e;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;text-align:center}.wrap{width:min(100% - 32px,620px)}.mark{display:grid;width:52px;height:52px;margin:0 auto 28px;place-items:center;background:#13241e;color:#fff;font-family:monospace;font-weight:700}.code{margin:0 0 10px;color:#c94e31;font-family:monospace;font-size:13px}h1{margin:0;font-size:clamp(34px,8vw,52px);line-height:1.12}p{max-width:520px;margin:20px auto 30px;color:#5c6b65;line-height:1.75}button{min-height:46px;padding:9px 16px;border:1px solid #08766a;border-radius:6px;background:#08766a;color:#fff;font:700 14px inherit;cursor:pointer}button:focus-visible{outline:3px solid #f0a51a;outline-offset:3px}
+/* Hallmark · checked: 2026-10-27 · genre: modern-minimal (inferred)
+ * hero: custom status page · nav: none · footer: none · posture: restrained
+ * built: the project · redesign: polish · v2.0.0 */
+:root {
+  --color-paper: oklch(12.5% 0.012 125);
+  --color-ink: oklch(94% 0.014 120);
+  --color-muted: oklch(69% 0.02 120);
+  --color-accent: oklch(87% 0.18 122);
+  --color-accent-strong: oklch(91% 0.16 122);
+  --color-accent-ink: oklch(14% 0.018 125);
+  --color-focus: oklch(88% 0.19 122);
+  --font-body: "Manrope", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mark: monospace;
+  scrollbar-color: var(--color-muted) var(--color-paper);
+}
+* { box-sizing: border-box; }
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+html, body { overflow-x: clip; }
+body {
+  display: grid;
+  min-height: 100svh;
+  margin: 0;
+  place-items: center;
+  background: var(--color-paper);
+  caret-color: var(--color-accent);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  text-align: center;
+}
+.wrap { width: min(100% - 32px, 620px); }
+.mark {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 32px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-mark);
+  font-weight: 700;
+}
+h1 {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: break-word;
+  color: var(--color-ink);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+  text-wrap: balance;
+}
+p {
+  max-width: 520px;
+  margin: 24px auto 32px;
+  color: var(--color-muted);
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+button {
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font: 600 16px var(--font-body);
+  cursor: pointer;
+  transition: background-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+button:hover { background: var(--color-accent-strong); }
+button:active { transform: scale(0.98); }
+button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+@media (max-width: 480px) { h1 { font-size: 36px; line-height: 1.11; } }
+@media (prefers-reduced-motion: reduce) { button { transition: none; } }
   </style>
 </head>
 <body>
   <main class="wrap" id="main-content">
     <span class="mark" aria-hidden="true">A/</span>
-    <p class="code">STATUS / OFFLINE</p>
     <h1>暂时无法连接网络</h1>
     <p>当前网络不可用。恢复连接后重新加载，即可获取最新内容。</p>
     <button type="button" onclick="window.location.reload()">重新加载</button>

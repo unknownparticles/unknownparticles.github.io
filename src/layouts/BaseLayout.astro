@@ -2,6 +2,8 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config';
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/geist-mono';
 import '../styles/site.css';
 import '../styles/portfolio.css';
 
@@ -20,7 +22,7 @@ const {
   type = 'website',
   hideFooter = false,
 } = Astro.props;
-const pageTitle = title === SITE.title ? title : `${title} · ${SITE.title}`;
+const pageTitle = title === SITE.title ? title : `${title}: ${SITE.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
 const socialImage = new URL(image, Astro.site ?? SITE.url);
 ---
@@ -32,18 +34,20 @@ const socialImage = new URL(image, Astro.site ?? SITE.url);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="keywords" content="阿伦, Alun, unknownparticles, 编程, Flutter, 前端, 图像处理, 技术博客" />
-    <meta name="theme-color" content="#13241e" />
+    <meta name="theme-color" content="#10140f" />
     <meta name="color-scheme" content="light" />
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonical} />
     <link rel="manifest" href="/pwa/manifest.json" />
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <style is:global>html, body { overflow-x: clip; }</style>
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">跳到主要内容</a>

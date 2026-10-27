@@ -7,73 +7,76 @@ import { portfolio } from '../data/portfolio';
 <BaseLayout title="作品" description="公开项目、在线实验与持续迭代的工具。">
   <header class="portfolio-hero">
     <div class="shell portfolio-hero__inner">
-      <img class="portfolio-avatar" src={portfolio.avatarUrl} alt={`${portfolio.profileName}的 GitHub 头像`} width="96" height="96" />
-      <p class="portfolio-eyebrow">@{portfolio.username} / Open source</p>
+      <div class="portfolio-hero__identity">
+        <img class="portfolio-avatar" src={portfolio.avatarUrl} alt={`${portfolio.profileName}的头像`} width="96" height="96" />
+        <p class="portfolio-byline"><strong>@{portfolio.username}</strong><span>Open source developer</span></p>
+      </div>
       <h1>作品与实验</h1>
-      <p class="portfolio-intro">{portfolio.bio} 这里集中展示已经公开的工具、组件和可在线体验的实验。</p>
+      <p class="portfolio-intro">从图像分析、Flutter 应用到浏览器实验。这里展示已经公开的代码，以及可以直接运行的结果。</p>
       <div class="portfolio-actions">
-        <a class="button button--primary" href={portfolio.githubUrl} target="_blank" rel="noopener">GitHub 主页 ↗</a>
+        <a class="button button--primary" href={portfolio.githubUrl} target="_blank" rel="noopener">查看 GitHub</a>
         <a class="portfolio-contact" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+      <div class="portfolio-hero__stats" aria-label="GitHub 统计">
+        <span><strong>{portfolio.publicRepositoryCount}</strong> public repositories</span>
+        <span><strong>{portfolio.liveDemos.length}</strong> live projects</span>
       </div>
     </div>
   </header>
 
   <main id="main-content" class="portfolio-main">
     <div class="shell">
-      <section class="portfolio-section" aria-labelledby="featured-projects-title">
+      <section class="portfolio-section" aria-labelledby="featured-projects-title" data-reveal>
         <div class="portfolio-section__header">
           <div>
-            <p class="portfolio-kicker">Selected repositories</p>
             <h2 id="featured-projects-title">精选项目</h2>
           </div>
           <p class="portfolio-section__summary">项目名称、技术栈与说明均整理自公开 GitHub 仓库，优先展示最能代表当前实践方向的作品。</p>
         </div>
 
         <div class="portfolio-project-grid">
-          {portfolio.featuredProjects.map((project) => (
-            <article class="portfolio-project">
-              <div class="portfolio-project__meta">
-                <span class="portfolio-project__language"><span class="portfolio-language-dot" style={`background-color: ${project.color}`} aria-hidden="true"></span>{project.language}</span>
-                {'demoUrl' in project && <span class="portfolio-live-label">可在线体验</span>}
-              </div>
+          {portfolio.featuredProjects.map((project, index) => (
+            <article class:list={['portfolio-project', index === 0 && 'portfolio-project--featured']} data-reveal>
               <h3>{project.name}</h3>
+              <div class="portfolio-project__meta">
+                <span class="portfolio-project__language">{project.language}</span>
+                {'demoUrl' in project && <span class="portfolio-live-label">Live</span>}
+              </div>
               <p class="portfolio-project__description">{project.summary}</p>
               <div class="portfolio-project__links">
-                <a class="portfolio-text-link" href={project.repoUrl} target="_blank" rel="noopener">查看源码 ↗</a>
-                {'demoUrl' in project && <a class="portfolio-text-link" href={project.demoUrl} target="_blank" rel="noopener">打开 Demo ↗</a>}
+                <a class="portfolio-text-link" href={project.repoUrl} target="_blank" rel="noopener">查看源码</a>
+                {'demoUrl' in project && <a class="portfolio-text-link" href={project.demoUrl} target="_blank" rel="noopener">打开 Demo</a>}
               </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section class="portfolio-section" aria-labelledby="live-demos-title">
+      <section class="portfolio-section" aria-labelledby="live-demos-title" data-reveal>
         <div class="portfolio-section__header">
           <div>
-            <p class="portfolio-kicker">Live on GitHub Pages</p>
             <h2 id="live-demos-title">在线作品</h2>
           </div>
           <p class="portfolio-section__summary">以下地址已于 {portfolio.verifiedAt} 逐一验证可访问；仓库状态和最新代码以 GitHub 为准。</p>
         </div>
 
         <div class="portfolio-demo-list">
-          {portfolio.liveDemos.map((demo, index) => (
-            <article class="portfolio-demo">
-              <span class="portfolio-demo__index">{String(index + 1).padStart(2, '0')}</span>
+          {portfolio.liveDemos.map((demo) => (
+            <article class="portfolio-demo" data-reveal>
               <div><h3>{demo.title}</h3><p class="portfolio-demo__repo">{demo.name}</p></div>
               <p class="portfolio-demo__description">{demo.summary}</p>
               <div class="portfolio-demo__actions">
-                <a class="portfolio-text-link" href={demo.demoUrl} target="_blank" rel="noopener">访问 ↗</a>
-                <a class="portfolio-text-link" href={demo.repoUrl} target="_blank" rel="noopener">源码 ↗</a>
+                <a class="portfolio-text-link" href={demo.demoUrl} target="_blank" rel="noopener">访问</a>
+                <a class="portfolio-text-link" href={demo.repoUrl} target="_blank" rel="noopener">源码</a>
               </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section class="portfolio-snapshot" aria-label="GitHub 仓库快照">
+      <section class="portfolio-snapshot" aria-label="GitHub 仓库快照" data-reveal>
         <p><strong>{portfolio.publicRepositoryCount} 个公开仓库</strong><br />数据快照核验于 {portfolio.verifiedAt}，完整列表以 GitHub 主页为准。</p>
-        <a class="button button--primary" href={portfolio.repositoriesUrl} target="_blank" rel="noopener">浏览全部仓库 ↗</a>
+        <a class="button button--primary" href={portfolio.repositoriesUrl} target="_blank" rel="noopener">浏览全部仓库</a>
       </section>
     </div>
   </main>

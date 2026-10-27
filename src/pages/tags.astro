@@ -8,8 +8,7 @@ const tags = getTagCounts(posts);
 
 <BaseLayout title="标签索引" description="按技术主题浏览文章，快速回到某个问题域。">
   <header class="page-hero">
-    <div class="shell">
-      <p class="eyebrow">Index / Topics</p>
+    <div class="shell" data-reveal>
       <h1>标签索引</h1>
       <p class="page-hero__description">按技术主题浏览文章，快速回到某个问题域。</p>
     </div>
@@ -17,15 +16,15 @@ const tags = getTagCounts(posts);
 
   <main class="site-main" id="main-content">
     <div class="page-content prose">
-      <nav class="tag-index" aria-label="全部文章标签">
-        {tags.map((tag) => <a class="tag" href={`#${tag.name}`}>{tag.name} · {tag.count}</a>)}
+      <nav class="tag-index" aria-label="全部文章标签" data-reveal>
+        {tags.map((tag) => <a class="tag" href={`#${tag.name}`}><span>{tag.name}</span><span>{tag.count} 篇</span></a>)}
       </nav>
 
       {tags.map((tag, index) => {
         const tagPosts = posts.filter((post) => post.data.tags.includes(tag.name));
         return (
-          <section class="tag-group" id={tag.name} aria-labelledby={`tag-${index}`}>
-            <h2 class="tag-group__title" id={`tag-${index}`}>{tag.name} <span>{tag.count} 篇</span></h2>
+          <section class="tag-group" id={tag.name} aria-labelledby={`tag-${index}`} data-reveal>
+            <h2 class="tag-group__title" id={`tag-${index}`}>{tag.name}（{tag.count} 篇）</h2>
             <ol class="tag-posts">
               {tagPosts.map((post) => (
                 <li>

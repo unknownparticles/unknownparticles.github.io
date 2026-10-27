@@ -59,22 +59,24 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
         </nav>
 
         <section class="comments" aria-label="文章评论">
-          <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js" is:inline></script>
-          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-          <script src="/js/md5.min.js" is:inline></script>
           <div id="gitalk-container"></div>
           <script is:inline define:vars={{ gitalkConfig: SITE.gitalk }}>
             var GitalkClient = Function('return window.Gitalk')();
-            var gitalk = new GitalkClient({
-              clientID: gitalkConfig.clientID,
-              clientSecret: gitalkConfig.clientSecret,
-              repo: gitalkConfig.repo,
-              owner: gitalkConfig.owner,
-              admin: [gitalkConfig.owner],
-              distractionFreeMode: true,
-              id: md5(window.location.pathname)
-            });
-            gitalk.render('gitalk-container');
+            var comments = document.getElementById('gitalk-container');
+            if (typeof GitalkClient === 'function') {
+              var gitalk = new GitalkClient({
+                clientID: gitalkConfig.clientID,
+                clientSecret: gitalkConfig.clientSecret,
+                repo: gitalkConfig.repo,
+                owner: gitalkConfig.owner,
+                admin: [gitalkConfig.owner],
+                distractionFreeMode: true,
+                id: window.location.pathname
+              });
+              gitalk.render('gitalk-container');
+            } else if (comments) {
+              comments.innerHTML = '<p class="comments-unavailable">评论服务暂时无法加载。可以通过 GitHub Issue 继续讨论。</p>';
+            }
           </script>
         </section>
       </article>

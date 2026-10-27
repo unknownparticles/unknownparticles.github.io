@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostList from './PostList.astro';
-import { SITE } from '../config';
+import { portfolio } from '../data/portfolio';
 import type { Post } from '../lib/posts';
 import { getTagCounts } from '../lib/posts';
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { posts, allPosts, pageNumber, totalPages } = Astro.props;
-const tags = getTagCounts(allPosts).slice(0, 6);
+const tags = getTagCounts(allPosts).slice(0, 8);
 const previousUrl = pageNumber === 2 ? '/' : `/page${pageNumber - 1}/`;
 const nextUrl = `/page${pageNumber + 1}/`;
 ---
@@ -21,55 +21,61 @@ const nextUrl = `/page${pageNumber + 1}/`;
 <BaseLayout>
   <header class="home-hero">
     <div class="shell home-hero__inner">
-      <p class="hero-status">持续记录 / 持续构建</p>
-      <h1>Alun 的开发笔记</h1>
-      <p class="home-hero__lede">记录 Flutter、前端交互、图像处理与自动化实践，也分享把想法变成可运行工具的过程。</p>
-      <div class="hero-actions">
-        <a class="button button--primary" href="#latest-posts">阅读最新文章 ↓</a>
-        <a class="button button--light" href="/projects/">查看作品 ↗</a>
+      <div class="home-hero__copy">
+        <h1><span>Alun</span><br />开发笔记</h1>
+        <p class="home-hero__lede">关于 Flutter、图形技术、前端交互和工程自动化。记录真实问题，也保留解决问题时走过的路。</p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="#latest-posts">开始阅读</a>
+          <a class="hero-text-link" href="/projects/">浏览开源作品</a>
+        </div>
+      </div>
+      <div class="hero-proof" aria-label="站点数据">
+        <span><strong>{allPosts.length}</strong> 篇技术笔记</span>
+        <span><strong>{portfolio.publicRepositoryCount}</strong> 个公开仓库</span>
+        <span><strong>8</strong> 个在线作品</span>
       </div>
     </div>
   </header>
 
+  <section class="manifesto" aria-labelledby="manifesto-title" data-reveal>
+    <div class="shell">
+      <h2 class="manifesto-title" id="manifesto-title">
+        <span class="manifesto-word">把复杂问题拆开，</span>
+        <span class="manifesto-word">做成可以运行的代码，</span>
+        <span class="manifesto-word">再把过程写成</span>
+        <span class="manifesto-word">可以复用的经验。</span>
+      </h2>
+    </div>
+  </section>
+
   <main class="site-main" id="main-content">
     <div class="shell home-content">
+      <nav class="topic-strip" aria-label="常写主题" data-reveal>
+        <h2 class="topic-strip__title">常写主题</h2>
+        <div class="topic-strip__links">
+          {tags.map((tag) => <a href={`/tags/#${tag.name}`}>{tag.name}<sup>{tag.count}</sup></a>)}
+        </div>
+      </nav>
+
       <section aria-labelledby="latest-posts">
-        <div class="feed-header">
-          <h2 id="latest-posts">{pageNumber === 1 ? '最新文章' : `文章归档 · ${pageNumber}`}</h2>
-          <p>{allPosts.length} 篇公开笔记</p>
+        <div class="feed-header" data-reveal>
+          <div>
+            <h2 id="latest-posts">{pageNumber === 1 ? '最近写下的' : '继续往前翻'}</h2>
+          </div>
+          <p>{allPosts.length} 篇公开笔记，持续更新</p>
         </div>
         <PostList posts={posts} offset={(pageNumber - 1) * 10} />
         {totalPages > 1 && (
-          <nav class="post-navigation" aria-label="文章分页">
+          <nav class="post-navigation" aria-label="文章分页" data-reveal>
             {pageNumber > 1 ? (
-              <a href={previousUrl}><span>上一页</span><strong>更新的文章</strong></a>
+              <a href={previousUrl}><span>上一页</span><strong>回到更新的文章</strong></a>
             ) : <span aria-hidden="true"></span>}
             {pageNumber < totalPages && (
-              <a class="post-navigation__next" href={nextUrl}><span>下一页</span><strong>更早的文章</strong></a>
+              <a class="post-navigation__next" href={nextUrl}><span>下一页</span><strong>继续看更早的文章</strong></a>
             )}
           </nav>
         )}
       </section>
-
-      <aside class="home-sidebar" aria-label="作者与主题">
-        <section class="sidebar-block">
-          <div class="sidebar-profile">
-            <img src={SITE.avatar} alt="Alun 的头像" width="56" height="56" />
-            <div><strong>Alun</strong><span>@{SITE.github}</span></div>
-          </div>
-          <p>{SITE.authorDescription}</p>
-          <ul class="sidebar-links">
-            <li><a href="/about/">了解更多</a></li>
-            <li><a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener">GitHub</a></li>
-          </ul>
-        </section>
-        <section class="sidebar-block">
-          <span class="section-label">常写主题</span>
-          <ul class="topic-list">
-            {tags.map((tag) => <li><a href={`/tags/#${tag.name}`} data-count={tag.count}>{tag.name}</a></li>)}
-          </ul>
-        </section>
-      </aside>
     </div>
   </main>
 </BaseLayout>

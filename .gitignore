@@ -19,3 +19,6 @@ vendor/bundle/
 test-results/
 playwright-report/
 *.log
+.hallmark/
+test-results/
+playwright-report/

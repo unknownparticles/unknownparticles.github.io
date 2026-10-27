@@ -1,13 +1,15 @@
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.site-nav');
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function closeNavigation() {
+  function closeNavigation(restoreFocus) {
     if (!toggle || !nav) return;
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', '打开导航');
     nav.setAttribute('data-open', 'false');
     document.body.classList.remove('nav-open');
+    if (restoreFocus) toggle.focus();
   }
 
   if (toggle && nav) {
@@ -20,19 +22,46 @@
     });
 
     nav.addEventListener('click', function (event) {
-      if (event.target.closest('a')) closeNavigation();
+      if (event.target.closest('a')) closeNavigation(false);
     });
 
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        closeNavigation();
-        toggle.focus();
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        closeNavigation(true);
       }
     });
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 720) closeNavigation();
+      if (window.innerWidth > 760) closeNavigation(false);
     });
+  }
+
+  var revealElements = document.querySelectorAll('[data-reveal]');
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    revealElements.forEach(function (element) {
+      element.classList.add('is-revealed');
+    });
+  } else {
+    var revealObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    revealElements.forEach(function (element) {
+      revealObserver.observe(element);
+    });
+
+    // Fast trackpad or touch scrolling can skip an intersection frame.
+    // Resolve any remaining off-screen elements so content never stays hidden.
+    window.setTimeout(function () {
+      revealElements.forEach(function (element) {
+        element.classList.add('is-revealed');
+        revealObserver.unobserve(element);
+      });
+    }, 1600);
   }
 
   document.querySelectorAll('.prose table').forEach(function (table) {

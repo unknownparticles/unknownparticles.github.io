@@ -27,10 +27,10 @@ for (const route of routes) {
   });
 }
 
-test('home exposes content below the hero', async ({ page }) => {
+test('home exposes the next section below the hero', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('.post-card')).toHaveCount(10);
-  await expect(page.locator('#latest-posts')).toBeInViewport();
+  await expect(page.locator('.manifesto')).toBeInViewport();
 });
 
 test('mobile navigation opens and closes with Escape', async ({ page }, testInfo) => {
@@ -41,6 +41,7 @@ test('mobile navigation opens and closes with Escape', async ({ page }, testInfo
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await expect(page.locator('.site-nav')).toHaveAttribute('data-open', 'true');
+  await expect(page.locator('.site-nav a')).toHaveCount(4);
 
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');

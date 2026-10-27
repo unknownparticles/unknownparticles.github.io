@@ -1,6 +1,6 @@
-const CACHE_VERSION = 'alun-site-v4';
+const CACHE_VERSION = 'alun-site-v5';
 const OFFLINE_URL = '/offline.html';
-const LEGACY_CACHES = ['precache-v1', 'precache-v2', 'runtime', 'runtime-v2', 'alun-site-v3'];
+const LEGACY_CACHES = ['precache-v1', 'precache-v2', 'runtime', 'runtime-v2', 'alun-site-v3', 'alun-site-v4'];
 const PRECACHE_URLS = [
   OFFLINE_URL,
   '/js/site.js',

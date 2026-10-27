@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { createCssVariablesTheme } from 'shiki';
 
 export default defineConfig({
   site: 'https://alunapp.cn',
@@ -9,8 +10,10 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: {
-      theme: 'github-dark',
-      wrap: false,
+      theme: createCssVariablesTheme({
+        variablePrefix: '--shiki-',
+        fontStyle: true,
+      }),
     },
   },
 });
