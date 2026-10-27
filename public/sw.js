@@ -1,6 +1,9 @@
-const CACHE_VERSION = 'alun-site-v5';
+const CACHE_VERSION = 'alun-site-v6';
 const OFFLINE_URL = '/offline.html';
-const LEGACY_CACHES = ['precache-v1', 'precache-v2', 'runtime', 'runtime-v2', 'alun-site-v3', 'alun-site-v4'];
+const LEGACY_CACHES = [
+  'precache-v1', 'precache-v2', 'runtime', 'runtime-v2',
+  'alun-site-v3', 'alun-site-v4', 'alun-site-v5'
+];
 const PRECACHE_URLS = [
   OFFLINE_URL,
   '/js/site.js',
@@ -33,19 +36,23 @@ self.addEventListener('activate', function (event) {
   );
 });
 
+function cacheResponse(request, response) {
+  if (!response || !response.ok) return response;
+  var copy = response.clone();
+  caches.open(CACHE_VERSION).then(function (cache) { cache.put(request, copy); });
+  return response;
+}
+
 self.addEventListener('fetch', function (event) {
   var request = event.request;
-  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+  var url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
-        .then(function (response) {
-          var copy = response.clone();
-          caches.open(CACHE_VERSION).then(function (cache) { cache.put(request, copy); });
-          return response;
-        })
-        .catch(async function () {
+        .then(function (response) { return cacheResponse(request, response); })
+        .catch(function () {
           return caches.match(request).then(function (cached) {
             return cached || caches.match(OFFLINE_URL);
           });
@@ -54,16 +61,12 @@ self.addEventListener('fetch', function (event) {
     return;
   }
 
+  // Hashed Astro assets are immutable. Network first keeps visitors on the
+  // newest deploy; the cache remains an offline fallback, never the source of
+  // a stale theme after a release.
   event.respondWith(
-    caches.match(request).then(function (cached) {
-      var fetched = fetch(request).then(function (response) {
-        if (response.ok) {
-          var copy = response.clone();
-          caches.open(CACHE_VERSION).then(function (cache) { cache.put(request, copy); });
-        }
-        return response;
-      });
-      return cached || fetched;
-    })
+    fetch(request)
+      .then(function (response) { return cacheResponse(request, response); })
+      .catch(function () { return caches.match(request); })
   );
 });
