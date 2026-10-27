@@ -73,12 +73,12 @@ test.describe('desktop rendering', () => {
     await page.evaluate(() => document.fonts.ready);
 
     const samples = await page.evaluate(() => {
-      const targets = ['.post-card__excerpt', '.post-date', '.site-footer__bottom p', '.tag', '.post-card__subtitle'];
+      const targets = ['.feature__excerpt', '.post-row__subtitle', '.site-footer__bottom p', '.post-row__side', '.topic-strip__links a', '.hero-figures dt', '.hero-eyebrow'];
       return targets.map((selector) => {
         const element = document.querySelector(selector);
         if (!element) return { selector, missing: true as const };
         let node: Element | null = element;
-        let background = 'rgb(0, 0, 0)';
+        let background = 'rgb(255, 255, 255)';
         while (node) {
           const value = getComputedStyle(node).backgroundColor;
           if (value && !/rgba\(0, 0, 0, 0\)|transparent/.test(value)) {
@@ -110,12 +110,16 @@ test.describe('desktop rendering', () => {
     const loaded = await page.evaluate(async () => {
       await document.fonts.ready;
       return {
-        body: document.fonts.check('16px "Manrope Variable"'),
+        grotesk: document.fonts.check('600 40px "Hanken Grotesk Variable"'),
+        serif: document.fonts.check('400 17px "Newsreader Variable"'),
+        mono: document.fonts.check('400 13px "IBM Plex Mono"'),
         family: getComputedStyle(document.body).fontFamily,
       };
     });
-    expect(loaded.body).toBe(true);
-    expect(loaded.family).toContain('Manrope Variable');
+    expect(loaded.grotesk).toBe(true);
+    expect(loaded.serif).toBe(true);
+    expect(loaded.mono).toBe(true);
+    expect(loaded.family).toContain('Newsreader Variable');
   });
 
   test('every post cover and the portrait decode', async ({ page }) => {

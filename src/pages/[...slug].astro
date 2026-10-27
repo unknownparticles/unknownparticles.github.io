@@ -31,9 +31,12 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
 ---
 
 <BaseLayout title={post.data.title} description={description} image={headerImage} type="article">
-  <header class="post-hero" style={`background-image: url('${headerImage}')`}>
+  <header class="post-hero">
     <div class="post-hero__inner">
-      <time class="post-date" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)} · {post.data.author}</time>
+      <p class="post-hero__meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <span>{post.data.author}</span>
+      </p>
       <h1>{post.data.title}</h1>
       {post.data.subtitle && <p class="post-hero__subtitle">{post.data.subtitle}</p>}
       {post.data.tags.length > 0 && (
@@ -43,6 +46,18 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
       )}
     </div>
   </header>
+
+  <figure class="post-cover">
+    <img
+      src={headerImage}
+      alt={`《${post.data.title}》的题图`}
+      width="1240"
+      height="930"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption>《{post.data.title}》题图</figcaption>
+  </figure>
 
   <main id="main-content">
     <div class:list={['post-layout', !post.data.catalog && 'post-layout--single']}>

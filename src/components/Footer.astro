@@ -1,11 +1,12 @@
 ---
 import { SITE } from '../config';
+import { portfolio } from '../data/portfolio';
 ---
 
 <footer class="site-footer">
   <div class="shell site-footer__top">
     <div>
-      <h2>把技术问题拆开，也把解决过程写下来。</h2>
+      <h2>有问题，写信给我。</h2>
     </div>
     <ul class="footer-links" aria-label="站外链接">
       <li><a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener">GitHub</a></li>
@@ -15,7 +16,9 @@ import { SITE } from '../config';
     </ul>
   </div>
   <div class="shell site-footer__bottom">
-    <p>© {new Date().getFullYear()} Alun. 内容与代码保留原作者权利。</p>
-    <p>Astro on GitHub Pages</p>
+    <p>© {new Date().getFullYear()} Alun</p>
+    <p>内容采用 CC BY-NC-SA 4.0，代码部分为 MIT</p>
+    <p>Astro 构建，GitHub Pages 托管</p>
+    <p>仓库数据核验于 {portfolio.verifiedAt}</p>
   </div>
 </footer>

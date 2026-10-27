@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostList from './PostList.astro';
 import { portfolio } from '../data/portfolio';
 import type { Post } from '../lib/posts';
-import { getTagCounts } from '../lib/posts';
+import { formatDate, getExcerpt, getPostUrl } from '../lib/posts';
 
 interface Props {
   posts: Post[];
@@ -13,7 +12,12 @@ interface Props {
 }
 
 const { posts, allPosts, pageNumber, totalPages } = Astro.props;
-const tags = getTagCounts(allPosts).slice(0, 8);
+const featured = posts[0];
+const rest = posts.slice(1);
+const tags = [...new Set(allPosts.flatMap((post) => post.data.tags))]
+  .map((name) => ({ name, count: allPosts.filter((post) => post.data.tags.includes(name)).length }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'zh-CN'))
+  .slice(0, 8);
 const previousUrl = pageNumber === 2 ? '/' : `/page${pageNumber - 1}/`;
 const nextUrl = `/page${pageNumber + 1}/`;
 ---
@@ -22,49 +26,88 @@ const nextUrl = `/page${pageNumber + 1}/`;
   <header class="home-hero">
     <div class="shell home-hero__inner">
       <div class="home-hero__copy">
-        <h1><span>Alun</span><br />开发笔记</h1>
-        <p class="home-hero__lede">关于 Flutter、图形技术、前端交互和工程自动化。记录真实问题，也保留解决问题时走过的路。</p>
+        <p class="hero-eyebrow">阿伦的开发笔记，自 2024 年起持续更新</p>
+        <h1>把问题拆开，做成能跑的代码</h1>
+        <p class="home-hero__lede">记录 Flutter、图形与图像处理、前端交互和工程自动化的实践过程。这里保留真实的尝试、踩过的坑和最后能复用的结果。</p>
         <div class="hero-actions">
-          <a class="button button--primary" href="#latest-posts">开始阅读</a>
-          <a class="hero-text-link" href="/projects/">浏览开源作品</a>
+          <a class="button button--primary" href="#latest-posts">阅读文章</a>
+          <a class="hero-text-link" href="/projects/">查看开源作品</a>
         </div>
       </div>
-      <div class="hero-proof" aria-label="站点数据">
-        <span><strong>{allPosts.length}</strong> 篇技术笔记</span>
-        <span><strong>{portfolio.publicRepositoryCount}</strong> 个公开仓库</span>
-        <span><strong>8</strong> 个在线作品</span>
-      </div>
+      <dl class="hero-figures" aria-label="站点与仓库数据">
+        <div><dt>技术文章</dt><dd>{allPosts.length}</dd></div>
+        <div><dt>自有仓库</dt><dd>{portfolio.ownRepositoryCount}</dd></div>
+        <div><dt>已上线页面</dt><dd>{portfolio.pagesRepositoryCount}</dd></div>
+      </dl>
     </div>
+
+    <nav class="shell hero-topics" aria-label="常写主题">
+      <h2 class="topic-strip__title">常写主题</h2>
+      <div class="topic-strip__links">
+        {tags.map((tag) => <a href={`/tags/#${tag.name}`}>{tag.name}<sup>{tag.count}</sup></a>)}
+      </div>
+    </nav>
   </header>
 
-  <section class="manifesto" aria-labelledby="manifesto-title" data-reveal>
+  <section class="manifesto" aria-label="工作方式" data-reveal>
     <div class="shell">
-      <h2 class="manifesto-title" id="manifesto-title">
-        <span class="manifesto-word">把复杂问题拆开，</span>
-        <span class="manifesto-word">做成可以运行的代码，</span>
-        <span class="manifesto-word">再把过程写成</span>
-        <span class="manifesto-word">可以复用的经验。</span>
+      <h2 class="manifesto-title">
+        <span class="manifesto-word">先读懂问题，</span>
+        <span class="manifesto-word">再写最小的代码，</span>
+        <span class="manifesto-word">把过程写成</span>
+        <span class="manifesto-word">下次能复用的经验。</span>
       </h2>
     </div>
   </section>
 
   <main class="site-main" id="main-content">
     <div class="shell home-content">
-      <nav class="topic-strip" aria-label="常写主题" data-reveal>
-        <h2 class="topic-strip__title">常写主题</h2>
-        <div class="topic-strip__links">
-          {tags.map((tag) => <a href={`/tags/#${tag.name}`}>{tag.name}<sup>{tag.count}</sup></a>)}
-        </div>
-      </nav>
-
       <section aria-labelledby="latest-posts">
         <div class="feed-header" data-reveal>
-          <div>
-            <h2 id="latest-posts">{pageNumber === 1 ? '最近写下的' : '继续往前翻'}</h2>
-          </div>
-          <p>{allPosts.length} 篇公开笔记，持续更新</p>
+          <h2 id="latest-posts">{pageNumber === 1 ? '最近写下的' : '继续往前翻'}</h2>
+          <p>{allPosts.length} 篇 · 第 {pageNumber} 页</p>
         </div>
-        <PostList posts={posts} offset={(pageNumber - 1) * 10} />
+
+        {featured && (
+          <article class="feature" data-reveal>
+            <figure class="feature__figure">
+              <img
+                src={`/${featured.data['header-img']}`}
+                alt={`《${featured.data.title}》的题图`}
+                width="520"
+                height="390"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <figcaption>{featured.data.title}的题图</figcaption>
+            </figure>
+            <div class="feature__body">
+              <p class="feature__meta">
+                <time datetime={featured.data.date.toISOString()}>{formatDate(featured.data.date)}</time>
+                <span>最新一篇</span>
+              </p>
+              <h3><a href={getPostUrl(featured)}>{featured.data.title}</a></h3>
+              {featured.data.subtitle && <p class="feature__subtitle">{featured.data.subtitle}</p>}
+              <p class="feature__excerpt">{getExcerpt(featured.body ?? '', 180)}</p>
+            </div>
+          </article>
+        )}
+
+        <ol class="post-list">
+          {rest.map((post) => (
+            <li class="post-list__item" data-reveal>
+              <article class="post-row">
+                <time class="post-row__date" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                <div class="post-row__main">
+                  <h3 class="post-row__title"><a href={getPostUrl(post)}>{post.data.title}</a></h3>
+                  {post.data.subtitle && <p class="post-row__subtitle">{post.data.subtitle}</p>}
+                </div>
+                <div class="post-row__side">{post.data.tags.slice(0, 2).join(' / ') || '笔记'}</div>
+              </article>
+            </li>
+          ))}
+        </ol>
+
         {totalPages > 1 && (
           <nav class="post-navigation" aria-label="文章分页" data-reveal>
             {pageNumber > 1 ? (

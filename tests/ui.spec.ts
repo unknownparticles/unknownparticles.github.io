@@ -27,10 +27,29 @@ for (const route of routes) {
   });
 }
 
-test('home exposes the next section below the hero', async ({ page }) => {
+test('the home page lists every article and its figures', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.post-card')).toHaveCount(10);
-  await expect(page.locator('.manifesto')).toBeInViewport();
+  await expect(page.locator('.post-row')).toHaveCount(9);
+  await expect(page.locator('.feature')).toHaveCount(1);
+  await expect(page.locator('.hero-figures div')).toHaveCount(3);
+  const figures = await page.locator('.hero-figures dd').allTextContents();
+  for (const value of figures) expect(Number(value)).toBeGreaterThan(0);
+});
+
+test('the portfolio page renders the live GitHub data', async ({ page }) => {
+  await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
+  const projects = page.locator('.portfolio-project');
+  await expect(projects).toHaveCount(5);
+  await expect(projects.first().locator('h3')).not.toBeEmpty();
+  await expect(page.locator('.portfolio-languages li')).toHaveCount(5);
+
+  const links = page.locator('.portfolio-text-link');
+  const count = await links.count();
+  expect(count).toBeGreaterThan(5);
+  for (let index = 0; index < count; index += 1) {
+    const href = await links.nth(index).getAttribute('href');
+    expect(href).toMatch(/^https:\/\/(github\.com\/unknownparticles\/[^/]+|unknownparticles\.github\.io\/[^/]+\/)$/);
+  }
 });
 
 test('mobile navigation opens and closes with Escape', async ({ page }, testInfo) => {
@@ -47,11 +66,21 @@ test('mobile navigation opens and closes with Escape', async ({ page }, testInfo
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('portfolio portrait is loaded locally', async ({ page }) => {
-  await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
-  const portrait = page.locator('.portfolio-avatar');
-  await expect(portrait).toBeVisible();
-  expect(await portrait.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+test('the manifesto reveals its words', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('.manifesto-word')).toHaveCount(4);
+  await expect(page.locator('.manifesto')).toHaveClass(/is-revealed/);
+});
+
+test('the featured cover is the only image above the fold', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const aboveFold = await page.evaluate(() =>
+    [...document.images].filter((image) => {
+      const rect = image.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    }).length,
+  );
+  expect(aboveFold).toBeLessThanOrEqual(1);
 });
 
 test('service worker serves the offline fallback', async ({ browser }, testInfo) => {

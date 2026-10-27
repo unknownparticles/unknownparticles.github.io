@@ -4,34 +4,29 @@ import { SITE } from '../config';
 import { portfolio } from '../data/portfolio';
 ---
 
-<BaseLayout title="作品" description="公开项目、在线实验与持续迭代的工具。">
-  <header class="portfolio-hero">
-    <div class="shell portfolio-hero__inner">
-      <div class="portfolio-hero__identity">
-        <img class="portfolio-avatar" src={portfolio.avatarUrl} alt={`${portfolio.profileName}的头像`} width="96" height="96" />
-        <p class="portfolio-byline"><strong>@{portfolio.username}</strong><span>Open source developer</span></p>
-      </div>
+<BaseLayout title="作品" description="63 个自有仓库中的公开项目，以及可以直接打开的实验。">
+  <header class="page-hero">
+    <div class="shell">
       <h1>作品与实验</h1>
-      <p class="portfolio-intro">从图像分析、Flutter 应用到浏览器实验。这里展示已经公开的代码，以及可以直接运行的结果。</p>
-      <div class="portfolio-actions">
-        <a class="button button--primary" href={portfolio.githubUrl} target="_blank" rel="noopener">查看 GitHub</a>
-        <a class="portfolio-contact" href={`mailto:${SITE.email}`}>{SITE.email}</a>
-      </div>
-      <div class="portfolio-hero__stats" aria-label="GitHub 统计">
-        <span><strong>{portfolio.publicRepositoryCount}</strong> public repositories</span>
-        <span><strong>{portfolio.liveDemos.length}</strong> live projects</span>
+      <p class="page-hero__description">
+        从图像分析、Flutter 应用到浏览器小工具。下面的名称、语言、star 数和页面地址都来自 GitHub 公开接口，
+        核验于 {portfolio.verifiedAt}。
+      </p>
+      <div class="hero-actions">
+        <a class="button button--primary" href={portfolio.githubUrl} target="_blank" rel="noopener">打开 GitHub 主页</a>
+        <a class="hero-text-link" href={`mailto:${SITE.email}`}>{SITE.email}</a>
       </div>
     </div>
   </header>
 
   <main id="main-content" class="portfolio-main">
     <div class="shell">
-      <section class="portfolio-section" aria-labelledby="featured-projects-title" data-reveal>
+      <section class="portfolio-section" aria-labelledby="featured-projects-title">
         <div class="portfolio-section__header">
           <div>
-            <h2 id="featured-projects-title">精选项目</h2>
+            <h2 id="featured-projects-title">最受关注的项目</h2>
           </div>
-          <p class="portfolio-section__summary">项目名称、技术栈与说明均整理自公开 GitHub 仓库，优先展示最能代表当前实践方向的作品。</p>
+          <p class="portfolio-section__summary">按 star 数排列，共 {portfolio.ownRepositoryCount} 个自有仓库参与统计。</p>
         </div>
 
         <div class="portfolio-project-grid">
@@ -40,31 +35,37 @@ import { portfolio } from '../data/portfolio';
               <h3>{project.name}</h3>
               <div class="portfolio-project__meta">
                 <span class="portfolio-project__language">{project.language}</span>
-                {'demoUrl' in project && <span class="portfolio-live-label">Live</span>}
+                <span class="portfolio-project__stars"><span class="num">{project.stars}</span> star</span>
+                {'demoUrl' in project && <span class="portfolio-live-label">可在线打开</span>}
               </div>
               <p class="portfolio-project__description">{project.summary}</p>
               <div class="portfolio-project__links">
-                <a class="portfolio-text-link" href={project.repoUrl} target="_blank" rel="noopener">查看源码</a>
-                {'demoUrl' in project && <a class="portfolio-text-link" href={project.demoUrl} target="_blank" rel="noopener">打开 Demo</a>}
+                <a class="portfolio-text-link" href={project.repoUrl} target="_blank" rel="noopener">源码</a>
+                {'demoUrl' in project && <a class="portfolio-text-link" href={project.demoUrl} target="_blank" rel="noopener">打开页面</a>}
               </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section class="portfolio-section" aria-labelledby="live-demos-title" data-reveal>
+      <section class="portfolio-section" aria-labelledby="live-demos-title">
         <div class="portfolio-section__header">
           <div>
-            <h2 id="live-demos-title">在线作品</h2>
+            <h2 id="live-demos-title">可以直接打开的实验</h2>
           </div>
-          <p class="portfolio-section__summary">以下地址已于 {portfolio.verifiedAt} 逐一验证可访问；仓库状态和最新代码以 GitHub 为准。</p>
+          <p class="portfolio-section__summary">
+            {portfolio.pagesRepositoryCount} 个仓库启用了 GitHub Pages，这里列出其中最近有描述更新的 {portfolio.liveDemos.length} 个。
+          </p>
         </div>
 
         <div class="portfolio-demo-list">
           {portfolio.liveDemos.map((demo) => (
             <article class="portfolio-demo" data-reveal>
-              <div><h3>{demo.title}</h3><p class="portfolio-demo__repo">{demo.name}</p></div>
-              <p class="portfolio-demo__description">{demo.summary}</p>
+              <div>
+                <h3>{demo.name}</h3>
+                <p class="portfolio-demo__repo">{demo.summary}</p>
+              </div>
+              <p class="portfolio-demo__description">{demo.title}</p>
               <div class="portfolio-demo__actions">
                 <a class="portfolio-text-link" href={demo.demoUrl} target="_blank" rel="noopener">访问</a>
                 <a class="portfolio-text-link" href={demo.repoUrl} target="_blank" rel="noopener">源码</a>
@@ -74,8 +75,15 @@ import { portfolio } from '../data/portfolio';
         </div>
       </section>
 
-      <section class="portfolio-snapshot" aria-label="GitHub 仓库快照" data-reveal>
-        <p><strong>{portfolio.publicRepositoryCount} 个公开仓库</strong><br />数据快照核验于 {portfolio.verifiedAt}，完整列表以 GitHub 主页为准。</p>
+      <section class="portfolio-snapshot" aria-label="仓库语言分布">
+        <div>
+          <h2>常用的语言</h2>
+          <ul class="portfolio-languages">
+            {portfolio.languages.map((item) => (
+              <li><span>{item.language}</span><span class="num">{item.count}</span></li>
+            ))}
+          </ul>
+        </div>
         <a class="button button--primary" href={portfolio.repositoriesUrl} target="_blank" rel="noopener">浏览全部仓库</a>
       </section>
     </div>
