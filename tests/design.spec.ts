@@ -73,7 +73,7 @@ test.describe('desktop rendering', () => {
     await page.evaluate(() => document.fonts.ready);
 
     const samples = await page.evaluate(() => {
-      const targets = ['.feature__excerpt', '.post-row__subtitle', '.site-footer__bottom p', '.post-row__side', '.topic-strip__links a', '.hero-figures dt', '.hero-eyebrow'];
+      const targets = ['.profile-summary', '.profile-role', '.profile-stats dt', '.home-project p', '.home-project__meta', '.home-post time', '.home-post p', '.site-footer__bottom p'];
       return targets.map((selector) => {
         const element = document.querySelector(selector);
         if (!element) return { selector, missing: true as const };

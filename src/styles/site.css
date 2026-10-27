@@ -1,30 +1,24 @@
-/* Hallmark · checked: 2026-10-27 · genre: editorial (inferred)
- * theme: Almanac (dealt) · shape: Index-First · hero: Poster · nav: ruled index · footer: mast close
- * floor: 0 FAIL · reflex: 0 · finish: 1 answered · waived: 1 (49b) · dismissed: 1 (77)
- * built: the project · redesign: full · v2.0.0 */
-/* Hallmark · answered F7 · shared edge tokens identify the system while fills and proportions distinguish each content role */
-/* Hallmark · answered F15 · editorial hero, reading column and repeated grids use distinct gaps to preserve their hierarchy */
-/* Hallmark · waive 83 · the covers are the archive's own post headers, one per entry, each linking that entry · the index is a journal, not a gallery */
-/* Hallmark · waive 49b · the index lists real article titles verbatim · a fifteen-character 标题 cannot shorten to one line at 320px */
-/* Hallmark · dismissed 77 · the home page is a journal index, not a landing strip · three sections are the whole archive */
+/* Personal site system · references: antfu.me, cassidoo.co, paco.me
+ * Direction: compact profile, warm paper, coral signal, list-first content. */
 
 /* Almanac: cool slate stock, blue-black ink, one deep chart magenta. */
 :root {
   color-scheme: light;
-  --color-paper: oklch(97% 0.008 245);
-  --color-paper-2: oklch(94% 0.01 245);
-  --color-paper-3: oklch(90% 0.012 245);
-  --color-sheet: oklch(99% 0.004 245);
-  --color-ink: oklch(18% 0.018 245);
-  --color-ink-2: oklch(27% 0.016 245);
-  --color-muted: oklch(43% 0.014 245);
-  --color-subtle: oklch(52% 0.012 245);
-  --color-rule: oklch(84% 0.012 240);
-  --color-rule-2: oklch(36% 0.016 240);
-  --color-accent: oklch(52% 0.17 350);
-  --color-accent-2: oklch(43% 0.15 350);
-  --color-accent-ink: oklch(98% 0.004 245);
-  --color-accent-wash: oklch(94% 0.03 350);
+  --color-paper: oklch(98% 0.006 35);
+  --color-paper-2: oklch(95.5% 0.012 35);
+  --color-paper-3: oklch(92% 0.018 35);
+  --color-sheet: oklch(100% 0 0);
+  --color-ink: oklch(20% 0.018 25);
+  --color-ink-2: oklch(31% 0.02 25);
+  --color-muted: oklch(47% 0.018 25);
+  --color-subtle: oklch(58% 0.016 25);
+  --color-rule: oklch(88% 0.014 30);
+  --color-rule-2: oklch(40% 0.025 25);
+  --color-accent: oklch(62% 0.2 18);
+  --color-accent-2: oklch(54% 0.18 18);
+  --color-accent-ink: oklch(99% 0.004 35);
+  --color-accent-wash: oklch(94% 0.035 18);
+  --color-focus: oklch(60% 0.21 18);
   --color-focus: oklch(46% 0.19 350);
   --color-warning: oklch(52% 0.12 60);
   --color-danger: oklch(50% 0.16 25);
@@ -65,12 +59,12 @@
   --font-sans: var(--font-display);
   --font-mono: var(--font-outlier);
 
-  --shell: 1240px;
+  --shell: 1024px;
   --reading: 680px;
-  --radius-card: 0;
-  --radius-pill: 2px;
-  --radius-sm: 2px;
-  --radius: 2px;
+  --radius-card: 12px;
+  --radius-pill: 999px;
+  --radius-sm: 6px;
+  --radius: 12px;
   --rule-hair: 1px;
   --rule-bar: 2px;
   --motion: cubic-bezier(0.22, 1, 0.36, 1);

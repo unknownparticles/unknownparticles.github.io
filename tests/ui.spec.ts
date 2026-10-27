@@ -29,10 +29,10 @@ for (const route of routes) {
 
 test('the home page lists every article and its figures', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.post-row')).toHaveCount(9);
-  await expect(page.locator('.feature')).toHaveCount(1);
-  await expect(page.locator('.hero-figures div')).toHaveCount(3);
-  const figures = await page.locator('.hero-figures dd').allTextContents();
+  await expect(page.locator('.home-post')).toHaveCount(10);
+  await expect(page.locator('.home-project')).toHaveCount(3);
+  await expect(page.locator('.profile-stats div')).toHaveCount(3);
+  const figures = await page.locator('.profile-stats dd').allTextContents();
   for (const value of figures) expect(Number(value)).toBeGreaterThan(0);
 });
 
@@ -66,13 +66,14 @@ test('mobile navigation opens and closes with Escape', async ({ page }, testInfo
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('the manifesto reveals its words', async ({ page }) => {
+test('the profile and project content is visible without scroll choreography', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.manifesto-word')).toHaveCount(4);
-  await expect(page.locator('.manifesto')).toHaveClass(/is-revealed/);
+  await expect(page.locator('.profile-intro')).toBeVisible();
+  await expect(page.locator('.home-project').first()).toBeVisible();
+  await expect(page.locator('.home-post').first()).toBeVisible();
 });
 
-test('the featured cover is the only image above the fold', async ({ page }) => {
+test('the home profile image is the only image above the fold', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const aboveFold = await page.evaluate(() =>
     [...document.images].filter((image) => {
