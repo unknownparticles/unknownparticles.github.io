@@ -31,7 +31,7 @@ test.describe('internationalisation', () => {
     await expect(page.locator('[data-i18n="nav.home"]').first()).toHaveText('Home');
     await expect(page.locator('[data-i18n="home.ctaWork"]')).toHaveText('See the work');
     await expect(page.locator('[data-i18n="home.lede"]')).toContainText('Developer, director and photographer');
-    await expect(page.locator('.showcase-kicker').first()).toHaveText('Selected work');
+    await expect(page.locator('.showcase-kicker').first()).toHaveText('What I do');
     await expect(page.locator('[data-i18n="footer.builtWith"]')).toContainText('Built with Astro');
   });
 
@@ -84,29 +84,29 @@ test.describe('theming', () => {
     const darkPage = await dark.newPage();
     await darkPage.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(darkPage.locator('html')).not.toHaveAttribute('data-theme', 'light');
-    await expect(darkPage.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 19)');
+    await expect(darkPage.locator('body')).toHaveCSS('background-color', 'rgb(30, 27, 58)');
     await dark.close();
 
     const light = await browser.newContext({ colorScheme: 'light' });
     const lightPage = await light.newPage();
     await lightPage.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(lightPage.locator('html')).not.toHaveAttribute('data-theme', 'dark');
-    await expect(lightPage.locator('body')).toHaveCSS('background-color', 'rgb(251, 250, 248)');
+    await expect(lightPage.locator('body')).toHaveCSS('background-color', 'rgb(255, 244, 227)');
     await light.close();
   });
 
   test('the toggle flips and persists the theme', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' });
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(251, 250, 248)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 244, 227)');
 
     await page.locator('[data-theme-target]').first().click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 19)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(30, 27, 58)');
 
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 20, 19)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(30, 27, 58)');
   });
 
   test('body text keeps AA contrast in dark mode', async ({ page }) => {

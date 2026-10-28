@@ -18,6 +18,14 @@ interface Props {
 const { posts, allPosts, pageNumber, totalPages } = Astro.props;
 const previousUrl = pageNumber === 2 ? '/' : `/page${pageNumber - 1}/`;
 const nextUrl = `/page${pageNumber + 1}/`;
+
+const blocks = [
+  { key: 'b1', title: { zh: '图形与图像', en: 'Graphics & imaging' }, note: 'OpenGL · OpenCV · JPEG', color: 'var(--pop-red)', shape: 'circle', span: '' },
+  { key: 'b2', title: { zh: '跨端产品', en: 'Cross-platform' }, note: 'Flutter · Dart', color: 'var(--pop-yellow)', shape: 'pill', span: 'mondrian__cell--tall' },
+  { key: 'b3', title: { zh: '前端体验', en: 'Web experience' }, note: 'TypeScript · Canvas', color: 'var(--pop-mint)', shape: 'square', span: '' },
+  { key: 'b4', title: { zh: '工程自动化', en: 'Automation' }, note: 'CI/CD · MCP', color: 'var(--pop-sky)', shape: 'blob', span: 'mondrian__cell--wide' },
+  { key: 'b5', title: { zh: '开源仓库', en: 'Open source' }, note: `${portfolio.ownRepositoryCount} repos`, color: 'var(--pop-violet)', shape: 'circle', span: '' },
+];
 ---
 
 <BaseLayout i18nTitle={{ zh: zh.meta.title, en: en.meta.title }} i18nDescription={{ zh: zh.meta.description, en: en.meta.description }}>
@@ -25,11 +33,15 @@ const nextUrl = `/page${pageNumber + 1}/`;
     {pageNumber === 1 && (
       <>
         <section class="lab-hero" aria-labelledby="lab-title">
-          <div class="lab-scene" id="lab-scene" aria-hidden="true"></div>
+          <div class="shape-stage" id="shape-stage" aria-hidden="true"></div>
           <div class="shell lab-hero__inner">
             <div class="lab-copy">
               <p class="lab-status"><span></span><span data-i18n="home.status">{zh.home.status}</span></p>
-              <h1 id="lab-title"><span data-i18n="home.titleLead">{zh.home.titleLead}</span><br /><em data-i18n="home.titleEm">{zh.home.titleEm}</em> <span data-i18n="home.titleTail">{zh.home.titleTail}</span></h1>
+              <h1 id="lab-title">
+                <span data-i18n="home.titleLead">{zh.home.titleLead}</span><br />
+                <em data-i18n="home.titleEm">{zh.home.titleEm}</em>
+                <span data-i18n="home.titleTail">{zh.home.titleTail}</span>
+              </h1>
               <p data-i18n="home.lede">{zh.home.lede}</p>
               <nav class="lab-actions" aria-label="Primary actions">
                 <a class="lab-button" href="#selected-work" data-i18n="home.ctaWork">{zh.home.ctaWork}</a>
@@ -49,6 +61,31 @@ const nextUrl = `/page${pageNumber + 1}/`;
           <div class="lab-marquee" aria-hidden="true">
             <div>
               <span>Flutter</span><i>◆</i><span>OpenGL</span><i>◆</i><span>TypeScript</span><i>◆</i><span>Image Processing</span><i>◆</i><span>Automation</span><i>◆</i><span>Flutter</span><i>◆</i><span>OpenGL</span><i>◆</i><span>TypeScript</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="mondrian" aria-labelledby="mondrian-title">
+          <div class="shell">
+            <div class="showcase-heading">
+              <div>
+                <p class="showcase-kicker">What I do</p>
+                <h2 id="mondrian-title" data-i18n="home.capabilityTitle">{zh.home.capabilityTitle}</h2>
+              </div>
+              <p data-i18n="home.capabilityLede">{zh.home.capabilityLede}</p>
+            </div>
+            <div class="mondrian__grid">
+              {blocks.map((block) => (
+                <div
+                  class:list={['mondrian__cell', `mondrian__cell--${block.shape}`, block.span]}
+                  style={`background: ${block.color}`}
+                >
+                  <div>
+                    <strong data-i18n={`blk.${block.key}`} data-zh={block.title.zh} data-en={block.title.en}>{block.title.zh}</strong>
+                    <span>{block.note}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -97,7 +134,10 @@ const nextUrl = `/page${pageNumber + 1}/`;
       <section class="contact-band" aria-labelledby="contact-title">
         <div class="shell contact-band__inner">
           <p class="showcase-kicker">Say hello</p>
-          <h2 id="contact-title"><span data-i18n="home.contactTitle">{zh.home.contactTitle}</span><br /><span data-i18n="home.contactTail">{zh.home.contactTail}</span></h2>
+          <h2 id="contact-title">
+            <span data-i18n="home.contactTitle">{zh.home.contactTitle}</span><br />
+            <span data-i18n="home.contactTail">{zh.home.contactTail}</span>
+          </h2>
           <a href="mailto:unknownparticles@gmail.com">unknownparticles@gmail.com</a>
         </div>
       </section>
@@ -105,12 +145,6 @@ const nextUrl = `/page${pageNumber + 1}/`;
   </main>
 
   <script>
-    const loadScene = () => import('../scripts/lab-scene').then(({ mountLabScene }) => mountLabScene());
-    const idle = window.requestIdleCallback;
-    if (typeof idle === 'function') {
-      idle(loadScene, { timeout: 1200 });
-    } else {
-      globalThis.setTimeout(loadScene, 500);
-    }
+    import '../scripts/mount-shapes';
   </script>
 </BaseLayout>

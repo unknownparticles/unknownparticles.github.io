@@ -1,90 +1,116 @@
-/* Personal site design tokens.
- * One accent (deep petrol) on warm neutrals. Light and dark are derived from
- * the same roles; the accent lifts in dark so it never sinks into the ground.
- * An explicit choice always wins over the system preference. */
+/* Dopamine comics: a Mondrian spirit in candy colours.
+ *
+ * Ground is warm cream, never white. Lines are a deep indigo instead of black,
+ * so shapes stay bold without the harshness of true black. Nine saturated
+ * colours carry the mood; every surface gets a hard offset shadow, which is
+ * what makes a shape read as a sticker rather than a card.
+ *
+ * Dark mode is not an inversion: the ground deepens to indigo and the line
+ * colour flips to cream, so the same shapes keep their outline and shadow. */
 
 :root {
   color-scheme: light;
 
-  --color-paper: #fbfaf8;
-  --color-paper-2: #f3f2ee;
-  --color-paper-3: #eceae4;
-  --color-surface: #ffffff;
-  --color-ink: #191a1c;
-  --color-ink-2: #34363b;
-  --color-muted: #696c72;
-  --color-subtle: #8a8d93;
-  --color-rule: #e5e4df;
-  --color-rule-2: #dcdbd5;
-  --color-accent: #0d6e66;
-  --color-accent-2: #0a5a53;
-  --color-accent-light: #2f8f85;
-  --color-accent-ink: #ffffff;
-  --color-accent-wash: #e7f1ef;
-  --color-focus: #0d6e66;
-  --color-warning: #9a6400;
-  --color-danger: #b22f28;
+  /* Ground and ink */
+  --color-paper: #fff4e3;
+  --color-paper-2: #ffe9cc;
+  --color-paper-3: #ffd9a8;
+  --color-surface: #fffaf2;
+  --color-ink: #2d2a5e;
+  --color-ink-2: #4a4680;
+  --color-muted: #6e6a9b;
+  --color-subtle: #938fb8;
+  --color-line: #2d2a5e;
+  --color-rule: #e3c9a8;
+  --color-rule-2: #c9ab84;
 
-  /* Dark signature blocks: the lab hero and the index bands. */
-  --color-inverse: #191a1c;
-  --color-inverse-deep: #121413;
-  --color-on-inverse: #f4f3ef;
-  --color-on-inverse-muted: #b3b2ac;
-  --color-inverse-rule: #33352f;
-  --color-hero-veil-1: var(--color-hero-veil-1);
-  --color-hero-veil-2: var(--color-hero-veil-2);
-  --color-hero-veil-3: var(--color-hero-veil-3);
+  /* The dopamine nine */
+  --pop-red: #ff5757;
+  --pop-red-deep: #c41f1f;
+  --pop-orange: #ff8c42;
+  --pop-yellow: #ffd23f;
+  --pop-lime: #9be564;
+  --pop-mint: #2ec4b6;
+  --pop-sky: #4cc9f0;
+  --pop-blue: #4361ee;
+  --pop-pink-bright: #f77ac2;
 
-  --shadow-card: 0 0 0 1px var(--color-rule);
-  --shadow-card-hover: 0 16px 40px rgba(25, 26, 28, 0.1), 0 0 0 1px var(--color-rule-2);
-  --shadow-inverse: 0 16px 40px rgba(25, 26, 28, 0.18);
+  --pop-pink: #c93289;
+  --pop-pink-deep: #a41f6b;
 
-  --shiki-foreground: #34363b;
+  /* Accent = the loudest two, used for actions only */
+  --color-accent: var(--pop-pink);
+  --color-accent-2: #d63f97;
+  --color-accent-ink: #fff4e3;
+  --color-accent-wash: #ffe0f0;
+  --color-focus: var(--pop-blue);
+
+  --color-success: var(--pop-mint);
+  --color-warning: var(--pop-orange);
+  --color-danger: var(--pop-red);
+
+  /* Inverse bands (the hero, the index strips) */
+  --color-inverse: #2d2a5e;
+  --color-inverse-deep: #221f4a;
+  --color-on-inverse: #fff4e3;
+  --color-on-inverse-muted: #b9b3dd;
+  --color-inverse-rule: #4a4680;
+
+  /* Comic mechanics */
+  --line-w: 3px;
+  --line-w-thick: 4px;
+  --shadow-pop: 5px 5px 0 var(--color-line);
+  --shadow-pop-sm: 3px 3px 0 var(--color-line);
+  --shadow-pop-lg: 8px 8px 0 var(--color-line);
+  --shadow-card: var(--shadow-pop-sm);
+
+  /* Syntax: brighten for cream paper */
+  --shiki-foreground: #2d2a5e;
   --shiki-background: transparent;
-  --shiki-token-comment: #8a8d93;
-  --shiki-token-punctuation: #8a8d93;
-  --shiki-token-constant: #a2482a;
-  --shiki-token-string: #1f6f6a;
-  --shiki-token-string-expression: #1f6f6a;
-  --shiki-token-keyword: #0d6e66;
-  --shiki-token-function: #4b4fa0;
-  --shiki-token-parameter: #4a4d53;
+  --shiki-token-comment: #938fb8;
+  --shiki-token-punctuation: #6e6a9b;
+  --shiki-token-constant: #d63f97;
+  --shiki-token-string: #1a9e8f;
+  --shiki-token-string-expression: #1a9e8f;
+  --shiki-token-keyword: #4361ee;
+  --shiki-token-function: #b8365f;
+  --shiki-token-parameter: #4a4680;
 
   --background: var(--color-paper);
   --surface: var(--color-surface);
   --surface-strong: var(--color-paper-2);
-  --surface-elevated: var(--color-paper-2);
-  --surface-hover: var(--color-paper-3);
+  --surface-elevated: var(--color-surface);
+  --surface-hover: var(--color-paper-2);
   --text: var(--color-ink);
   --text-muted: var(--color-muted);
   --text-subtle: var(--color-subtle);
-  --border: var(--color-rule);
-  --border-strong: var(--color-rule-2);
+  --border: var(--color-line);
+  --border-strong: var(--color-line);
   --accent: var(--color-accent);
   --accent-strong: var(--color-accent-2);
   --on-accent: var(--color-accent-ink);
-  --signal: var(--color-accent);
+  --signal: var(--pop-orange);
   --focus: var(--color-focus);
   --code: var(--color-surface);
-  --success: var(--color-accent);
+  --success: var(--color-success);
   --warning: var(--color-warning);
   --danger: var(--color-danger);
 
-  --font-display: "Hanken Grotesk Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Newsreader Variable", "Songti SC", "Noto Serif CJK SC", Georgia, ui-serif, serif;
+  --font-display: "Fredoka Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-rounded, system-ui, sans-serif;
+  --font-body: "Nunito Sans Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-rounded, system-ui, sans-serif;
   --font-outlier: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-  --font-sans: var(--font-display);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-outlier);
 
-  --shell: 1024px;
+  --shell: 1120px;
   --reading: 680px;
-  --radius-card: 6px;
-  --radius-pill: 6px;
-  --radius-sm: 6px;
-  --radius: 6px;
-  --rule-hair: 1px;
-  --rule-bar: 2px;
-  --motion: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-card: 18px;
+  --radius-pill: 999px;
+  --radius-sm: 10px;
+  --radius: 18px;
+  --rule-hair: 3px;
+  --rule-bar: 4px;
+  --motion: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   --space-3xs: 2px;
   --space-2xs: 4px;
@@ -98,97 +124,81 @@
   --space-4xl: 144px;
 }
 
-/* Dark derivation of the same roles. */
+/* Dark: the ground deepens, the line flips to cream, the nine stay loud. */
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --color-paper: #121413;
-  --color-paper-2: #191b19;
-  --color-paper-3: #222421;
-  --color-surface: #1a1c1a;
-  --color-ink: #ecebe6;
-  --color-ink-2: #d2d1cb;
-  --color-muted: #9c9f99;
-  --color-subtle: #7d807a;
-  --color-rule: #2e302d;
-  --color-rule-2: #3d403c;
-  --color-accent: #5fc4b8;
-  --color-accent-2: #7fd6ca;
-  --color-accent-light: #5fc4b8;
-  --color-accent-ink: #07211e;
-  --color-accent-wash: rgba(95, 196, 184, 0.12);
-  --color-focus: #7fd6ca;
-  --color-warning: #d9a94a;
-  --color-danger: #e37a70;
+  --color-paper: #1e1b3a;
+  --color-paper-2: #2a2650;
+  --color-paper-3: #37326a;
+  --color-surface: #26224a;
+  --color-ink: #fff4e3;
+  --color-ink-2: #e6dcc8;
+  --color-muted: #b3aad2;
+  --color-subtle: #8e86bd;
+  --color-line: #fff4e3;
+  --color-rule: #4a4680;
+  --color-rule-2: #6e6a9b;
 
-  --color-inverse: #1e201e;
-  --color-inverse-deep: #0e100f;
-  --color-on-inverse: #ecebe6;
-  --color-on-inverse-muted: #a3a59f;
-  --color-inverse-rule: #33352f;
-  --color-hero-veil-1: rgba(14, 16, 15, 0.94);
-  --color-hero-veil-2: rgba(14, 16, 15, 0.7);
-  --color-hero-veil-3: rgba(14, 16, 15, 0.08);
+  --color-accent: #ff7ac0;
+  --color-accent-2: #ffa1d6;
+  --color-accent-ink: #2d2a5e;
+  --color-accent-wash: #3d2a52;
+  --color-focus: #7dd3f7;
 
-  --shadow-card: 0 0 0 1px var(--color-rule);
-  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px var(--color-rule-2);
-  --shadow-inverse: 0 16px 40px rgba(0, 0, 0, 0.4);
+  --color-inverse: #26224a;
+  --color-inverse-deep: #191634;
+  --color-on-inverse: #fff4e3;
+  --color-on-inverse-muted: #b9b3dd;
+  --color-inverse-rule: #4a4680;
 
-  --shiki-foreground: #d2d1cb;
-  --shiki-token-comment: #7d807a;
-  --shiki-token-punctuation: #7d807a;
-  --shiki-token-constant: #e2a08a;
-  --shiki-token-string: #7fd6ca;
-  --shiki-token-string-expression: #7fd6ca;
-  --shiki-token-keyword: #7fd6ca;
-  --shiki-token-function: #a9b0f0;
-  --shiki-token-parameter: #a3a59f;
+  --shiki-foreground: #e6dcc8;
+  --shiki-token-comment: #8e86bd;
+  --shiki-token-punctuation: #b3aad2;
+  --shiki-token-constant: #ffa1d6;
+  --shiki-token-string: #5fe6d4;
+  --shiki-token-string-expression: #5fe6d4;
+  --shiki-token-keyword: #8fa6ff;
+  --shiki-token-function: #ff9ab8;
+  --shiki-token-parameter: #b3aad2;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
 
-    --color-paper: #121413;
-    --color-paper-2: #191b19;
-    --color-paper-3: #222421;
-    --color-surface: #1a1c1a;
-    --color-ink: #ecebe6;
-    --color-ink-2: #d2d1cb;
-    --color-muted: #9c9f99;
-    --color-subtle: #7d807a;
-    --color-rule: #2e302d;
-    --color-rule-2: #3d403c;
-    --color-accent: #5fc4b8;
-    --color-accent-2: #7fd6ca;
-    --color-accent-light: #5fc4b8;
-    --color-accent-ink: #07211e;
-    --color-accent-wash: rgba(95, 196, 184, 0.12);
-    --color-focus: #7fd6ca;
-    --color-warning: #d9a94a;
-    --color-danger: #e37a70;
+    --color-paper: #1e1b3a;
+    --color-paper-2: #2a2650;
+    --color-paper-3: #37326a;
+    --color-surface: #26224a;
+    --color-ink: #fff4e3;
+    --color-ink-2: #e6dcc8;
+    --color-muted: #b3aad2;
+    --color-subtle: #8e86bd;
+    --color-line: #fff4e3;
+    --color-rule: #4a4680;
+    --color-rule-2: #6e6a9b;
 
-    --color-inverse: #1e201e;
-    --color-inverse-deep: #0e100f;
-    --color-on-inverse: #ecebe6;
-    --color-on-inverse-muted: #a3a59f;
-    --color-inverse-rule: #33352f;
-    --color-hero-veil-1: rgba(14, 16, 15, 0.94);
-    --color-hero-veil-2: rgba(14, 16, 15, 0.7);
-    --color-hero-veil-3: rgba(14, 16, 15, 0.08);
+    --color-accent: #ff7ac0;
+    --color-accent-2: #ffa1d6;
+    --color-accent-ink: #2d2a5e;
+    --color-accent-wash: #3d2a52;
+    --color-focus: #7dd3f7;
 
-    --shadow-card: 0 0 0 1px var(--color-rule);
-    --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px var(--color-rule-2);
-    --shadow-inverse: 0 16px 40px rgba(0, 0, 0, 0.4);
+    --color-inverse: #26224a;
+    --color-inverse-deep: #191634;
+    --color-on-inverse: #fff4e3;
+    --color-on-inverse-muted: #b9b3dd;
+    --color-inverse-rule: #4a4680;
 
-    --shiki-foreground: #d2d1cb;
-    --shiki-token-comment: #7d807a;
-    --shiki-token-punctuation: #7d807a;
-    --shiki-token-constant: #e2a08a;
-    --shiki-token-string: #7fd6ca;
-    --shiki-token-string-expression: #7fd6ca;
-    --shiki-token-keyword: #7fd6ca;
-    --shiki-token-function: #a9b0f0;
-    --shiki-token-parameter: #a3a59f;
+    --shiki-foreground: #e6dcc8;
+    --shiki-token-comment: #8e86bd;
+    --shiki-token-punctuation: #b3aad2;
+    --shiki-token-constant: #ffa1d6;
+    --shiki-token-string: #5fe6d4;
+    --shiki-token-string-expression: #5fe6d4;
+    --shiki-token-keyword: #8fa6ff;
+    --shiki-token-function: #ff9ab8;
+    --shiki-token-parameter: #b3aad2;
   }
 }

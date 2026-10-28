@@ -110,8 +110,8 @@ test.describe('desktop rendering', () => {
     const loaded = await page.evaluate(async () => {
       await document.fonts.ready;
       return {
-        grotesk: document.fonts.check('600 40px "Hanken Grotesk Variable"'),
-        serif: document.fonts.check('400 17px "Newsreader Variable"'),
+        grotesk: document.fonts.check('700 40px "Fredoka Variable"'),
+        serif: document.fonts.check('400 17px "Nunito Sans Variable"'),
         mono: document.fonts.check('400 13px "IBM Plex Mono"'),
         family: getComputedStyle(document.body).fontFamily,
       };
@@ -119,7 +119,7 @@ test.describe('desktop rendering', () => {
     expect(loaded.grotesk).toBe(true);
     expect(loaded.serif).toBe(true);
     expect(loaded.mono).toBe(true);
-    expect(loaded.family).toContain('Newsreader Variable');
+    expect(loaded.family).toContain('Nunito Sans Variable');
   });
 
   test('every post cover and the portrait decode', async ({ page }) => {
