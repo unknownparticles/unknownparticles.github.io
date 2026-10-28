@@ -4,21 +4,21 @@
 /* Almanac: cool slate stock, blue-black ink, one deep chart magenta. */
 :root {
   color-scheme: light;
-  --color-paper: oklch(98.5% 0.003 255);
-  --color-paper-2: oklch(96.5% 0.005 255);
-  --color-paper-3: oklch(93.5% 0.008 255);
-  --color-sheet: oklch(100% 0 0);
-  --color-ink: oklch(22% 0.025 255);
-  --color-ink-2: oklch(32% 0.025 255);
-  --color-muted: oklch(47% 0.02 255);
-  --color-subtle: oklch(58% 0.018 255);
-  --color-rule: oklch(88% 0.012 255);
-  --color-rule-2: oklch(42% 0.025 255);
-  --color-accent: oklch(54% 0.19 255);
-  --color-accent-2: oklch(46% 0.17 255);
-  --color-accent-ink: oklch(99% 0.003 255);
-  --color-accent-wash: oklch(96% 0.025 255);
-  --color-focus: oklch(58% 0.2 255);
+  --color-paper: #fbfaf8;
+  --color-paper-2: #f3f2ee;
+  --color-paper-3: #eae9e3;
+  --color-sheet: #ffffff;
+  --color-ink: #191a1c;
+  --color-ink-2: #34363b;
+  --color-muted: #696c72;
+  --color-subtle: #8a8d93;
+  --color-rule: #e5e4df;
+  --color-rule-2: #c5c4be;
+  --color-accent: #0d6e66;
+  --color-accent-2: #0a5a53;
+  --color-accent-ink: #ffffff;
+  --color-accent-wash: #e7f1ef;
+  --color-focus: #0d6e66;
   --color-focus: oklch(46% 0.19 350);
   --color-warning: oklch(52% 0.12 60);
   --color-danger: oklch(50% 0.16 25);

@@ -33,16 +33,21 @@ test('the home page exposes work, capabilities and writing', async ({ page }) =>
   await expect(page.locator('.home-post')).toHaveCount(10);
 });
 
-test('the portfolio page renders the live GitHub data', async ({ page }) => {
+test('the portfolio separates technical work from categorized demos', async ({ page }) => {
   await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
-  const projects = page.locator('.work-piece');
-  await expect(projects).toHaveCount(5);
-  await expect(projects.first().locator('h2')).not.toBeEmpty();
+  await expect(page.locator('.engineering-card')).toHaveCount(6);
+  await expect(page.locator('.engineering-card h3')).toHaveCount(6);
+  await expect(page.locator('.engineering-card__preview')).toHaveCount(2);
+  await expect(page.locator('.demo-group')).toHaveCount(4);
+  await expect(page.locator('.demo-group li')).toHaveCount(24);
   await expect(page.locator('.work-languages p')).toHaveCount(5);
 
-  const links = page.locator('.work-piece a, .work-index a');
+  const groupTitles = await page.locator('.demo-group h3').allTextContents();
+  expect(groupTitles).toEqual(['工具', '游戏', '效率与生活', '创意实验']);
+
+  const links = page.locator('.engineering-card a, .demo-group a');
   const count = await links.count();
-  expect(count).toBeGreaterThan(5);
+  expect(count).toBeGreaterThan(24);
   for (let index = 0; index < count; index += 1) {
     const href = await links.nth(index).getAttribute('href');
     expect(href).toMatch(/^https:\/\/(github\.com\/unknownparticles\/[^/]+|alunapp\.cn\/[^/]+\/|unknownparticles\.github\.io\/[^/]+\/)$/);

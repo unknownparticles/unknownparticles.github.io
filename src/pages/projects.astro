@@ -1,86 +1,86 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { portfolio } from '../data/portfolio';
-
-const screenshots: Record<string, string> = {
-  'Electronic-Woodfish': '/img/projects/Electronic-Woodfish.webp',
-  photo: '/img/projects/photo.webp',
-  TidyUp: '/img/projects/TidyUp.webp',
-  'TidyUp-': '/img/projects/TidyUp.webp',
-  RepLog: '/img/projects/RepLog.webp',
-  focuslab: '/img/projects/focuslab.webp',
-};
-
-const projectSummary: Record<string, string> = {
-  'Electronic-Woodfish': '在线电子木鱼，通过互动累计功德和幸运值。',
-  photo: '浏览器中的本地图片处理工具。',
-  'jpeg-info': '使用 C++ 解析 JPEG 元数据。',
-  ImageQualityAnalyzer: '使用 Python 与 OpenCV 分析图像清晰度、光照与人脸。',
-  pixpet: 'Flutter 专注养成应用，用专注时间培养像素角色。',
-};
+import { technicalProjects, demoGroups } from '../data/showcase';
 ---
 
-<BaseLayout title="作品" description="真实的开源项目、在线实验与技术探索。">
+<BaseLayout title="作品" description="技术代表作、在线工具与交互实验。">
   <main id="main-content" class="work-page">
     <header class="work-page__hero shell">
-      <p class="work-page__index">Work / {portfolio.verifiedAt}</p>
-      <h1>做出来，<br /><em>再谈想法。</em></h1>
+      <p class="work-page__index">Engineering / {portfolio.verifiedAt}</p>
+      <h1>代码不是展示，<br /><em>结果才是。</em></h1>
       <div class="work-page__intro">
-        <p>从图像处理和 C++ 工具，到 Flutter 应用、浏览器实验和小游戏。这里的数据来自 GitHub，截图来自项目实际运行页面。</p>
+        <p>这里优先展示能体现技术深度的仓库：二进制格式解析、计算机视觉、Flutter、Local-first 产品和 MCP 工具。在线页面则按用途整理在下方。</p>
         <a href={portfolio.githubUrl} target="_blank" rel="noopener">GitHub 上的全部仓库</a>
       </div>
     </header>
 
-    <section class="shell work-page__grid" aria-label="精选项目">
-      {portfolio.featuredProjects.map((project, index) => (
-        <article class:list={['work-piece', index === 0 && 'work-piece--wide']}>
-          {'demoUrl' in project && screenshots[project.name] ? (
-            <a class="work-piece__image" href={project.demoUrl} target="_blank" rel="noopener">
-              <img src={screenshots[project.name]} alt={`${project.name} 项目实际截图`} width="720" height="480" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
-            </a>
-          ) : (
-            <div class="work-piece__fallback" aria-hidden="true">
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{project.language}</strong>
+    <section class="shell engineering-work" aria-labelledby="engineering-title">
+      <div class="engineering-heading">
+        <p class="showcase-kicker">Technical work</p>
+        <h2 id="engineering-title">技术代表作</h2>
+      </div>
+      <div class="engineering-grid">
+        {technicalProjects.map((project, index) => (
+          <article class:list={['engineering-card', `engineering-card--${project.accent}`, index === 0 && 'engineering-card--lead']}>
+            {project.preview ? (
+              <a class="engineering-card__preview" href={project.demoUrl} target="_blank" rel="noopener">
+                <img src={project.preview} alt={`${project.title} 实际页面截图`} width="720" height="480" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+              </a>
+            ) : (
+              <div class="engineering-card__signal" aria-hidden="true">
+                <span>{project.language}</span>
+                <strong>{String(index + 1).padStart(2, '0')}</strong>
+              </div>
+            )}
+            <div class="engineering-card__body">
+              <p class="engineering-card__repo">{project.name}</p>
+              <h3>{project.title}</h3>
+              <p>{project.summary}</p>
+              <ul>{project.evidence.map((item) => <li>{item}</li>)}</ul>
+              <nav aria-label={`${project.title} 链接`}>
+                <a href={project.repoUrl} target="_blank" rel="noopener">查看源码</a>
+                {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">在线体验</a>}
+              </nav>
             </div>
-          )}
-          <div class="work-piece__copy">
-            <div>
-              <span class="work-piece__number">{String(index + 1).padStart(2, '0')}</span>
-              <h2>{project.name}</h2>
-              <p>{projectSummary[project.name] ?? project.summary}</p>
-            </div>
-            <dl>
-              <div><dt>Language</dt><dd>{project.language}</dd></div>
-              <div><dt>Stars</dt><dd class="num">{project.stars}</dd></div>
-              <div><dt>Links</dt><dd><a href={project.repoUrl} target="_blank" rel="noopener">源码</a>{'demoUrl' in project && <a href={project.demoUrl} target="_blank" rel="noopener">体验</a>}</dd></div>
-            </dl>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+      </div>
     </section>
 
-    <section class="work-index">
-      <div class="shell work-index__inner">
+    <section class="demo-catalog" aria-labelledby="demo-title">
+      <div class="shell demo-catalog__heading">
         <div>
-          <p class="work-page__index">Live experiments</p>
-          <h2>{portfolio.pagesRepositoryCount} 个在线页面</h2>
+          <p class="showcase-kicker">Live index</p>
+          <h2 id="demo-title">在线工具与实验</h2>
         </div>
-        <ol>
-          {portfolio.liveDemos.map((demo) => (
-            <li>
-              <a href={demo.demoUrl} target="_blank" rel="noopener">
-                <span>{demo.name}</span>
-                <small>{demo.summary}</small>
-              </a>
-            </li>
-          ))}
-        </ol>
+        <p>{portfolio.pagesRepositoryCount} 个仓库启用了 GitHub Pages。下面按用途整理最有代表性的入口。</p>
+      </div>
+
+      <div class="shell demo-groups">
+        {demoGroups.map((group) => (
+          <section class="demo-group" aria-labelledby={`demo-${group.id}`}>
+            <header>
+              <h3 id={`demo-${group.id}`}>{group.title}</h3>
+              <p>{group.description}</p>
+            </header>
+            <ul>
+              {group.items.map((item) => (
+                <li>
+                  <a href={item.demoUrl} target="_blank" rel="noopener">
+                    <span><strong>{item.name}</strong><small>{item.description}</small></span>
+                    <em>{item.language}</em>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     </section>
 
     <section class="shell work-languages" aria-label="仓库语言分布">
-      <h2>主要技术栈</h2>
+      <h2>仓库语言分布</h2>
       <div>
         {portfolio.languages.map((item) => (
           <p><span>{item.language}</span><strong class="num">{item.count}</strong></p>

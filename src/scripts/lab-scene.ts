@@ -37,9 +37,9 @@ export function mountLabScene() {
 
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
-  const coral = new Color('#ff4d5e');
-  const blue = new Color('#3388ff');
-  const white = new Color('#f6f8fa');
+  const coral = new Color('#2f8f85');
+  const blue = new Color('#c9b489');
+  const white = new Color('#f4f3ef');
 
   for (let index = 0; index < count; index += 1) {
     const radius = 1.75 + Math.random() * 0.32;
@@ -69,7 +69,7 @@ export function mountLabScene() {
   globe.position.x = mobile ? 0 : 1.25;
   scene.add(globe);
 
-  const ringMaterial = new LineBasicMaterial({ color: '#ff4d5e', transparent: true, opacity: 0.28 });
+  const ringMaterial = new LineBasicMaterial({ color: '#2f8f85', transparent: true, opacity: 0.24 });
   for (const rotation of [
     [0.2, 0, 0.5],
     [1.1, 0.4, -0.2],
