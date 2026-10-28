@@ -2,6 +2,10 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
+import '../scripts/preferences';
+import '../scripts/i18n';
 import '../styles/fonts.css';
 import '../styles/site.css';
 import '../styles/portfolio.css';
@@ -16,44 +20,53 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   hideFooter?: boolean;
+  i18nTitle?: { zh: string; en: string };
+  i18nDescription?: { zh: string; en: string };
 }
 
 const {
-  title = SITE.title,
-  description = SITE.description,
+  title,
+  description,
   image = '/img/apple-touch-icon.png',
   type = 'website',
   hideFooter = false,
+  i18nTitle,
+  i18nDescription,
 } = Astro.props;
-const pageTitle = title === SITE.title ? title : `${title}: ${SITE.title}`;
+
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
 const socialImage = new URL(image, Astro.site ?? SITE.url);
+const zhTitle = i18nTitle?.zh ?? title ?? zh.meta.title;
+const enTitle = i18nTitle?.en ?? title ?? en.meta.title;
+const zhDescription = i18nDescription?.zh ?? description ?? zh.meta.description;
+const enDescription = i18nDescription?.en ?? description ?? en.meta.description;
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="keywords" content="阿伦, Alun, unknownparticles, 编程, Flutter, 前端, 图像处理, 技术博客" />
-    <meta name="theme-color" content="#fbfaf8" />
-    <meta name="color-scheme" content="light" />
-    <title>{pageTitle}</title>
+    <meta name="description" data-i18n-attr="content" data-zh={zhDescription} data-en={enDescription} />
+    <meta
+      name="keywords"
+      content="阿伦, Alun, unknownparticles, 编程, Flutter, OpenGL, OpenCV, 图像处理, 技术博客, developer, portfolio"
+    />
+    <meta name="theme-color" data-i18n-attr="content" data-zh="#fbfaf8" data-en="#fbfaf8" />
+    <meta name="color-scheme" content="light dark" />
+    <title data-i18n="meta.title">{zhTitle}</title>
     <link rel="canonical" href={canonical} />
     <link rel="manifest" href="/pwa/manifest.json" />
     <link rel="icon" href="/img/favicon.ico" />
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-    <style is:global>html, body { overflow-x: clip; }</style>
     <meta property="og:type" content={type} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" data-i18n-attr="content" data-zh={zhTitle} data-en={enTitle} />
+    <meta property="og:description" data-i18n-attr="content" data-zh={zhDescription} data-en={enDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <a class="skip-link" href="#main-content" data-i18n="nav.skip">{zh.nav.skip}</a>
     <Header currentPath={Astro.url.pathname} />
     <slot />
     {!hideFooter && <Footer />}
@@ -67,22 +80,30 @@ const socialImage = new URL(image, Astro.site ?? SITE.url);
         });
       }
     </script>
-    <script is:inline define:vars={{ googleId: SITE.analytics.googleId, googleDomain: SITE.analytics.googleDomain }}>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', googleId, googleDomain);
-      ga('send', 'pageview');
-    </script>
-    <script is:inline define:vars={{ baiduId: SITE.analytics.baiduId }}>
-      window._hmt = window._hmt || [];
-      (function() {
-        var hm = document.createElement('script');
-        hm.src = 'https://hm.baidu.com/hm.js?' + baiduId;
-        var firstScript = document.getElementsByTagName('script')[0];
-        firstScript.parentNode.insertBefore(hm, firstScript);
+    <script is:inline>
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark' || theme === 'light') {
+            document.documentElement.dataset.theme = theme;
+          }
+          var lang = localStorage.getItem('lang');
+          if (lang !== 'zh' && lang !== 'en') {
+            var list = navigator.languages || [navigator.language || 'zh'];
+            lang = list.some(function (item) { return /^en/i.test(item); }) ? 'en' : 'zh';
+          }
+          document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+          document.documentElement.dataset.lang = lang;
+        } catch (error) {
+          document.documentElement.dataset.lang = 'zh';
+        }
       })();
+    </script>
+    <script>
+      import '../scripts/controls';
+      import '../scripts/i18n';
+      import { applyLang, currentLang, systemTheme, toggleTheme } from '../scripts/settings';
+      window.__alun = { applyLang, currentLang, systemTheme, toggleTheme };
     </script>
   </body>
 </html>

@@ -5,8 +5,8 @@
   position: relative;
   min-height: calc(100svh - 64px);
   overflow: clip;
-  background: #121413;
-  color: #f4f3ef;
+  background: var(--color-inverse-deep);
+  color: var(--color-on-inverse);
   isolation: isolate;
 }
 
@@ -15,7 +15,7 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(9, 11, 16, 0.92) 0%, rgba(9, 11, 16, 0.68) 48%, rgba(9, 11, 16, 0.12) 100%);
+    linear-gradient(90deg, var(--color-hero-veil-1) 0%, var(--color-hero-veil-2) 48%, var(--color-hero-veil-3) 100%);
 }
 
 .lab-scene canvas {
@@ -43,7 +43,7 @@
   align-items: center;
   gap: var(--space-xs);
   margin: 0 0 var(--space-lg);
-  color: rgba(248, 250, 252, 0.72);
+  color: var(--color-on-inverse-muted);
   font-family: var(--font-display);
   font-size: 13px;
 }
@@ -52,13 +52,13 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #6fc9a8;
-  box-shadow: 0 0 0 5px rgba(94, 229, 157, 0.12);
+  background: var(--color-accent-light);
+  box-shadow: 0 0 0 5px var(--color-accent-wash);
 }
 
 .lab-copy h1 {
   margin: 0;
-  color: #f4f3ef;
+  color: var(--color-on-inverse);
   font-size: clamp(64px, 8.4vw, 124px);
   font-weight: 600;
   line-height: 0.84;
@@ -66,7 +66,7 @@
 }
 
 .lab-copy h1 em {
-  color: #2f8f85;
+  color: var(--color-accent-light);
   font-family: "Playfair Display Variable", Georgia, serif;
   font-weight: 500;
 }
@@ -74,7 +74,7 @@
 .lab-copy > p:not(.lab-status) {
   max-width: 610px;
   margin: var(--space-xl) 0 0;
-  color: rgba(248, 250, 252, 0.72);
+  color: var(--color-on-inverse-muted);
   font-size: 18px;
   line-height: 1.65;
   text-wrap: pretty;
@@ -89,7 +89,7 @@
 }
 
 .lab-actions a {
-  color: #f4f3ef;
+  color: var(--color-on-inverse);
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 500;
@@ -97,22 +97,22 @@
 }
 
 .lab-actions a:not(.lab-button):hover {
-  color: #4fae9f;
+  color: var(--color-accent-light);
 }
 
 .lab-button {
   min-height: 48px;
   padding: var(--space-sm) var(--space-lg);
-  border: 1px solid #2f8f85;
+  border: 1px solid var(--color-accent-light);
   border-radius: 6px;
-  background: #2f8f85;
-  color: #121413 !important;
+  background: var(--color-accent-light);
+  color: var(--color-inverse-deep) !important;
   transition: transform 180ms var(--motion), background-color 180ms var(--motion);
 }
 
 .lab-button:hover {
   transform: translateY(-2px);
-  background: #4fae9f;
+  background: var(--color-accent-light);
 }
 
 .lab-side {
@@ -123,7 +123,7 @@
 }
 
 .lab-coordinate {
-  color: rgba(248, 250, 252, 0.42);
+  color: var(--color-on-inverse-muted);
   font-family: var(--font-outlier);
   font-size: 11px;
   line-height: 1.6;
@@ -144,14 +144,14 @@
 }
 
 .lab-side dt {
-  color: rgba(248, 250, 252, 0.46);
+  color: var(--color-on-inverse-muted);
   font-size: 12px;
 }
 
 .lab-side dd {
   width: 44px;
   margin: 0;
-  color: #f4f3ef;
+  color: var(--color-on-inverse);
   font-family: var(--font-outlier);
   font-size: 20px;
   font-variant-numeric: tabular-nums;
@@ -161,8 +161,8 @@
 .lab-marquee {
   min-height: 56px;
   overflow: hidden;
-  border-top: 1px solid rgba(248, 250, 252, 0.14);
-  border-bottom: 1px solid rgba(248, 250, 252, 0.14);
+  border-top: 1px solid var(--color-inverse-rule);
+  border-bottom: 1px solid var(--color-inverse-rule);
 }
 
 .lab-marquee > div {
@@ -171,14 +171,14 @@
   min-height: 56px;
   align-items: center;
   gap: var(--space-lg);
-  color: rgba(248, 250, 252, 0.58);
+  color: var(--color-on-inverse-muted);
   font-family: var(--font-display);
   font-size: 13px;
   animation: marquee 28s linear infinite;
 }
 
 .lab-marquee i {
-  color: #2f8f85;
+  color: var(--color-accent-light);
   font-size: 8px;
   font-style: normal;
 }
@@ -190,7 +190,7 @@
 /* Real work previews */
 .work-showcase {
   padding: var(--space-4xl) 0;
-  background: #fbfaf8;
+  background: var(--color-paper);
 }
 
 .showcase-heading {
@@ -203,7 +203,7 @@
 
 .showcase-kicker {
   margin: 0 0 var(--space-xs);
-  color: #0d6e66;
+  color: var(--color-accent);
   font-family: var(--font-outlier);
   font-size: 11px;
   text-transform: uppercase;
@@ -215,7 +215,7 @@
 .capability-intro h2,
 .contact-band h2 {
   margin: 0;
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: clamp(34px, 4vw, 56px);
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -223,7 +223,7 @@
 
 .showcase-heading > p {
   margin: 0;
-  color: #696c72;
+  color: var(--color-muted);
   font-size: 16px;
   line-height: 1.6;
 }
@@ -238,14 +238,14 @@
   min-width: 0;
   overflow: hidden;
   border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 0 0 1px #e5e4df;
+  background: var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-rule);
   transition: transform 300ms var(--motion), box-shadow 300ms var(--motion);
 }
 
 .showcase-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(10, 10, 10, 0.1), 0 0 0 1px #dcdbd5;
+  box-shadow: 0 16px 40px var(--shadow-card-hover), 0 0 0 1px var(--color-rule-2);
 }
 
 .showcase-card--lead {
@@ -256,7 +256,7 @@
   position: relative;
   display: block;
   overflow: hidden;
-  background: #eceae4;
+  background: var(--color-paper-3);
 }
 
 .showcase-preview img {
@@ -281,8 +281,8 @@
   align-items: center;
   padding: var(--space-xs) var(--space-sm);
   border-radius: 6px;
-  background: rgba(10, 10, 10, 0.84);
-  color: #fff;
+  background: var(--color-inverse-deep);
+  color: var(--color-surface);
   font-family: var(--font-display);
   font-size: 12px;
   opacity: 0;
@@ -306,14 +306,14 @@
 
 .showcase-copy h3 {
   margin: 0;
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: 22px;
 }
 
 .showcase-copy p {
   max-width: 520px;
   margin: var(--space-xs) 0 0;
-  color: #696c72;
+  color: var(--color-muted);
   font-size: 14px;
   line-height: 1.55;
 }
@@ -327,7 +327,7 @@
 .showcase-copy nav a,
 .showcase-more a,
 .writing-heading > a {
-  color: #0d6e66;
+  color: var(--color-accent);
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 500;
@@ -341,13 +341,13 @@
   text-decoration-thickness: 2px;
 }
 
-.showcase-card--coral { --project-accent: #2f8f85; }
-.showcase-card--blue { --project-accent: #2f8f85; }
-.showcase-card--violet { --project-accent: #0d6e66; }
-.showcase-card--amber { --project-accent: #0d6e66; }
+.showcase-card--coral { --project-accent: var(--color-accent-light); }
+.showcase-card--blue { --project-accent: var(--color-accent-light); }
+.showcase-card--violet { --project-accent: var(--color-accent); }
+.showcase-card--amber { --project-accent: var(--color-accent); }
 
 .showcase-card {
-  border-top: 4px solid var(--project-accent, #0d6e66);
+  border-top: 4px solid var(--project-accent, var(--color-accent));
 }
 
 .showcase-more {
@@ -357,24 +357,24 @@
   gap: var(--space-lg);
   margin-top: var(--space-xl);
   padding-top: var(--space-lg);
-  border-top: 1px solid #e5e4df;
+  border-top: 1px solid var(--color-rule);
 }
 
 .showcase-more p {
   margin: 0;
-  color: #696c72;
+  color: var(--color-muted);
   font-size: 14px;
 }
 
 .showcase-more .num {
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: 18px;
 }
 
 /* Capability: not cards, a numbered technical index. */
 .capability-section {
   padding: var(--space-4xl) 0;
-  background: #f3f2ee;
+  background: var(--color-paper-2);
 }
 
 .capability-layout {
@@ -392,7 +392,7 @@
 .capability-intro > p:last-child {
   max-width: 440px;
   margin: var(--space-lg) 0 0;
-  color: #4a4d53;
+  color: var(--color-ink-2);
   font-size: 16px;
   line-height: 1.65;
 }
@@ -400,7 +400,7 @@
 .capability-list {
   margin: 0;
   padding: 0;
-  border-top: 1px solid #dcdbd5;
+  border-top: 1px solid var(--color-rule-2);
   list-style: none;
 }
 
@@ -409,24 +409,24 @@
   grid-template-columns: 48px minmax(0, 1fr);
   gap: var(--space-lg);
   padding: var(--space-lg) 0;
-  border-bottom: 1px solid #dcdbd5;
+  border-bottom: 1px solid var(--color-rule-2);
 }
 
 .capability-code {
-  color: #0d6e66;
+  color: var(--color-accent);
   font-family: var(--font-outlier);
   font-size: 12px;
 }
 
 .capability-list h3 {
   margin: 0;
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: 20px;
 }
 
 .capability-list p {
   margin: var(--space-xs) 0 0;
-  color: #4a4d53;
+  color: var(--color-ink-2);
   font-size: 15px;
   line-height: 1.6;
 }
@@ -434,7 +434,7 @@
 /* Writing and close */
 .writing-section {
   padding: var(--space-4xl) 0;
-  background: #fbfaf8;
+  background: var(--color-paper);
 }
 
 .writing-heading {
@@ -450,33 +450,33 @@
 }
 
 .writing-section .home-posts {
-  border-color: #e5e4df;
+  border-color: var(--color-rule);
 }
 
 .writing-section .home-post {
-  border-color: #e5e4df;
+  border-color: var(--color-rule);
 }
 
 .contact-band {
   padding: var(--space-4xl) 0;
-  background: #0d6e66;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-surface);
 }
 
 .contact-band .showcase-kicker {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-on-inverse-muted);
 }
 
 .contact-band h2 {
   max-width: 800px;
-  color: #fff;
+  color: var(--color-surface);
   font-size: clamp(44px, 6.5vw, 84px);
 }
 
 .contact-band a {
   display: inline-block;
   margin-top: var(--space-xl);
-  color: #fff;
+  color: var(--color-surface);
   font-family: var(--font-display);
   font-size: 18px;
   text-underline-offset: 0.22em;
@@ -485,8 +485,8 @@
 /* Debug easter egg: five clicks on A/. */
 .debug-mode body {
   background-image:
-    linear-gradient(rgba(51, 136, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(51, 136, 255, 0.08) 1px, transparent 1px);
+    linear-gradient(var(--color-accent-wash) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-accent-wash) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -496,10 +496,10 @@
   bottom: 12px;
   z-index: 500;
   padding: 6px 9px;
-  border: 1px solid #2f8f85;
+  border: 1px solid var(--color-accent-light);
   border-radius: 4px;
-  background: #121413;
-  color: #8fd3c9;
+  background: var(--color-inverse-deep);
+  color: var(--color-accent-light);
   content: "DEBUG MODE · grid 24px";
   font-family: var(--font-outlier);
   font-size: 10px;
@@ -511,7 +511,7 @@
   inset: 50% auto auto 50%;
   width: 16px;
   height: 16px;
-  border: 3px solid #2f8f85;
+  border: 3px solid var(--color-accent-light);
   border-radius: 50%;
   content: "";
   pointer-events: none;
@@ -532,7 +532,7 @@
   }
 
   .lab-scene {
-    background: rgba(9, 11, 16, 0.7);
+    background: var(--color-hero-veil-2);
   }
 
   .lab-copy h1 {

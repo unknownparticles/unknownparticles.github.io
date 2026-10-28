@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config';
+import { zh } from '../i18n/zh';
 import { formatDate, getAllPosts, getExcerpt, getPostPath, getPostUrl, type Post } from '../lib/posts';
 
 interface Props {
@@ -35,12 +36,13 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
     <div class="post-hero__inner">
       <p class="post-hero__meta">
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <span data-i18n="article.by">{zh.article.by}</span>
         <span>{post.data.author}</span>
       </p>
       <h1>{post.data.title}</h1>
       {post.data.subtitle && <p class="post-hero__subtitle">{post.data.subtitle}</p>}
       {post.data.tags.length > 0 && (
-        <div class="post-card__tags" aria-label="文章标签">
+        <div class="post-card__tags" aria-label="Tags">
           {post.data.tags.map((tag) => <a class="tag" href={`/tags/#${tag}`}>{tag}</a>)}
         </div>
       )}
@@ -50,13 +52,13 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
   <figure class="post-cover">
     <img
       src={headerImage}
-      alt={`《${post.data.title}》的题图`}
+      alt={post.data.title}
       width="1240"
       height="930"
       loading="lazy"
       decoding="async"
     />
-    <figcaption>《{post.data.title}》题图</figcaption>
+    <figcaption data-i18n="article.cover">{zh.article.cover}</figcaption>
   </figure>
 
   <main id="main-content">
@@ -64,18 +66,20 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
       <article class="post-container prose">
         <Content />
 
-        <nav class="post-navigation" aria-label="相邻文章">
+        <nav class="post-navigation" aria-label="Posts">
           {newer ? (
-            <a href={getPostUrl(newer)}><span>更新一篇</span><strong>{newer.data.title}</strong></a>
+            <a href={getPostUrl(newer)}><span data-i18n="article.newer">{zh.article.newer}</span><strong>{newer.data.title}</strong></a>
           ) : <span aria-hidden="true"></span>}
           {older && (
-            <a class="post-navigation__next" href={getPostUrl(older)}><span>更早一篇</span><strong>{older.data.title}</strong></a>
+            <a class="post-navigation__next" href={getPostUrl(older)}><span data-i18n="article.older">{zh.article.older}</span><strong>{older.data.title}</strong></a>
           )}
         </nav>
 
-        <section class="comments" aria-label="文章评论">
+        <section class="comments" aria-labelledby="comments-title">
+          <h2 id="comments-title" data-i18n="article.comments">{zh.article.comments}</h2>
           <div id="gitalk-container"></div>
-          <script is:inline define:vars={{ gitalkConfig: SITE.gitalk }}>
+          <script is:inline define:vars={{ gitalkConfig: SITE.gitalk, commentsDown: zh.article.commentsDown }}>
+            window.__alunCommentsDown = commentsDown;
             var GitalkClient = Function('return window.Gitalk')();
             var comments = document.getElementById('gitalk-container');
             if (typeof GitalkClient === 'function') {
@@ -90,7 +94,7 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
               });
               gitalk.render('gitalk-container');
             } else if (comments) {
-              comments.innerHTML = '<p class="comments-unavailable">评论服务暂时无法加载。可以通过 GitHub Issue 继续讨论。</p>';
+              comments.innerHTML = '<p class="comments-unavailable">' + window.__alunCommentsDown + '</p>';
             }
           </script>
         </section>
@@ -99,7 +103,7 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
       {post.data.catalog && catalogHeadings.length > 0 && (
         <aside class="post-catalog" aria-label="文章目录">
           <div class="post-catalog__inner">
-            <span class="catalog-title">本页目录</span>
+            <span class="catalog-title" data-i18n="article.catalog">{zh.article.catalog}</span>
             <ol class="catalog-list">
               {catalogHeadings.map((heading) => (
                 <li class={`h${heading.depth}_nav`}><a href={`#${heading.slug}`}>{heading.text}</a></li>

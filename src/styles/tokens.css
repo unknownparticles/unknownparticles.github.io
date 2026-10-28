@@ -1,0 +1,194 @@
+/* Personal site design tokens.
+ * One accent (deep petrol) on warm neutrals. Light and dark are derived from
+ * the same roles; the accent lifts in dark so it never sinks into the ground.
+ * An explicit choice always wins over the system preference. */
+
+:root {
+  color-scheme: light;
+
+  --color-paper: #fbfaf8;
+  --color-paper-2: #f3f2ee;
+  --color-paper-3: #eceae4;
+  --color-surface: #ffffff;
+  --color-ink: #191a1c;
+  --color-ink-2: #34363b;
+  --color-muted: #696c72;
+  --color-subtle: #8a8d93;
+  --color-rule: #e5e4df;
+  --color-rule-2: #dcdbd5;
+  --color-accent: #0d6e66;
+  --color-accent-2: #0a5a53;
+  --color-accent-light: #2f8f85;
+  --color-accent-ink: #ffffff;
+  --color-accent-wash: #e7f1ef;
+  --color-focus: #0d6e66;
+  --color-warning: #9a6400;
+  --color-danger: #b22f28;
+
+  /* Dark signature blocks: the lab hero and the index bands. */
+  --color-inverse: #191a1c;
+  --color-inverse-deep: #121413;
+  --color-on-inverse: #f4f3ef;
+  --color-on-inverse-muted: #b3b2ac;
+  --color-inverse-rule: #33352f;
+  --color-hero-veil-1: var(--color-hero-veil-1);
+  --color-hero-veil-2: var(--color-hero-veil-2);
+  --color-hero-veil-3: var(--color-hero-veil-3);
+
+  --shadow-card: 0 0 0 1px var(--color-rule);
+  --shadow-card-hover: 0 16px 40px rgba(25, 26, 28, 0.1), 0 0 0 1px var(--color-rule-2);
+  --shadow-inverse: 0 16px 40px rgba(25, 26, 28, 0.18);
+
+  --shiki-foreground: #34363b;
+  --shiki-background: transparent;
+  --shiki-token-comment: #8a8d93;
+  --shiki-token-punctuation: #8a8d93;
+  --shiki-token-constant: #a2482a;
+  --shiki-token-string: #1f6f6a;
+  --shiki-token-string-expression: #1f6f6a;
+  --shiki-token-keyword: #0d6e66;
+  --shiki-token-function: #4b4fa0;
+  --shiki-token-parameter: #4a4d53;
+
+  --background: var(--color-paper);
+  --surface: var(--color-surface);
+  --surface-strong: var(--color-paper-2);
+  --surface-elevated: var(--color-paper-2);
+  --surface-hover: var(--color-paper-3);
+  --text: var(--color-ink);
+  --text-muted: var(--color-muted);
+  --text-subtle: var(--color-subtle);
+  --border: var(--color-rule);
+  --border-strong: var(--color-rule-2);
+  --accent: var(--color-accent);
+  --accent-strong: var(--color-accent-2);
+  --on-accent: var(--color-accent-ink);
+  --signal: var(--color-accent);
+  --focus: var(--color-focus);
+  --code: var(--color-surface);
+  --success: var(--color-accent);
+  --warning: var(--color-warning);
+  --danger: var(--color-danger);
+
+  --font-display: "Hanken Grotesk Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Newsreader Variable", "Songti SC", "Noto Serif CJK SC", Georgia, ui-serif, serif;
+  --font-outlier: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-outlier);
+
+  --shell: 1024px;
+  --reading: 680px;
+  --radius-card: 6px;
+  --radius-pill: 6px;
+  --radius-sm: 6px;
+  --radius: 6px;
+  --rule-hair: 1px;
+  --rule-bar: 2px;
+  --motion: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 144px;
+}
+
+/* Dark derivation of the same roles. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-paper: #121413;
+  --color-paper-2: #191b19;
+  --color-paper-3: #222421;
+  --color-surface: #1a1c1a;
+  --color-ink: #ecebe6;
+  --color-ink-2: #d2d1cb;
+  --color-muted: #9c9f99;
+  --color-subtle: #7d807a;
+  --color-rule: #2e302d;
+  --color-rule-2: #3d403c;
+  --color-accent: #5fc4b8;
+  --color-accent-2: #7fd6ca;
+  --color-accent-light: #5fc4b8;
+  --color-accent-ink: #07211e;
+  --color-accent-wash: rgba(95, 196, 184, 0.12);
+  --color-focus: #7fd6ca;
+  --color-warning: #d9a94a;
+  --color-danger: #e37a70;
+
+  --color-inverse: #1e201e;
+  --color-inverse-deep: #0e100f;
+  --color-on-inverse: #ecebe6;
+  --color-on-inverse-muted: #a3a59f;
+  --color-inverse-rule: #33352f;
+  --color-hero-veil-1: rgba(14, 16, 15, 0.94);
+  --color-hero-veil-2: rgba(14, 16, 15, 0.7);
+  --color-hero-veil-3: rgba(14, 16, 15, 0.08);
+
+  --shadow-card: 0 0 0 1px var(--color-rule);
+  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px var(--color-rule-2);
+  --shadow-inverse: 0 16px 40px rgba(0, 0, 0, 0.4);
+
+  --shiki-foreground: #d2d1cb;
+  --shiki-token-comment: #7d807a;
+  --shiki-token-punctuation: #7d807a;
+  --shiki-token-constant: #e2a08a;
+  --shiki-token-string: #7fd6ca;
+  --shiki-token-string-expression: #7fd6ca;
+  --shiki-token-keyword: #7fd6ca;
+  --shiki-token-function: #a9b0f0;
+  --shiki-token-parameter: #a3a59f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-paper: #121413;
+    --color-paper-2: #191b19;
+    --color-paper-3: #222421;
+    --color-surface: #1a1c1a;
+    --color-ink: #ecebe6;
+    --color-ink-2: #d2d1cb;
+    --color-muted: #9c9f99;
+    --color-subtle: #7d807a;
+    --color-rule: #2e302d;
+    --color-rule-2: #3d403c;
+    --color-accent: #5fc4b8;
+    --color-accent-2: #7fd6ca;
+    --color-accent-light: #5fc4b8;
+    --color-accent-ink: #07211e;
+    --color-accent-wash: rgba(95, 196, 184, 0.12);
+    --color-focus: #7fd6ca;
+    --color-warning: #d9a94a;
+    --color-danger: #e37a70;
+
+    --color-inverse: #1e201e;
+    --color-inverse-deep: #0e100f;
+    --color-on-inverse: #ecebe6;
+    --color-on-inverse-muted: #a3a59f;
+    --color-inverse-rule: #33352f;
+    --color-hero-veil-1: rgba(14, 16, 15, 0.94);
+    --color-hero-veil-2: rgba(14, 16, 15, 0.7);
+    --color-hero-veil-3: rgba(14, 16, 15, 0.08);
+
+    --shadow-card: 0 0 0 1px var(--color-rule);
+    --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.42), 0 0 0 1px var(--color-rule-2);
+    --shadow-inverse: 0 16px 40px rgba(0, 0, 0, 0.4);
+
+    --shiki-foreground: #d2d1cb;
+    --shiki-token-comment: #7d807a;
+    --shiki-token-punctuation: #7d807a;
+    --shiki-token-constant: #e2a08a;
+    --shiki-token-string: #7fd6ca;
+    --shiki-token-string-expression: #7fd6ca;
+    --shiki-token-keyword: #7fd6ca;
+    --shiki-token-function: #a9b0f0;
+    --shiki-token-parameter: #a3a59f;
+  }
+}

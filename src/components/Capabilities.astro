@@ -1,9 +1,12 @@
 ---
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
+
 const capabilities = [
-  { code: '01', title: '图形与图像', detail: 'OpenGL、OpenCV、Canvas、JPEG 元数据与图像质量分析。' },
-  { code: '02', title: '跨端产品', detail: 'Flutter、Dart 和 iOS-first 的交互原型与工具。' },
-  { code: '03', title: '前端体验', detail: 'TypeScript、原生 Web、动画、手势和离线应用。' },
-  { code: '04', title: '工程自动化', detail: 'GitHub Actions、构建发布、脚本与 AI 工具链。' },
+  { code: '01', key: 'cap1', title: { zh: '图形与图像', en: 'Graphics & imaging' }, detail: { zh: zh.about.practice1, en: en.about.practice1 } },
+  { code: '02', key: 'cap2', title: { zh: '跨端产品', en: 'Cross-platform products' }, detail: { zh: zh.about.practice2, en: en.about.practice2 } },
+  { code: '03', key: 'cap3', title: { zh: '前端体验', en: 'Web experience' }, detail: { zh: zh.about.practice3, en: en.about.practice3 } },
+  { code: '04', key: 'cap4', title: { zh: '工程自动化', en: 'Engineering automation' }, detail: { zh: zh.about.practice4, en: en.about.practice4 } },
 ];
 ---
 
@@ -11,16 +14,16 @@ const capabilities = [
   <div class="shell capability-layout">
     <div class="capability-intro">
       <p class="showcase-kicker">Capabilities</p>
-      <h2 id="capability-title">从底层图像到可用产品</h2>
-      <p>不只做页面。会分析格式、写渲染代码、做跨端界面，也会把构建和发布自动化。</p>
+      <h2 id="capability-title" data-i18n="home.capabilityTitle">{zh.home.capabilityTitle}</h2>
+      <p data-i18n="home.capabilityLede">{zh.home.capabilityLede}</p>
     </div>
     <ol class="capability-list">
       {capabilities.map((item) => (
         <li>
           <span class="capability-code">{item.code}</span>
           <div>
-            <h3>{item.title}</h3>
-            <p>{item.detail}</p>
+            <h3 data-i18n={`cap.${item.key}`} data-zh={item.title.zh} data-en={item.title.en}>{item.title.zh}</h3>
+            <p data-i18n={`cap.${item.key}Detail`} data-zh={item.detail.zh} data-en={item.detail.en}>{item.detail.zh}</p>
           </div>
         </li>
       ))}

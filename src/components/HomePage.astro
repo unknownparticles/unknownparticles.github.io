@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkShowcase from './WorkShowcase.astro';
 import Capabilities from './Capabilities.astro';
 import { portfolio } from '../data/portfolio';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
 import type { Post } from '../lib/posts';
 import { formatDate, getPostUrl } from '../lib/posts';
 
@@ -18,7 +20,7 @@ const previousUrl = pageNumber === 2 ? '/' : `/page${pageNumber - 1}/`;
 const nextUrl = `/page${pageNumber + 1}/`;
 ---
 
-<BaseLayout>
+<BaseLayout i18nTitle={{ zh: zh.meta.title, en: en.meta.title }} i18nDescription={{ zh: zh.meta.description, en: en.meta.description }}>
   <main id="main-content">
     {pageNumber === 1 && (
       <>
@@ -26,21 +28,21 @@ const nextUrl = `/page${pageNumber + 1}/`;
           <div class="lab-scene" id="lab-scene" aria-hidden="true"></div>
           <div class="shell lab-hero__inner">
             <div class="lab-copy">
-              <p class="lab-status"><span></span> Available for interesting work</p>
-              <h1 id="lab-title">Alun<br /><em>builds</em> things.</h1>
-              <p>开发者、导演、摄影师。把图像、交互和自动化里复杂的问题，做成能直接使用的产品。</p>
-              <nav class="lab-actions" aria-label="首页行动">
-                <a class="lab-button" href="#selected-work">查看作品</a>
-                <a href="https://github.com/unknownparticles" target="_blank" rel="noopener">GitHub</a>
-                <a href="mailto:unknownparticles@gmail.com">联系我</a>
+              <p class="lab-status"><span></span><span data-i18n="home.status">{zh.home.status}</span></p>
+              <h1 id="lab-title"><span data-i18n="home.titleLead">{zh.home.titleLead}</span><br /><em data-i18n="home.titleEm">{zh.home.titleEm}</em> <span data-i18n="home.titleTail">{zh.home.titleTail}</span></h1>
+              <p data-i18n="home.lede">{zh.home.lede}</p>
+              <nav class="lab-actions" aria-label="Primary actions">
+                <a class="lab-button" href="#selected-work" data-i18n="home.ctaWork">{zh.home.ctaWork}</a>
+                <a href="https://github.com/unknownparticles" target="_blank" rel="noopener" data-i18n="home.ctaGithub">{zh.home.ctaGithub}</a>
+                <a href="mailto:unknownparticles@gmail.com" data-i18n="home.ctaMail">{zh.home.ctaMail}</a>
               </nav>
             </div>
             <div class="lab-side">
               <span class="lab-coordinate">22.5431° N<br />114.0579° E</span>
               <dl>
-                <div><dt>Repos</dt><dd>{portfolio.ownRepositoryCount}</dd></div>
-                <div><dt>Live</dt><dd>{portfolio.pagesRepositoryCount}</dd></div>
-                <div><dt>Writing</dt><dd>{allPosts.length}</dd></div>
+                <div><dt data-i18n="home.repos">{zh.home.repos}</dt><dd>{portfolio.ownRepositoryCount}</dd></div>
+                <div><dt data-i18n="home.live">{zh.home.live}</dt><dd>{portfolio.pagesRepositoryCount}</dd></div>
+                <div><dt data-i18n="home.writing">{zh.home.writing}</dt><dd>{allPosts.length}</dd></div>
               </dl>
             </div>
           </div>
@@ -61,9 +63,9 @@ const nextUrl = `/page${pageNumber + 1}/`;
         <div class="writing-heading">
           <div>
             <p class="showcase-kicker">Writing</p>
-            <h2 id="latest-posts">{pageNumber === 1 ? '最近写下的' : `文章 · 第 ${pageNumber} 页`}</h2>
+            <h2 id="latest-posts" data-i18n="home.writingTitle">{zh.home.writingTitle}</h2>
           </div>
-          <a href="/tags/">按标签浏览</a>
+          <a href="/tags/" data-i18n="home.writingMore">{zh.home.writingMore}</a>
         </div>
 
         <ol class="home-posts">
@@ -82,10 +84,10 @@ const nextUrl = `/page${pageNumber + 1}/`;
         </ol>
 
         {totalPages > 1 && (
-          <nav class="pagination" aria-label="文章分页">
-            {pageNumber > 1 && <a href={previousUrl}>较新的文章</a>}
-            <span>第 {pageNumber} / {totalPages} 页</span>
-            {pageNumber < totalPages && <a href={nextUrl}>更早的文章</a>}
+          <nav class="pagination" aria-label="Pagination">
+            {pageNumber > 1 && <a href={previousUrl} data-i18n="home.newer">{zh.home.newer}</a>}
+            <span><span data-i18n="home.page">{zh.home.page}</span> {pageNumber} / {totalPages}</span>
+            {pageNumber < totalPages && <a href={nextUrl} data-i18n="home.older">{zh.home.older}</a>}
           </nav>
         )}
       </div>
@@ -95,7 +97,7 @@ const nextUrl = `/page${pageNumber + 1}/`;
       <section class="contact-band" aria-labelledby="contact-title">
         <div class="shell contact-band__inner">
           <p class="showcase-kicker">Say hello</p>
-          <h2 id="contact-title">有值得做的问题？<br />一起把它做出来。</h2>
+          <h2 id="contact-title"><span data-i18n="home.contactTitle">{zh.home.contactTitle}</span><br /><span data-i18n="home.contactTail">{zh.home.contactTail}</span></h2>
           <a href="mailto:unknownparticles@gmail.com">unknownparticles@gmail.com</a>
         </div>
       </section>

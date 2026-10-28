@@ -1,85 +1,9 @@
 /* Primer-inspired component system for a content-first personal site.
  * Reference: GitHub Primer CSS (MIT), adapted without its runtime or package. */
 
-/* Almanac: cool slate stock, blue-black ink, one deep chart magenta. */
-:root {
-  color-scheme: light;
-  --color-paper: #fbfaf8;
-  --color-paper-2: #f3f2ee;
-  --color-paper-3: #eae9e3;
-  --color-sheet: #ffffff;
-  --color-ink: #191a1c;
-  --color-ink-2: #34363b;
-  --color-muted: #696c72;
-  --color-subtle: #8a8d93;
-  --color-rule: #e5e4df;
-  --color-rule-2: #c5c4be;
-  --color-accent: #0d6e66;
-  --color-accent-2: #0a5a53;
-  --color-accent-ink: #ffffff;
-  --color-accent-wash: #e7f1ef;
-  --color-focus: #0d6e66;
-  --color-focus: oklch(46% 0.19 350);
-  --color-warning: oklch(52% 0.12 60);
-  --color-danger: oklch(50% 0.16 25);
-  --shiki-foreground: oklch(26% 0.02 245);
-  --shiki-background: transparent;
-  --shiki-token-comment: oklch(46% 0.014 245);
-  --shiki-token-punctuation: oklch(46% 0.014 245);
-  --shiki-token-constant: oklch(45% 0.15 20);
-  --shiki-token-string: oklch(42% 0.11 195);
-  --shiki-token-string-expression: oklch(42% 0.11 195);
-  --shiki-token-keyword: oklch(45% 0.18 350);
-  --shiki-token-function: oklch(38% 0.12 265);
-  --shiki-token-parameter: oklch(30% 0.03 245);
 
-  --background: var(--color-paper);
-  --surface: var(--color-sheet);
-  --surface-strong: var(--color-paper-2);
-  --surface-elevated: var(--color-paper-2);
-  --surface-hover: var(--color-paper-3);
-  --text: var(--color-ink);
-  --text-muted: var(--color-muted);
-  --text-subtle: var(--color-subtle);
-  --border: var(--color-rule);
-  --border-strong: var(--color-rule-2);
-  --accent: var(--color-accent);
-  --accent-strong: var(--color-accent-2);
-  --on-accent: var(--color-accent-ink);
-  --signal: var(--color-accent);
-  --focus: var(--color-focus);
-  --code: var(--color-sheet);
-  --success: var(--color-accent);
-  --warning: var(--color-warning);
-  --danger: var(--color-danger);
+@import "tokens.css";
 
-  --font-display: "Hanken Grotesk Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Newsreader Variable", "Songti SC", "Noto Serif CJK SC", Georgia, ui-serif, serif;
-  --font-outlier: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-  --font-sans: var(--font-display);
-  --font-mono: var(--font-outlier);
-
-  --shell: 1024px;
-  --reading: 680px;
-  --radius-card: 6px;
-  --radius-pill: 6px;
-  --radius-sm: 6px;
-  --radius: 6px;
-  --rule-hair: 1px;
-  --rule-bar: 2px;
-  --motion: cubic-bezier(0.22, 1, 0.36, 1);
-
-  --space-3xs: 2px;
-  --space-2xs: 4px;
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 40px;
-  --space-2xl: 64px;
-  --space-3xl: 96px;
-  --space-4xl: 144px;
-}
 
 *,
 *::before,
@@ -218,6 +142,80 @@ button:focus-visible,
   top: 0;
   border-bottom: var(--rule-bar) solid var(--color-ink);
   background: var(--color-paper);
+}
+
+/* Header controls: language and theme. */
+.site-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-left: auto;
+}
+
+.control-toggle {
+  display: inline-flex;
+  min-width: 40px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  padding: 0 var(--space-xs);
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 180ms var(--motion), border-color 180ms var(--motion), background-color 180ms var(--motion);
+}
+
+.control-toggle:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-wash);
+  color: var(--color-accent);
+}
+
+.control-toggle:active {
+  transform: scale(0.96);
+}
+
+.control-toggle__icon {
+  position: relative;
+  display: block;
+  width: 13px;
+  height: 13px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.control-toggle__icon::after {
+  position: absolute;
+  top: -1px;
+  left: 4px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  content: "";
+  transform: rotate(45deg);
+  transform-origin: top left;
+}
+
+@media (max-width: 760px) {
+  .site-controls {
+    order: 2;
+    margin-left: 0;
+  }
+
+  .nav-toggle {
+    order: 3;
+  }
+
+  .site-nav {
+    order: 4;
+  }
 }
 
 .site-header__inner {
@@ -1468,7 +1466,7 @@ button:focus-visible,
     gap: var(--space-md);
   }
 
-  .js .nav-toggle {
+  .nav-toggle {
     display: block;
   }
 
@@ -1476,7 +1474,7 @@ button:focus-visible,
     display: none;
   }
 
-  .js .site-nav {
+  .site-nav {
     position: fixed;
     z-index: 1;
     top: -8px;
@@ -1492,41 +1490,41 @@ button:focus-visible,
     transition: opacity 300ms var(--motion), transform 420ms var(--motion), visibility 420ms;
   }
 
-  .js .site-nav[data-open="true"] {
+  .site-nav[data-open="true"] {
     visibility: visible;
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
   }
 
-  .js .site-nav ul {
+  .site-nav ul {
     display: block;
   }
 
-  .js .site-nav li {
+  .site-nav li {
     transform: translateY(16px);
     opacity: 0;
     transition: transform 420ms var(--motion), opacity 300ms var(--motion);
   }
 
-  .js .site-nav[data-open="true"] li {
+  .site-nav[data-open="true"] li {
     transform: translateY(0);
     opacity: 1;
   }
 
-  .js .site-nav[data-open="true"] li:nth-child(2) {
+  .site-nav[data-open="true"] li:nth-child(2) {
     transition-delay: 60ms;
   }
 
-  .js .site-nav[data-open="true"] li:nth-child(3) {
+  .site-nav[data-open="true"] li:nth-child(3) {
     transition-delay: 120ms;
   }
 
-  .js .site-nav[data-open="true"] li:nth-child(4) {
+  .site-nav[data-open="true"] li:nth-child(4) {
     transition-delay: 180ms;
   }
 
-  .js .site-nav a {
+  .site-nav a {
     min-height: 60px;
     width: 100%;
     padding: 0;
@@ -1536,7 +1534,7 @@ button:focus-visible,
     font-weight: 500;
   }
 
-  .js .site-nav a[aria-current="page"] {
+  .site-nav a[aria-current="page"] {
     color: var(--color-accent);
   }
 
@@ -1751,5 +1749,32 @@ button:focus-visible,
 
   .manifesto-word {
     color: var(--color-ink);
+  }
+}
+
+/* Dark-mode refinements: soften photo edges and lift the 3D ground so the
+ * signature scene keeps its depth against a dark page. */
+:root[data-theme="dark"] .about-portrait img,
+:root[data-theme="dark"] .post-cover img,
+:root[data-theme="dark"] .feature__figure img {
+  filter: grayscale(0.2) contrast(1.02) brightness(0.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .about-portrait img,
+  :root:not([data-theme="light"]) .post-cover img,
+  :root:not([data-theme="light"]) .feature__figure img {
+    filter: grayscale(0.2) contrast(1.02) brightness(0.92);
+  }
+}
+
+:root[data-theme="dark"] .lab-scene {
+  background:
+    linear-gradient(90deg, var(--color-hero-veil-1) 0%, var(--color-hero-veil-2) 48%, var(--color-hero-veil-3) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-scene canvas {
+    display: none;
   }
 }

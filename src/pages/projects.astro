@@ -1,31 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { portfolio } from '../data/portfolio';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
 import { technicalProjects, demoGroups } from '../data/showcase';
+
+const groupDesc = (id: string) => {
+  const map: Record<string, { zh: string; en: string }> = {
+    tools: { zh: zh.demos.toolsDesc, en: en.demos.toolsDesc },
+    games: { zh: zh.demos.gamesDesc, en: en.demos.gamesDesc },
+    focus: { zh: zh.demos.focusDesc, en: en.demos.focusDesc },
+    experiments: { zh: zh.demos.experimentsDesc, en: en.demos.experimentsDesc },
+  };
+  return map[id];
+};
 ---
 
-<BaseLayout title="作品" description="技术代表作、在线工具与交互实验。">
+<BaseLayout
+  title="作品"
+  i18nTitle={{ zh: zh.nav.work, en: en.nav.work }}
+  i18nDescription={{ zh: zh.work.intro, en: en.work.intro }}
+>
   <main id="main-content" class="work-page">
     <header class="work-page__hero shell">
-      <p class="work-page__index">Engineering / {portfolio.verifiedAt}</p>
-      <h1>代码不是展示，<br /><em>结果才是。</em></h1>
+      <p class="work-page__index" data-i18n="work.index">{zh.work.index} / {portfolio.verifiedAt}</p>
+      <h1><span data-i18n="work.title">{zh.work.title}</span><br /><em data-i18n="work.titleEm">{zh.work.titleEm}</em></h1>
       <div class="work-page__intro">
-        <p>这里优先展示能体现技术深度的仓库：二进制格式解析、计算机视觉、Flutter、Local-first 产品和 MCP 工具。在线页面则按用途整理在下方。</p>
-        <a href={portfolio.githubUrl} target="_blank" rel="noopener">GitHub 上的全部仓库</a>
+        <p data-i18n="work.intro">{zh.work.intro}</p>
+        <a href={portfolio.githubUrl} target="_blank" rel="noopener" data-i18n="work.allRepos">{zh.work.allRepos}</a>
       </div>
     </header>
 
     <section class="shell engineering-work" aria-labelledby="engineering-title">
       <div class="engineering-heading">
-        <p class="showcase-kicker">Technical work</p>
-        <h2 id="engineering-title">技术代表作</h2>
+        <div>
+          <p class="showcase-kicker">Technical work</p>
+          <h2 id="engineering-title" data-i18n="work.technical">{zh.work.technical}</h2>
+        </div>
       </div>
       <div class="engineering-grid">
         {technicalProjects.map((project, index) => (
           <article class:list={['engineering-card', `engineering-card--${project.accent}`, index === 0 && 'engineering-card--lead']}>
             {project.preview ? (
               <a class="engineering-card__preview" href={project.demoUrl} target="_blank" rel="noopener">
-                <img src={project.preview} alt={`${project.title} 实际页面截图`} width="720" height="480" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+                <img src={project.preview} alt={project.title} width="720" height="480" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
               </a>
             ) : (
               <div class="engineering-card__signal" aria-hidden="true">
@@ -35,12 +53,12 @@ import { technicalProjects, demoGroups } from '../data/showcase';
             )}
             <div class="engineering-card__body">
               <p class="engineering-card__repo">{project.name}</p>
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
+              <h3 data-i18n={`tech.${project.name}`} data-zh={project.title} data-en={project.titleEn}>{project.title}</h3>
+              <p data-i18n={`tech.${project.name}Summary`} data-zh={project.summary} data-en={project.summaryEn}>{project.summary}</p>
               <ul>{project.evidence.map((item) => <li>{item}</li>)}</ul>
-              <nav aria-label={`${project.title} 链接`}>
-                <a href={project.repoUrl} target="_blank" rel="noopener">查看源码</a>
-                {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener">在线体验</a>}
+              <nav aria-label={project.title}>
+                <a href={project.repoUrl} target="_blank" rel="noopener" data-i18n="work.source">{zh.work.source}</a>
+                {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener" data-i18n="work.demo">{zh.work.demo}</a>}
               </nav>
             </div>
           </article>
@@ -52,23 +70,23 @@ import { technicalProjects, demoGroups } from '../data/showcase';
       <div class="shell demo-catalog__heading">
         <div>
           <p class="showcase-kicker">Live index</p>
-          <h2 id="demo-title">在线工具与实验</h2>
+          <h2 id="demo-title" data-i18n="work.liveTitle">{zh.work.liveTitle}</h2>
         </div>
-        <p>{portfolio.pagesRepositoryCount} 个仓库启用了 GitHub Pages。下面按用途整理最有代表性的入口。</p>
+        <p><span class="num">{portfolio.pagesRepositoryCount}</span> <span data-i18n="work.liveIntro">{zh.work.liveIntro}</span></p>
       </div>
 
       <div class="shell demo-groups">
         {demoGroups.map((group) => (
           <section class="demo-group" aria-labelledby={`demo-${group.id}`}>
             <header>
-              <h3 id={`demo-${group.id}`}>{group.title}</h3>
-              <p>{group.description}</p>
+              <h3 id={`demo-${group.id}`} data-i18n={`demos.${group.id}`} data-zh={group.title} data-en={group.titleEn}>{group.title}</h3>
+              <p data-i18n={`demos.${group.id}Desc`} data-zh={group.description} data-en={group.descriptionEn}>{group.description}</p>
             </header>
             <ul>
               {group.items.map((item) => (
                 <li>
                   <a href={item.demoUrl} target="_blank" rel="noopener">
-                    <span><strong>{item.name}</strong><small>{item.description}</small></span>
+                    <span><strong data-i18n={`demo.${group.id}.${item.name}`} data-zh={item.name} data-en={item.nameEn}>{item.name}</strong><small data-i18n={`demoDesc.${group.id}.${item.name}`} data-zh={item.description} data-en={item.descriptionEn}>{item.description}</small></span>
                     <em>{item.language}</em>
                   </a>
                 </li>
@@ -79,14 +97,14 @@ import { technicalProjects, demoGroups } from '../data/showcase';
       </div>
     </section>
 
-    <section class="shell work-languages" aria-label="仓库语言分布">
-      <h2>仓库语言分布</h2>
+    <section class="shell work-languages" aria-label="Repository languages">
+      <h2 data-i18n="work.languages">{zh.work.languages}</h2>
       <div>
         {portfolio.languages.map((item) => (
           <p><span>{item.language}</span><strong class="num">{item.count}</strong></p>
         ))}
       </div>
-      <a class="lab-button" href={portfolio.repositoriesUrl} target="_blank" rel="noopener">浏览全部仓库</a>
+      <a class="lab-button" href={portfolio.repositoriesUrl} target="_blank" rel="noopener" data-i18n="work.browseAll">{zh.work.browseAll}</a>
     </section>
   </main>
 </BaseLayout>

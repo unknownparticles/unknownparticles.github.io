@@ -68,7 +68,7 @@ test.describe('lab scene and project media', () => {
     await expect(allRows).toHaveCount(12);
     const button = page.locator('[data-filter="OpenGL"]');
     await button.click();
-    await expect(page.locator('.archive-result')).toContainText('OpenGL：3 篇');
+    await expect(page.locator('.archive-result')).toContainText('OpenGL: 3 posts');
     await expect(page.locator('.archive-list li:not([hidden])')).toHaveCount(3);
     expect(page.url()).toContain('#OpenGL');
   });
@@ -84,8 +84,8 @@ test.describe('lab scene and project media', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await page.locator('#selected-work').scrollIntoViewIfNeeded();
     const images = page.locator('.showcase-preview img');
-    await expect(images).toHaveCount(4);
-    for (let index = 0; index < 4; index += 1) {
+    await expect(images).toHaveCount(2);
+    for (let index = 0; index < 2; index += 1) {
       await expect
         .poll(() => images.nth(index).evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0))
         .toBe(true);

@@ -1,24 +1,26 @@
 ---
 import { SITE } from '../config';
 import { portfolio } from '../data/portfolio';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
 ---
 
 <footer class="site-footer">
   <div class="shell site-footer__top">
     <div>
-      <h2>有问题，写信给我。</h2>
+      <span class="footer-label">Keep building</span>
+      <h2 data-i18n="footer.lede">{zh.footer.lede}</h2>
     </div>
-    <ul class="footer-links" aria-label="站外链接">
+    <ul class="footer-links" aria-label="External links">
       <li><a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="https://blog.csdn.net/particles" target="_blank" rel="noopener">CSDN</a></li>
-      <li><a href={`mailto:${SITE.email}`}>邮件</a></li>
+      <li><a href={`mailto:${SITE.email}`}>Email</a></li>
       <li><a href="/feed.xml">RSS</a></li>
     </ul>
   </div>
   <div class="shell site-footer__bottom">
-    <p>© {new Date().getFullYear()} Alun</p>
-    <p>内容采用 CC BY-NC-SA 4.0，代码部分为 MIT</p>
-    <p>Astro 构建，GitHub Pages 托管</p>
-    <p>仓库数据核验于 {portfolio.verifiedAt}</p>
+    <p>© {new Date().getFullYear()} Alun · <span data-i18n="footer.rights">{zh.footer.rights}</span></p>
+    <p data-i18n="footer.builtWith">{zh.footer.builtWith}</p>
+    <p data-i18n="footer.verified">{zh.footer.verified} {portfolio.verifiedAt}</p>
   </div>
 </footer>

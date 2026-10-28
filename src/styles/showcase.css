@@ -15,7 +15,7 @@
 .engineering-heading h2,
 .demo-catalog__heading h2 {
   margin: 0;
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: clamp(34px, 4vw, 56px);
   letter-spacing: -0.04em;
 }
@@ -27,13 +27,13 @@
 }
 
 .engineering-card {
-  --engineering-accent: #0d6e66;
+  --engineering-accent: var(--color-accent);
   min-width: 0;
   overflow: hidden;
   border-top: 4px solid var(--engineering-accent);
   border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 0 0 1px #e5e4df;
+  background: var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-rule);
 }
 
 .engineering-card--lead {
@@ -42,10 +42,10 @@
 
 .engineering-card--coral { --engineering-accent: var(--color-accent); }
 .engineering-card--blue { --engineering-accent: var(--color-accent); }
-.engineering-card--violet { --engineering-accent: #0d6e66; }
-.engineering-card--amber { --engineering-accent: #0d6e66; }
-.engineering-card--green { --engineering-accent: #0d6e66; }
-.engineering-card--slate { --engineering-accent: #0d6e66; }
+.engineering-card--violet { --engineering-accent: var(--color-accent); }
+.engineering-card--amber { --engineering-accent: var(--color-accent); }
+.engineering-card--green { --engineering-accent: var(--color-accent); }
+.engineering-card--slate { --engineering-accent: var(--color-accent); }
 
 .engineering-card__signal {
   display: flex;
@@ -53,8 +53,8 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-xl);
-  background: #191a1c;
-  color: #fff;
+  background: var(--color-ink);
+  color: var(--color-surface);
 }
 
 .engineering-card__signal span {
@@ -64,7 +64,7 @@
 }
 
 .engineering-card__signal strong {
-  color: rgba(255, 255, 255, 0.15);
+  color: var(--color-inverse-rule);
   font-family: var(--font-outlier);
   font-size: 96px;
   font-weight: 400;
@@ -74,7 +74,7 @@
 .engineering-card__preview {
   display: block;
   overflow: hidden;
-  background: #eceae4;
+  background: var(--color-paper-3);
 }
 
 .engineering-card__preview img {
@@ -98,14 +98,14 @@
 
 .engineering-card h3 {
   margin: 0;
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: 26px;
 }
 
 .engineering-card__body > p:not(.engineering-card__repo) {
   max-width: 620px;
   margin: var(--space-sm) 0 0;
-  color: #4a4d53;
+  color: var(--color-ink-2);
   font-size: 15px;
   line-height: 1.6;
 }
@@ -121,9 +121,9 @@
 
 .engineering-card li {
   padding: var(--space-2xs) var(--space-xs);
-  border: 1px solid #e5e4df;
+  border: 1px solid var(--color-rule);
   border-radius: 4px;
-  color: #4a4d53;
+  color: var(--color-ink-2);
   font-family: var(--font-display);
   font-size: 11px;
 }
@@ -135,7 +135,7 @@
 }
 
 .engineering-card nav a {
-  color: #0d6e66;
+  color: var(--color-accent);
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 500;
@@ -143,7 +143,7 @@
 
 .demo-catalog {
   padding: var(--space-4xl) 0;
-  background: #f3f2ee;
+  background: var(--color-paper-2);
 }
 
 .demo-catalog__heading {
@@ -156,7 +156,7 @@
 
 .demo-catalog__heading > p {
   margin: 0;
-  color: #4a4d53;
+  color: var(--color-ink-2);
   line-height: 1.6;
 }
 
@@ -169,25 +169,25 @@
 .demo-group {
   min-width: 0;
   padding: var(--space-lg);
-  border: 1px solid #dcdbd5;
+  border: 1px solid var(--color-rule-2);
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .demo-group header {
   padding-bottom: var(--space-md);
-  border-bottom: 2px solid #191a1c;
+  border-bottom: 2px solid var(--color-ink);
 }
 
 .demo-group h3 {
   margin: 0;
-  color: #191a1c;
+  color: var(--color-ink);
   font-size: 22px;
 }
 
 .demo-group header p {
   margin: var(--space-2xs) 0 0;
-  color: #696c72;
+  color: var(--color-muted);
   font-size: 13px;
 }
 
@@ -203,8 +203,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-lg);
-  border-bottom: 1px solid #e5e4df;
-  color: #191a1c;
+  border-bottom: 1px solid var(--color-rule);
+  color: var(--color-ink);
   text-decoration: none;
 }
 
@@ -213,7 +213,7 @@
 }
 
 .demo-group li a:hover strong {
-  color: #0d6e66;
+  color: var(--color-accent);
 }
 
 .demo-group li span {
@@ -232,13 +232,13 @@
 
 .demo-group small {
   margin-top: var(--space-3xs);
-  color: #696c72;
+  color: var(--color-muted);
   font-size: 12px;
 }
 
 .demo-group em {
   flex: 0 0 auto;
-  color: #8a8d93;
+  color: var(--color-subtle);
   font-family: var(--font-outlier);
   font-size: 10px;
   font-style: normal;

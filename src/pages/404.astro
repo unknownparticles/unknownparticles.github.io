@@ -1,14 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
 ---
 
-<BaseLayout title="页面没有找到" description="这个地址没有对应的页面。" hideFooter={true}>
+<BaseLayout
+  title="404"
+  hideFooter={true}
+  i18nTitle={{ zh: zh.error.title, en: en.error.title }}
+  i18nDescription={{ zh: zh.error.body, en: en.error.body }}
+>
   <main class="error-page" id="main-content">
     <div class="shell">
-      <p class="error-page__code">ERROR / 404</p>
-      <h1>页面没有找到</h1>
-      <p>这个地址没有对应的页面。你可以回到文章列表，或通过标签继续查找内容。</p>
-      <a class="button button--primary" href="/">返回首页</a>
+      <p class="error-page__code" data-i18n="error.code">{zh.error.code}</p>
+      <h1 data-i18n="error.title">{zh.error.title}</h1>
+      <p data-i18n="error.body">{zh.error.body}</p>
+      <a class="button button--primary" href="/" data-i18n="error.home">{zh.error.home}</a>
     </div>
   </main>
 </BaseLayout>

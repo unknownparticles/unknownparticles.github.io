@@ -2,22 +2,28 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config';
 import { portfolio } from '../data/portfolio';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
 
 const stack = ['Flutter', 'Dart', 'TypeScript', 'JavaScript', 'C++', 'Python', 'OpenGL', 'OpenCV', 'Canvas', 'WebGL', 'GitHub Actions', 'Docker'];
 ---
 
-<BaseLayout title="关于 Alun" description="开发者、导演、摄影师，以及持续把想法做成作品的人。">
+<BaseLayout
+  title="关于"
+  i18nTitle={{ zh: zh.nav.about, en: en.nav.about }}
+  i18nDescription={{ zh: zh.about.lead, en: en.about.lead }}
+>
   <main id="main-content" class="about-page">
     <section class="shell about-page__hero">
       <div class="about-page__portrait">
-        <img src="/img/alun-portrait.webp" alt="Alun 的个人照片" width="675" height="900" fetchpriority="high" />
+        <img src="/img/alun-portrait.webp" alt="Alun" width="675" height="900" fetchpriority="high" />
         <p>Shenzhen · China</p>
       </div>
       <div class="about-page__intro">
         <p class="showcase-kicker">About</p>
-        <h1>Alun<br /><em>不明栗子</em></h1>
-        <p class="about-page__lead">我是一名开发者，也做导演和摄影。喜欢把抽象问题拆成可运行的代码，再把过程整理成别人也能使用的工具。</p>
-        <nav aria-label="联系方式">
+        <h1><span data-i18n="about.title">{zh.about.title}</span><br /><em data-i18n="about.titleEm">{zh.about.titleEm}</em></h1>
+        <p class="about-page__lead" data-i18n="about.lead">{zh.about.lead}</p>
+        <nav aria-label="Contact">
           <a href={portfolio.githubUrl} target="_blank" rel="noopener">GitHub</a>
           <a href="https://blog.csdn.net/particles" target="_blank" rel="noopener">CSDN</a>
           <a href={`mailto:${SITE.email}`}>Email</a>
@@ -29,11 +35,17 @@ const stack = ['Flutter', 'Dart', 'TypeScript', 'JavaScript', 'C++', 'Python', '
       <div class="shell about-story__grid">
         <div class="about-story__statement">
           <p class="showcase-kicker">Approach</p>
-          <h2>不追求堆技术，<br />先把问题解决。</h2>
+          <h2><span data-i18n="about.approachTitle">{zh.about.approachTitle}</span><br /><span data-i18n="about.approachTail">{zh.about.approachTail}</span></h2>
         </div>
         <div class="about-story__copy">
-          <p>我的工作横跨图形、图像、跨端界面和自动化。会从 JPEG、OpenGL、OpenCV 这些底层细节入手，也会把结果做成 Flutter 应用或浏览器工具。</p>
-          <p>在 GitHub 上维护 {portfolio.ownRepositoryCount} 个自有仓库，其中 {portfolio.pagesRepositoryCount} 个已经发布为在线页面。这个站点记录做这些项目时留下的判断、失败和可复用方法。</p>
+          <p data-i18n="about.approach1">{zh.about.approach1}</p>
+          <p>
+            <span data-i18n="about.approach2">{zh.about.approach2}</span>
+            <span class="num">{portfolio.ownRepositoryCount}</span>
+            <span data-i18n="about.approach2Tail">{zh.about.approach2Tail}</span>
+            <span class="num">{portfolio.pagesRepositoryCount}</span>
+            <span data-i18n="about.approach3">{zh.about.approach3}</span>
+          </p>
         </div>
       </div>
     </section>
@@ -41,19 +53,19 @@ const stack = ['Flutter', 'Dart', 'TypeScript', 'JavaScript', 'C++', 'Python', '
     <section class="shell about-practice" aria-labelledby="practice-title">
       <div>
         <p class="showcase-kicker">Practice</p>
-        <h2 id="practice-title">现在关注的方向</h2>
+        <h2 id="practice-title" data-i18n="about.practiceTitle">{zh.about.practiceTitle}</h2>
       </div>
       <ol>
-        <li><span>01</span><div><h3>图形与图像</h3><p>OpenGL 渲染、OpenCV 分析、JPEG 元数据和图像质量评估。</p></div></li>
-        <li><span>02</span><div><h3>跨端产品</h3><p>Flutter 组件、手势、动画、裁剪和 iOS-first 应用体验。</p></div></li>
-        <li><span>03</span><div><h3>Web 实验</h3><p>Canvas、WebGL、TypeScript 和轻量离线工具。</p></div></li>
-        <li><span>04</span><div><h3>自动化</h3><p>构建脚本、CI/CD、部署流程和 AI 辅助工具链。</p></div></li>
+        <li><span>01</span><div><h3 data-i18n="cap.cap1" data-zh="图形与图像" data-en="Graphics & imaging">图形与图像</h3><p data-i18n="cap.cap1Detail" data-zh={zh.about.practice1} data-en={en.about.practice1}>{zh.about.practice1}</p></div></li>
+        <li><span>02</span><div><h3 data-i18n="cap.cap2" data-zh="跨端产品" data-en="Cross-platform products">跨端产品</h3><p data-i18n="cap.cap2Detail" data-zh={zh.about.practice2} data-en={en.about.practice2}>{zh.about.practice2}</p></div></li>
+        <li><span>03</span><div><h3 data-i18n="cap.cap3" data-zh="前端体验" data-en="Web experience">前端体验</h3><p data-i18n="cap.cap3Detail" data-zh={zh.about.practice3} data-en={en.about.practice3}>{zh.about.practice3}</p></div></li>
+        <li><span>04</span><div><h3 data-i18n="cap.cap4" data-zh="工程自动化" data-en="Engineering automation">工程自动化</h3><p data-i18n="cap.cap4Detail" data-zh={zh.about.practice4} data-en={en.about.practice4}>{zh.about.practice4}</p></div></li>
       </ol>
     </section>
 
     <section class="about-stack">
       <div class="shell about-stack__inner">
-        <h2>常用技术</h2>
+        <h2 data-i18n="about.stackTitle">{zh.about.stackTitle}</h2>
         <div>{stack.map((item) => <span>{item}</span>)}</div>
       </div>
     </section>

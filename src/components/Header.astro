@@ -1,31 +1,50 @@
 ---
 import { SITE } from '../config';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
 
 interface Props {
   currentPath: string;
 }
 
 const { currentPath } = Astro.props;
-const isCurrent = (path: string) => path === '/' ? currentPath === '/' : currentPath.startsWith(path);
+const isCurrent = (path: string) => (path === '/' ? currentPath === '/' : currentPath.startsWith(path));
 ---
 
 <header class="site-header">
   <div class="shell site-header__inner">
-    <a class="site-brand" href="/" aria-label={`${SITE.title}首页`}>
+    <a class="site-brand" href="/" aria-label="Alun">
       <span class="site-brand__mark" aria-hidden="true">A/</span>
-      <span class="site-brand__name">{SITE.brand}</span>
+      <span class="site-brand__name">ALUN.LOG</span>
     </a>
 
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="打开导航">
+    <div class="site-controls">
+      <button class="control-toggle" type="button" data-lang-target aria-label="Switch to English">
+        <span aria-hidden="true">中</span><span data-i18n="lang.current">{zh.lang.current}</span>
+      </button>
+      <button
+        class="control-toggle"
+        type="button"
+        data-theme-target
+        data-label-light="切换到亮色"
+        data-label-dark="切换到暗色"
+        aria-label="切换主题"
+      >
+        <span class="control-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-i18n-attr="aria-label" data-zh={zh.nav.menu} data-en={en.nav.menu}>
       <span class="nav-toggle__icon" aria-hidden="true"></span>
     </button>
 
-    <nav class="site-nav" id="site-navigation" aria-label="主导航" data-open="false">
+    <nav class="site-nav" id="site-navigation" aria-label="Site navigation" data-open="false">
       <ul>
-        <li><a href="/" aria-current={isCurrent('/') ? 'page' : undefined}>首页</a></li>
-        <li><a href="/projects/" aria-current={isCurrent('/projects/') ? 'page' : undefined}>作品</a></li>
-        <li><a href="/tags/" aria-current={isCurrent('/tags/') ? 'page' : undefined}>标签</a></li>
-        <li><a href="/about/" aria-current={isCurrent('/about/') ? 'page' : undefined}>关于</a></li>
+        <li><a href="/" aria-current={isCurrent('/') ? 'page' : undefined} data-i18n="nav.home">{zh.nav.home}</a></li>
+        <li><a href="/projects/" aria-current={isCurrent('/projects/') ? 'page' : undefined} data-i18n="nav.work">{zh.nav.work}</a></li>
+        <li><a href="/tags/" aria-current={isCurrent('/tags/') ? 'page' : undefined} data-i18n="nav.writing">{zh.nav.writing}</a></li>
+        <li><a href="/about/" aria-current={isCurrent('/about/') ? 'page' : undefined} data-i18n="nav.about">{zh.nav.about}</a></li>
+        <li><a href="https://github.com/{SITE.github}" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </nav>
   </div>

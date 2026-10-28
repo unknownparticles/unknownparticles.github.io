@@ -1,70 +1,39 @@
 ---
 import { portfolio } from '../data/portfolio';
+import { zh } from '../i18n/zh';
+import { en } from '../i18n/en';
+import { technicalProjects } from '../data/showcase';
 
-const previews = [
-  {
-    name: 'TidyUp-',
-    label: 'TidyUp',
-    summary: '一款放松的整理游戏，把混乱空间收拾成有秩序的画面。',
-    image: '/img/projects/TidyUp.webp',
-    demo: 'https://alunapp.cn/TidyUp-/',
-    repo: 'https://github.com/unknownparticles/TidyUp-',
-    tone: 'coral',
-  },
-  {
-    name: 'photo',
-    label: 'Photo Lab',
-    summary: '浏览器中的静态图片处理工具，减少上传和服务端依赖。',
-    image: '/img/projects/photo.webp',
-    demo: 'https://alunapp.cn/photo/',
-    repo: 'https://github.com/unknownparticles/photo',
-    tone: 'blue',
-  },
-  {
-    name: 'RepLog',
-    label: 'RepLog',
-    summary: '本地优先的健身训练与饮食记录应用。',
-    image: '/img/projects/RepLog.webp',
-    demo: 'https://alunapp.cn/RepLog/',
-    repo: 'https://github.com/unknownparticles/RepLog',
-    tone: 'violet',
-  },
-  {
-    name: 'focuslab',
-    label: 'Focus Lab',
-    summary: '用 Stroop 和舒尔特测试丈量注意力，练习安静的凝视。',
-    image: '/img/projects/focuslab.webp',
-    demo: 'https://alunapp.cn/focuslab/',
-    repo: 'https://github.com/unknownparticles/focuslab',
-    tone: 'amber',
-  },
-];
+const titles = {
+  workTitle: { zh: zh.home.workTitle, en: en.home.workTitle },
+  workMore: { zh: zh.home.workMore, en: en.home.workMore },
+};
 ---
 
 <section class="work-showcase" aria-labelledby="work-showcase-title">
   <div class="shell showcase-heading">
     <div>
       <p class="showcase-kicker">Selected work</p>
-      <h2 id="work-showcase-title">可以直接打开的作品</h2>
+      <h2 id="work-showcase-title" data-i18n="home.workTitle">{zh.home.workTitle}</h2>
     </div>
-    <p>真实项目，真实页面。点击预览进入体验，或直接查看源码。</p>
+    <p><span class="num">{portfolio.pagesRepositoryCount}</span> <span data-i18n="home.pagesNote">{zh.home.pagesNote}</span></p>
   </div>
 
   <div class="shell showcase-grid">
-    {previews.map((project, index) => (
-      <article class:list={['showcase-card', `showcase-card--${project.tone}`, index === 0 && 'showcase-card--lead']}>
-        <a class="showcase-preview" href={project.demo} target="_blank" rel="noopener" aria-label={`打开 ${project.label}`}>
-          <img src={project.image} alt={`${project.label} 项目实际页面截图`} width="720" height="480" loading="lazy" decoding="async" />
+    {technicalProjects.filter((project) => project.preview).map((project) => (
+      <article class="showcase-card">
+        <a class="showcase-preview" href={project.demoUrl} target="_blank" rel="noopener" aria-label={project.title}>
+          <img src={project.preview} alt={`${project.title}`} width="720" height="480" loading="lazy" decoding="async" />
           <span class="showcase-open" aria-hidden="true">Open</span>
         </a>
         <div class="showcase-copy">
           <div>
-            <h3>{project.label}</h3>
+            <h3>{project.title}</h3>
             <p>{project.summary}</p>
           </div>
-          <nav aria-label={`${project.label} 链接`}>
-            <a href={project.demo} target="_blank" rel="noopener">体验</a>
-            <a href={project.repo} target="_blank" rel="noopener">源码</a>
+          <nav aria-label={project.title}>
+            <a href={project.demoUrl} target="_blank" rel="noopener" data-i18n="work.demo">{zh.work.demo}</a>
+            <a href={project.repoUrl} target="_blank" rel="noopener" data-i18n="work.source">{zh.work.source}</a>
           </nav>
         </div>
       </article>
@@ -72,7 +41,6 @@ const previews = [
   </div>
 
   <div class="shell showcase-more">
-    <p><span class="num">{portfolio.pagesRepositoryCount}</span> 个仓库已发布在线页面。</p>
-    <a href="/projects/">浏览全部项目</a>
+    <a href="/projects/" data-i18n="home.workMore">{zh.home.workMore}</a>
   </div>
 </section>

@@ -28,7 +28,7 @@ for (const route of routes) {
 
 test('the home page exposes work, capabilities and writing', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.showcase-card')).toHaveCount(4);
+  await expect(page.locator('.showcase-card')).toHaveCount(2);
   await expect(page.locator('.capability-list li')).toHaveCount(4);
   await expect(page.locator('.home-post')).toHaveCount(10);
 });
@@ -43,7 +43,8 @@ test('the portfolio separates technical work from categorized demos', async ({ p
   await expect(page.locator('.work-languages p')).toHaveCount(5);
 
   const groupTitles = await page.locator('.demo-group h3').allTextContents();
-  expect(groupTitles).toEqual(['工具', '游戏', '效率与生活', '创意实验']);
+  expect(groupTitles).toEqual(['Tools', 'Games', 'Focus & life', 'Experiments']);
+
 
   const links = page.locator('.engineering-card a, .demo-group a');
   const count = await links.count();
@@ -56,13 +57,14 @@ test('the portfolio separates technical work from categorized demos', async ({ p
 
 test('mobile navigation opens and closes with Escape', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'Mobile-only interaction');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
 
   const toggle = page.locator('.nav-toggle');
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await expect(page.locator('.site-nav')).toHaveAttribute('data-open', 'true');
-  await expect(page.locator('.site-nav a')).toHaveCount(4);
+  await expect(page.locator('.site-nav a')).toHaveCount(5);
 
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
@@ -89,12 +91,14 @@ test('the 3D scene is the only visual above the fold', async ({ page }) => {
 
 test('service worker serves the offline fallback', async ({ browser }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'One browser run is sufficient');
-  const context = await browser.newContext({ serviceWorkers: 'allow' });
+  const context = await browser.newContext({ serviceWorkers: 'allow', locale: 'zh-CN' });
   const page = await context.newPage();
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.waitForFunction(() => navigator.serviceWorker.controller !== null, null, { timeout: 15000 });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => navigator.serviceWorker.controller !== null, null, { timeout: 15000 });
   await context.setOffline(true);
   await page.goto('/not-cached-during-test/', { waitUntil: 'domcontentloaded' });
-  await expect(page.getByRole('heading', { name: '暂时无法连接网络' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /网络|offline/i })).toBeVisible();
   await context.close();
 });
