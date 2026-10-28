@@ -35,17 +35,17 @@ test('the home page exposes work, capabilities and writing', async ({ page }) =>
 
 test('the portfolio page renders the live GitHub data', async ({ page }) => {
   await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
-  const projects = page.locator('.portfolio-project');
+  const projects = page.locator('.work-piece');
   await expect(projects).toHaveCount(5);
-  await expect(projects.first().locator('h3')).not.toBeEmpty();
-  await expect(page.locator('.portfolio-languages li')).toHaveCount(5);
+  await expect(projects.first().locator('h2')).not.toBeEmpty();
+  await expect(page.locator('.work-languages p')).toHaveCount(5);
 
-  const links = page.locator('.portfolio-text-link');
+  const links = page.locator('.work-piece a, .work-index a');
   const count = await links.count();
   expect(count).toBeGreaterThan(5);
   for (let index = 0; index < count; index += 1) {
     const href = await links.nth(index).getAttribute('href');
-    expect(href).toMatch(/^https:\/\/(github\.com\/unknownparticles\/[^/]+|unknownparticles\.github\.io\/[^/]+\/)$/);
+    expect(href).toMatch(/^https:\/\/(github\.com\/unknownparticles\/[^/]+|alunapp\.cn\/[^/]+\/|unknownparticles\.github\.io\/[^/]+\/)$/);
   }
 });
 

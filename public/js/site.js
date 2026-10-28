@@ -37,32 +37,9 @@
   }
 
   var revealElements = document.querySelectorAll('[data-reveal]');
-  if (reducedMotion || !('IntersectionObserver' in window)) {
-    revealElements.forEach(function (element) {
-      element.classList.add('is-revealed');
-    });
-  } else {
-    var revealObserver = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-
-    revealElements.forEach(function (element) {
-      revealObserver.observe(element);
-    });
-
-    // Fast trackpad or touch scrolling can skip an intersection frame.
-    // Resolve any remaining off-screen elements so content never stays hidden.
-    window.setTimeout(function () {
-      revealElements.forEach(function (element) {
-        element.classList.add('is-revealed');
-        revealObserver.unobserve(element);
-      });
-    }, 1600);
-  }
+  revealElements.forEach(function (element) {
+    element.classList.add('is-revealed');
+  });
 
   var brand = document.querySelector('.site-brand');
   var taps = 0;

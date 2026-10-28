@@ -62,6 +62,24 @@ test.describe('lab scene and project media', () => {
     await expect(page.locator('#lab-scene canvas')).toHaveCount(0);
   });
 
+  test('tag archive filters without navigating', async ({ page }) => {
+    await page.goto('/tags/', { waitUntil: 'domcontentloaded' });
+    const allRows = page.locator('.archive-list li');
+    await expect(allRows).toHaveCount(12);
+    const button = page.locator('[data-filter="OpenGL"]');
+    await button.click();
+    await expect(page.locator('.archive-result')).toContainText('OpenGL：3 篇');
+    await expect(page.locator('.archive-list li:not([hidden])')).toHaveCount(3);
+    expect(page.url()).toContain('#OpenGL');
+  });
+
+  test('Three.js is not a synchronous page script', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const scripts = await page.locator('script[src]').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('src')));
+    expect(scripts.some((src) => /lab-scene\..+\.js/.test(src ?? ''))).toBe(false);
+    await expect(page.locator('#lab-scene canvas')).toBeVisible({ timeout: 5_000 });
+  });
+
   test('all project preview assets decode', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await page.locator('#selected-work').scrollIntoViewIfNeeded();

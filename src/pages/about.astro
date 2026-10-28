@@ -1,51 +1,61 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config';
+import { portfolio } from '../data/portfolio';
+
+const stack = ['Flutter', 'Dart', 'TypeScript', 'JavaScript', 'C++', 'Python', 'OpenGL', 'OpenCV', 'Canvas', 'WebGL', 'GitHub Actions', 'Docker'];
 ---
 
-<BaseLayout title="关于 Alun" description="开发者、创作者，也是持续把想法做成可运行作品的人。">
-  <header class="page-hero">
-    <div class="shell" data-reveal>
-      <h1>关于 Alun</h1>
-      <p class="page-hero__description">开发者、创作者，也是持续把想法做成可运行作品的人。</p>
-    </div>
-  </header>
-
-  <main class="site-main" id="main-content">
-    <div class="page-content prose">
-      <blockquote data-reveal><p>保持好奇，理解细节，并把解决问题的过程沉淀成下一次可以复用的工具。</p></blockquote>
-
-      <figure class="about-portrait" data-reveal>
-        <img src="/img/alun-portrait.webp" alt="Alun 的个人照片" width="900" height="1200" loading="lazy" decoding="async" />
-        <figcaption>Alun, @unknownparticles</figcaption>
-      </figure>
-
-      <p>我是阿伦（Alun），一名热爱编程、喜欢深挖技术细节的开发者。我在 <a href="https://blog.csdn.net/particles">CSDN</a> 记录技术实践，也在 <a href={`https://github.com/${SITE.github}`}>GitHub</a> 持续发布项目与实验。</p>
-      <p>我喜欢把好玩的想法转化成可运行的代码，也重视把零散实现整理成能够复用、便于维护的工具。这个站点记录从问题、尝试到结果的完整过程。</p>
-
-      <h2 id="focus" data-reveal>当前方向</h2>
-      <ul>
-        <li><strong>Flutter 与自定义组件：</strong>跨平台 UI、手势、动画、裁剪和图像处理流程。</li>
-        <li><strong>前端与 Canvas：</strong>使用 Canvas、WebGL 和 JavaScript 构建交互效果与可视化实验。</li>
-        <li><strong>AI 与自动化：</strong>把大语言模型、图像识别和 CI/CD 融入实际工具链。</li>
-        <li><strong>工程效率：</strong>构建脚本、部署流程、镜像同步和日志系统。</li>
-      </ul>
-
-      <h2 id="stack" data-reveal>技术栈</h2>
-      <div class="skills-grid" aria-label="常用技术">
-        {['Flutter', 'Dart', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Canvas', 'WebGL', 'Python', 'Node.js', 'GitHub Actions', 'Docker'].map((skill) => <span class="skill-tag">{skill}</span>)}
+<BaseLayout title="关于 Alun" description="开发者、导演、摄影师，以及持续把想法做成作品的人。">
+  <main id="main-content" class="about-page">
+    <section class="shell about-page__hero">
+      <div class="about-page__portrait">
+        <img src="/img/alun-portrait.webp" alt="Alun 的个人照片" width="675" height="900" fetchpriority="high" />
+        <p>Shenzhen · China</p>
       </div>
+      <div class="about-page__intro">
+        <p class="showcase-kicker">About</p>
+        <h1>Alun<br /><em>不明栗子</em></h1>
+        <p class="about-page__lead">我是一名开发者，也做导演和摄影。喜欢把抽象问题拆成可运行的代码，再把过程整理成别人也能使用的工具。</p>
+        <nav aria-label="联系方式">
+          <a href={portfolio.githubUrl} target="_blank" rel="noopener">GitHub</a>
+          <a href="https://blog.csdn.net/particles" target="_blank" rel="noopener">CSDN</a>
+          <a href={`mailto:${SITE.email}`}>Email</a>
+        </nav>
+      </div>
+    </section>
 
-      <h2 id="work" data-reveal>公开实践</h2>
-      <ul>
-        <li><strong>图像处理工具：</strong>围绕质量分析、人脸检测和元数据解析开发脚本与桌面工具。</li>
-        <li><strong>交互实验：</strong>实现 Canvas 动画、网页小游戏和轻量交互应用。</li>
-        <li><strong>Flutter 项目：</strong>构建自定义 UI、手势组件与面向 iOS 的应用原型。</li>
-        <li><strong>自动化工具：</strong>维护 CI/CD 流水线、部署脚本和日常效率工具。</li>
-      </ul>
+    <section class="about-story">
+      <div class="shell about-story__grid">
+        <div class="about-story__statement">
+          <p class="showcase-kicker">Approach</p>
+          <h2>不追求堆技术，<br />先把问题解决。</h2>
+        </div>
+        <div class="about-story__copy">
+          <p>我的工作横跨图形、图像、跨端界面和自动化。会从 JPEG、OpenGL、OpenCV 这些底层细节入手，也会把结果做成 Flutter 应用或浏览器工具。</p>
+          <p>在 GitHub 上维护 {portfolio.ownRepositoryCount} 个自有仓库，其中 {portfolio.pagesRepositoryCount} 个已经发布为在线页面。这个站点记录做这些项目时留下的判断、失败和可复用方法。</p>
+        </div>
+      </div>
+    </section>
 
-      <h2 id="contact" data-reveal>保持联系</h2>
-      <p>项目问题和合作沟通可以发送邮件到 <a href={`mailto:${SITE.email}`}>{SITE.email}</a>。也可以直接查看 <a href={`https://github.com/${SITE.github}`}>GitHub 上的公开仓库</a>，通过 Issue 或 Pull Request 交流具体实现。</p>
-    </div>
+    <section class="shell about-practice" aria-labelledby="practice-title">
+      <div>
+        <p class="showcase-kicker">Practice</p>
+        <h2 id="practice-title">现在关注的方向</h2>
+      </div>
+      <ol>
+        <li><span>01</span><div><h3>图形与图像</h3><p>OpenGL 渲染、OpenCV 分析、JPEG 元数据和图像质量评估。</p></div></li>
+        <li><span>02</span><div><h3>跨端产品</h3><p>Flutter 组件、手势、动画、裁剪和 iOS-first 应用体验。</p></div></li>
+        <li><span>03</span><div><h3>Web 实验</h3><p>Canvas、WebGL、TypeScript 和轻量离线工具。</p></div></li>
+        <li><span>04</span><div><h3>自动化</h3><p>构建脚本、CI/CD、部署流程和 AI 辅助工具链。</p></div></li>
+      </ol>
+    </section>
+
+    <section class="about-stack">
+      <div class="shell about-stack__inner">
+        <h2>常用技术</h2>
+        <div>{stack.map((item) => <span>{item}</span>)}</div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
