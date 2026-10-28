@@ -64,6 +64,37 @@
     }, 1600);
   }
 
+  var brand = document.querySelector('.site-brand');
+  var taps = 0;
+  var tapTimer;
+  var sequence = '';
+
+  if (brand) {
+    brand.addEventListener('click', function (event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+      event.preventDefault();
+      taps += 1;
+      window.clearTimeout(tapTimer);
+      tapTimer = window.setTimeout(function () { taps = 0; }, 1400);
+      if (taps >= 5) {
+        document.documentElement.classList.toggle('debug-mode');
+        taps = 0;
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (event.target && /input|textarea/i.test(event.target.tagName)) return;
+    sequence = (sequence + event.key.toLowerCase()).slice(-4);
+    if (sequence === 'alun') {
+      document.documentElement.classList.remove('easter-pulse');
+      requestAnimationFrame(function () {
+        document.documentElement.classList.add('easter-pulse');
+        window.setTimeout(function () { document.documentElement.classList.remove('easter-pulse'); }, 1400);
+      });
+    }
+  });
+
   document.querySelectorAll('.prose table').forEach(function (table) {
     if (table.parentElement && !table.parentElement.classList.contains('table-scroll')) {
       var wrapper = document.createElement('div');

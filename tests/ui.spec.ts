@@ -5,7 +5,6 @@ const routes = [
   '/projects/',
   '/tags/',
   '/about/',
-  '/page2/',
   '/2024/03/19/opengl万字超全笔记/',
   '/offline.html',
 ];
@@ -27,13 +26,11 @@ for (const route of routes) {
   });
 }
 
-test('the home page lists every article and its figures', async ({ page }) => {
+test('the home page exposes work, capabilities and writing', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('.showcase-card')).toHaveCount(4);
+  await expect(page.locator('.capability-list li')).toHaveCount(4);
   await expect(page.locator('.home-post')).toHaveCount(10);
-  await expect(page.locator('.home-project')).toHaveCount(3);
-  await expect(page.locator('.profile-stats div')).toHaveCount(3);
-  const figures = await page.locator('.profile-stats dd').allTextContents();
-  for (const value of figures) expect(Number(value)).toBeGreaterThan(0);
 });
 
 test('the portfolio page renders the live GitHub data', async ({ page }) => {
@@ -66,14 +63,15 @@ test('mobile navigation opens and closes with Escape', async ({ page }, testInfo
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('the profile and project content is visible without scroll choreography', async ({ page }) => {
+test('the hero and project content are visible', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.profile-intro')).toBeVisible();
-  await expect(page.locator('.home-project').first()).toBeVisible();
+  await expect(page.locator('.lab-copy')).toBeVisible();
+  await page.locator('#selected-work').scrollIntoViewIfNeeded();
+  await expect(page.locator('.showcase-card').first()).toBeVisible();
   await expect(page.locator('.home-post').first()).toBeVisible();
 });
 
-test('the home profile image is the only image above the fold', async ({ page }) => {
+test('the 3D scene is the only visual above the fold', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const aboveFold = await page.evaluate(() =>
     [...document.images].filter((image) => {
@@ -81,7 +79,7 @@ test('the home profile image is the only image above the fold', async ({ page })
       return rect.top < window.innerHeight && rect.bottom > 0;
     }).length,
   );
-  expect(aboveFold).toBeLessThanOrEqual(1);
+  expect(aboveFold).toBe(0);
 });
 
 test('service worker serves the offline fallback', async ({ browser }, testInfo) => {
