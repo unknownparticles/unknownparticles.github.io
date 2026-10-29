@@ -10,16 +10,17 @@ const tags = getTagCounts(posts);
 ---
 
 <BaseLayout
-  title="文章索引"
+  title="文章"
   i18nTitle={{ zh: zh.archive.title, en: en.archive.title }}
   i18nDescription={{ zh: `${posts.length} ${zh.archive.lede}`, en: `${posts.length} ${en.archive.lede}` }}
 >
   <main class="archive-page" id="main-content">
     <header class="shell archive-page__hero">
-      <p class="showcase-kicker">Writing archive</p>
+      <p class="showcase-kicker">Archive</p>
       <h1 data-i18n="archive.title">{zh.archive.title}</h1>
       <p>
-        <span class="num">{posts.length}</span> <span data-i18n="archive.lede">{zh.archive.lede}</span>
+        <span class="num">{posts.length}</span>
+        <span data-i18n="archive.lede" data-zh={zh.archive.lede} data-en={en.archive.lede}>{zh.archive.lede}</span>
       </p>
     </header>
 
@@ -34,9 +35,7 @@ const tags = getTagCounts(posts);
       </nav>
 
       <div>
-        <p class="archive-result" role="status">
-          <span data-i18n="archive.result">{zh.archive.result}</span> {posts.length} <span data-i18n="archive.posts">{zh.archive.posts}</span>
-        </p>
+        <p class="archive-result" role="status" data-zh={`共 ${posts.length} 篇`} data-en={`Showing ${posts.length}`}>共 {posts.length} 篇</p>
         <ol class="archive-list">
           {posts.map((post) => (
             <li data-tags={post.data.tags.join('|')}>
@@ -54,37 +53,36 @@ const tags = getTagCounts(posts);
       </div>
     </section>
   </main>
-</BaseLayout>
 
-<script>
-  import { currentLang } from '../scripts/settings';
+  <script>
+    import { currentLang } from '../scripts/settings';
 
-  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
-  const rows = [...document.querySelectorAll<HTMLLIElement>('.archive-list li')];
-  const result = document.querySelector<HTMLElement>('.archive-result');
-  const allLabel = document.querySelector<HTMLElement>('[data-filter="all"] [data-i18n="archive.all"]')?.textContent ?? 'All';
-  const postsLabel = document.querySelector<HTMLElement>('.archive-result [data-i18n="archive.posts"]')?.textContent ?? 'posts';
-  const join = currentLang() === 'en' ? ': ' : '：';
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const rows = [...document.querySelectorAll<HTMLLIElement>('.archive-list li')];
+    const result = document.querySelector<HTMLElement>('.archive-result');
 
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter ?? 'all';
-      let count = 0;
-      buttons.forEach((item) => item.classList.toggle('is-active', item === button));
-      rows.forEach((row) => {
-        const visible = filter === 'all' || (row.dataset.tags ?? '').split('|').includes(filter);
-        row.hidden = !visible;
-        if (visible) count += 1;
+    function label(count: number) {
+      return currentLang() === 'en' ? `Showing ${count}` : `共 ${count} 篇`;
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter ?? 'all';
+        let count = 0;
+        buttons.forEach((item) => item.classList.toggle('is-active', item === button));
+        rows.forEach((row) => {
+          const visible = filter === 'all' || (row.dataset.tags ?? '').split('|').includes(filter);
+          row.hidden = !visible;
+          if (visible) count += 1;
+        });
+        if (result) result.textContent = label(count);
+        history.replaceState(null, '', filter === 'all' ? '/tags/' : `/tags/#${encodeURIComponent(filter)}`);
       });
-      if (result) {
-        result.textContent = filter === 'all' ? `${allLabel} ${count} ${postsLabel}` : `${filter}${join}${count} ${postsLabel}`;
-      }
-      history.replaceState(null, '', filter === 'all' ? '/tags/' : `/tags/#${encodeURIComponent(filter)}`);
     });
-  });
 
-  const initial = decodeURIComponent(location.hash.slice(1));
-  if (initial) {
-    document.querySelector<HTMLButtonElement>(`[data-filter="${CSS.escape(initial)}"]`)?.click();
-  }
-</script>
+    const initial = decodeURIComponent(location.hash.slice(1));
+    if (initial) {
+      document.querySelector<HTMLButtonElement>(`[data-filter="${CSS.escape(initial)}"]`)?.click();
+    }
+  </script>
+</BaseLayout>

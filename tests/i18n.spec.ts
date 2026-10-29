@@ -30,8 +30,8 @@ test.describe('internationalisation', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.locator('[data-i18n="nav.home"]').first()).toHaveText('Home');
     await expect(page.locator('[data-i18n="home.ctaWork"]')).toHaveText('See the work');
-    await expect(page.locator('[data-i18n="home.lede"]')).toContainText('Developer, director and photographer');
-    await expect(page.locator('.showcase-kicker').first()).toHaveText('What I do');
+    await expect(page.locator('[data-i18n="home.lede"]')).toContainText('Flutter, image processing, front-end interaction and build automation');
+    await expect(page.locator('.showcase-kicker').first()).toHaveText('What I work on');
     await expect(page.locator('[data-i18n="footer.builtWith"]')).toContainText('Built with Astro');
   });
 
@@ -52,10 +52,10 @@ test.describe('internationalisation', () => {
     await page.locator('[data-lang-target]').first().click();
 
     const expectations: Record<string, Array<[string, string]>> = {
-      '/': [['nav.home', 'Home'], ['home.lede', 'Developer, director and photographer. I turn hard problems in imaging, interaction and automation into products you can actually use.']],
-      '/projects/': [['work.technical', 'Technical work'], ['work.source', 'Source']],
-      '/about/': [['about.title', 'Alun'], ['about.stackTitle', 'Stack I reach for']],
-      '/tags/': [['archive.title', 'Writing archive'], ['archive.all', 'All']],
+      '/': [['nav.home', 'Home'], ['home.lede', 'Flutter, image processing, front-end interaction and build automation. Projects I finished and problems I ran into, written down here.']],
+      '/projects/': [['work.technical', 'Open source'], ['work.source', 'Source']],
+      '/about/': [['about.title', 'Alun'], ['about.stackTitle', 'Stack I use']],
+      '/tags/': [['archive.title', 'Writing'], ['archive.all', 'All']],
     };
 
     for (const route of routes) {
@@ -74,7 +74,7 @@ test.describe('internationalisation', () => {
     await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
     await page.locator('[data-lang-target]').first().click();
     await expect(page.locator('.demo-group h3')).toHaveText(['Tools', 'Games', 'Focus & life', 'Experiments']);
-    await expect(page.locator('.demo-group header p').first()).toContainText('Browser tools');
+    await expect(page.locator('.demo-group header p').first()).toContainText('A web page that solves one problem');
   });
 });
 

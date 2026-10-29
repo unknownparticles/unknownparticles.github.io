@@ -4,16 +4,6 @@ import { portfolio } from '../data/portfolio';
 import { zh } from '../i18n/zh';
 import { en } from '../i18n/en';
 import { technicalProjects, demoGroups } from '../data/showcase';
-
-const groupDesc = (id: string) => {
-  const map: Record<string, { zh: string; en: string }> = {
-    tools: { zh: zh.demos.toolsDesc, en: en.demos.toolsDesc },
-    games: { zh: zh.demos.gamesDesc, en: en.demos.gamesDesc },
-    focus: { zh: zh.demos.focusDesc, en: en.demos.focusDesc },
-    experiments: { zh: zh.demos.experimentsDesc, en: en.demos.experimentsDesc },
-  };
-  return map[id];
-};
 ---
 
 <BaseLayout
