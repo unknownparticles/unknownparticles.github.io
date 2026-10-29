@@ -12,10 +12,10 @@
   color-scheme: light;
 
   /* Ground and ink */
-  --color-paper: #fff4e3;
-  --color-paper-2: #ffe9cc;
-  --color-paper-3: #ffd9a8;
-  --color-surface: #fffaf2;
+  --color-paper: #ffffff;
+  --color-paper-2: #f7f6f2;
+  --color-paper-3: #edebe4;
+  --color-surface: #ffffff;
   --color-ink: #2d2a5e;
   --color-ink-2: #4a4680;
   --color-muted: #6e6a9b;
@@ -41,7 +41,7 @@
   /* Accent = the loudest two, used for actions only */
   --color-accent: var(--pop-pink);
   --color-accent-2: #d63f97;
-  --color-accent-ink: #fff4e3;
+  --color-accent-ink: #ffffff;
   --color-accent-wash: #ffe0f0;
   --color-focus: var(--pop-blue);
 
@@ -49,11 +49,11 @@
   --color-warning: var(--pop-orange);
   --color-danger: var(--pop-red);
 
-  /* Inverse bands (the hero, the index strips) */
+  /* Deep ground, used sparingly: the ticker and a single closing band. */
   --color-inverse: #2d2a5e;
   --color-inverse-deep: #221f4a;
-  --color-on-inverse: #fff4e3;
-  --color-on-inverse-muted: #b9b3dd;
+  --color-on-inverse: #ffffff;
+  --color-on-inverse-muted: #c6c1e4;
   --color-inverse-rule: #4a4680;
 
   /* Comic mechanics */

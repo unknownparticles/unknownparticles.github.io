@@ -91,14 +91,14 @@ test.describe('theming', () => {
     const lightPage = await light.newPage();
     await lightPage.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(lightPage.locator('html')).not.toHaveAttribute('data-theme', 'dark');
-    await expect(lightPage.locator('body')).toHaveCSS('background-color', 'rgb(255, 244, 227)');
+    await expect(lightPage.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await light.close();
   });
 
   test('the toggle flips and persists the theme', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' });
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 244, 227)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
 
     await page.locator('[data-theme-target]').first().click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
