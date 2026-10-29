@@ -254,16 +254,6 @@
   min-height: 420px;
 }
 
-.lab-coordinate {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: var(--color-muted);
-  font-family: var(--font-outlier);
-  font-size: 11px;
-  text-align: right;
-}
-
 .lab-side dl {
   position: absolute;
   bottom: 0;

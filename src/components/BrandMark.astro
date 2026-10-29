@@ -1,0 +1,23 @@
+---
+interface Props {
+  size?: number;
+}
+
+const { size = 38 } = Astro.props;
+---
+
+<svg
+  class="brand-mark"
+  width={size}
+  height={size}
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="Alun"
+  focusable="false"
+>
+  <rect width="512" height="512" rx="112" fill="#2d2a5e" />
+  <rect x="56" y="56" width="184" height="184" rx="20" fill="#ff5757" />
+  <rect x="272" y="56" width="184" height="184" rx="20" fill="#ffd23f" />
+  <rect x="56" y="272" width="184" height="184" rx="20" fill="#2ec4b6" />
+  <circle cx="364" cy="364" r="92" fill="#4cc9f0" />
+</svg>
