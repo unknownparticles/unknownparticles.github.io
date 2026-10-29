@@ -1513,7 +1513,7 @@
 
 .about-story__copy .num {
   padding: 0 var(--space-2xs);
-  color: #ff9ecb !important;
+  color: #a41f6b;
   font-family: var(--font-display);
   font-size: 22px;
   font-weight: 700;
@@ -2056,5 +2056,16 @@
 
   .post-navigation__next {
     text-align: left;
+  }
+}
+
+/* The highlight figure needs a brighter pink on the deep ground. */
+:root[data-theme="dark"] .about-story__copy .num {
+  color: #ff9ecb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .about-story__copy .num {
+    color: #ff9ecb;
   }
 }

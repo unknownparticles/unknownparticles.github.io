@@ -84,7 +84,7 @@ test.describe('theming', () => {
     const darkPage = await dark.newPage();
     await darkPage.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(darkPage.locator('html')).not.toHaveAttribute('data-theme', 'light');
-    await expect(darkPage.locator('body')).toHaveCSS('background-color', 'rgb(30, 27, 58)');
+    await expect(darkPage.locator('body')).toHaveCSS('background-color', 'rgb(16, 18, 24)');
     await dark.close();
 
     const light = await browser.newContext({ colorScheme: 'light' });
@@ -102,11 +102,11 @@ test.describe('theming', () => {
 
     await page.locator('[data-theme-target]').first().click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(30, 27, 58)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(16, 18, 24)');
 
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(30, 27, 58)');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(16, 18, 24)');
   });
 
   test('body text keeps AA contrast in dark mode', async ({ page }) => {
