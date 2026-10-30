@@ -19,7 +19,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint:design": "node scripts/design-lint.mjs",
-    "test:ui": "npm run build && playwright test"
+    "test:ui": "npm run build && playwright test",
+    "test:article": "node scripts/check-article-code.mjs"
   },
   "dependencies": {
     "@fontsource-variable/fredoka": "^5.3.0",

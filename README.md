@@ -32,6 +32,7 @@ npm run dev
 ```bash
 npm run check
 npm run build
+npm run test:article
 npm run preview
 ```
 
@@ -56,3 +57,9 @@ npm run preview
 ```
 
 每篇文章必须提供 `title`、`date`、`author`、`header-img` 和 `tags`，构建时会通过内容 schema 校验。
+
+## 技术案例与规范
+
+本轮改进使用 OpenSpec 管理，规范与提案保存在 `openspec/`。案例通过源码与相关笔记说明具体取舍，不以仓库数量代替技术证据。
+
+性能文章示例可运行 `npm run test:article` 校验；需要支持 C++17 与 AddressSanitizer/UndefinedBehaviorSanitizer 的编译器，可用 `CXX` 指定。`npm run test:article -- --bench` 另以优化构建运行微基准，结果仅适用于本机本次运行。
