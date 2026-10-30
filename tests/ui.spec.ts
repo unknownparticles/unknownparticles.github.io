@@ -5,6 +5,9 @@ const routes = [
   '/projects/',
   '/tags/',
   '/about/',
+  '/projects/jpeg-info/',
+  '/projects/photo/',
+  '/projects/this-site/',
   '/2024/03/19/opengl万字超全笔记/',
   '/offline.html',
 ];
@@ -28,15 +31,15 @@ for (const route of routes) {
 
 test('the home page exposes work, capabilities and writing', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.showcase-card')).toHaveCount(2);
+  await expect(page.locator('.showcase-card')).toHaveCount(3);
   await expect(page.locator('.capability-list li')).toHaveCount(4);
   await expect(page.locator('.home-post')).toHaveCount(10);
 });
 
 test('the portfolio separates technical work from categorized demos', async ({ page }) => {
   await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('.engineering-card')).toHaveCount(6);
-  await expect(page.locator('.engineering-card h3')).toHaveCount(6);
+  await expect(page.locator('.engineering-card')).toHaveCount(7);
+  await expect(page.locator('.engineering-card h3')).toHaveCount(7);
   await expect(page.locator('.engineering-card__preview')).toHaveCount(2);
   await expect(page.locator('.demo-group')).toHaveCount(4);
   await expect(page.locator('.demo-group li')).toHaveCount(24);
@@ -46,7 +49,8 @@ test('the portfolio separates technical work from categorized demos', async ({ p
   expect(groupTitles).toEqual(['Tools', 'Games', 'Focus & life', 'Experiments']);
 
 
-  const links = page.locator('.engineering-card a, .demo-group a');
+  await expect(page.locator('.engineering-card a[href^="/projects/"]')).toHaveCount(3);
+  const links = page.locator('.engineering-card a[href^="https://"], .demo-group a');
   const count = await links.count();
   expect(count).toBeGreaterThan(24);
   for (let index = 0; index < count; index += 1) {

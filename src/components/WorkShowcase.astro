@@ -1,45 +1,46 @@
 ---
-import { portfolio } from '../data/portfolio';
 import { zh } from '../i18n/zh';
-import { en } from '../i18n/en';
 import { technicalProjects } from '../data/showcase';
-
-const titles = {
-  workTitle: { zh: zh.home.workTitle, en: en.home.workTitle },
-  workMore: { zh: zh.home.workMore, en: en.home.workMore },
-};
+const selected = technicalProjects.filter((project) => project.featured);
 ---
 
 <section class="work-showcase" aria-labelledby="work-showcase-title">
   <div class="shell showcase-heading">
     <div>
-      <p class="showcase-kicker">Selected work</p>
+      <p class="showcase-kicker" data-i18n="home.selectedKicker">{zh.home.selectedKicker}</p>
       <h2 id="work-showcase-title" data-i18n="home.workTitle">{zh.home.workTitle}</h2>
     </div>
-    <p><span class="num">{portfolio.pagesRepositoryCount}</span> <span data-i18n="home.pagesNote">{zh.home.pagesNote}</span></p>
+    <p data-i18n="home.selectedNote">{zh.home.selectedNote}</p>
   </div>
-
   <div class="shell showcase-grid">
-    {technicalProjects.filter((project) => project.preview).map((project) => (
+    {selected.map((project) => (
       <article class="showcase-card">
-        <a class="showcase-preview" href={project.demoUrl} target="_blank" rel="noopener" aria-label={project.title}>
-          <img src={project.preview} alt={`${project.title}`} width="720" height="480" loading="lazy" decoding="async" />
-          <span class="showcase-open" aria-hidden="true">Open</span>
+        <a class="showcase-preview" href={`/projects/${project.caseSlug}/`}>
+          {project.preview ? (
+            <img src={project.preview} alt={project.title} width="720" height="480" loading="lazy" decoding="async" data-i18n-attr="alt" data-zh={project.title} data-en={project.titleEn} />
+          ) : (
+            <div class="showcase-signal" aria-hidden="true">
+              <span>{project.language}</span>
+              {project.signal?.map((line) => <code>{line}</code>)}
+            </div>
+          )}
+          <span class="showcase-open" data-i18n="work.caseStudy">{zh.work.caseStudy}</span>
         </a>
         <div class="showcase-copy">
           <div>
-            <h3>{project.title}</h3>
-            <p>{project.summary}</p>
+            <p class="showcase-repo">{project.name}</p>
+            <h3><a href={`/projects/${project.caseSlug}/`} data-i18n={`selected.${project.name}.title`} data-zh={project.title} data-en={project.titleEn}>{project.title}</a></h3>
+            <p data-i18n={`selected.${project.name}.summary`} data-zh={project.summary} data-en={project.summaryEn}>{project.summary}</p>
+            <ul class="showcase-tags">{project.evidence.map((item, index) => <li data-i18n={`selected.${project.name}.tag.${index}`} data-zh={item} data-en={project.evidenceEn[index]}>{item}</li>)}</ul>
           </div>
-          <nav aria-label={project.title}>
-            <a href={project.demoUrl} target="_blank" rel="noopener" data-i18n="work.demo">{zh.work.demo}</a>
+          <nav aria-label="Project links">
+            <a href={`/projects/${project.caseSlug}/`} data-i18n="work.caseStudy">{zh.work.caseStudy}</a>
             <a href={project.repoUrl} target="_blank" rel="noopener" data-i18n="work.source">{zh.work.source}</a>
           </nav>
         </div>
       </article>
     ))}
   </div>
-
   <div class="shell showcase-more">
     <a href="/projects/" data-i18n="home.workMore">{zh.home.workMore}</a>
   </div>

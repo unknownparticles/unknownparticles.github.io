@@ -56,9 +56,9 @@ test.describe('desktop rendering', () => {
         return { top: Math.round(rect.top), bottom: Math.round(rect.bottom) };
       };
       return {
-        heading: box(document.querySelector('.home-hero h1')),
-        lede: box(document.querySelector('.home-hero__lede')),
-        action: box(document.querySelector('.hero-actions')),
+        heading: box(document.querySelector('.lab-copy h1')),
+        lede: box(document.querySelector('.lab-copy > p:not(.lab-status)')),
+        action: box(document.querySelector('.lab-actions')),
         viewport: window.innerHeight,
       };
     });

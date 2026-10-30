@@ -45,7 +45,7 @@ const isCurrent = (path: string) => (path === '/' ? currentPath === '/' : curren
         <li><a href="/projects/" aria-current={isCurrent('/projects/') ? 'page' : undefined} data-i18n="nav.work">{zh.nav.work}</a></li>
         <li><a href="/tags/" aria-current={isCurrent('/tags/') ? 'page' : undefined} data-i18n="nav.writing">{zh.nav.writing}</a></li>
         <li><a href="/about/" aria-current={isCurrent('/about/') ? 'page' : undefined} data-i18n="nav.about">{zh.nav.about}</a></li>
-        <li><a href="https://github.com/{SITE.github}" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </nav>
   </div>

@@ -84,8 +84,8 @@ test.describe('work and archive', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await page.locator('#selected-work').scrollIntoViewIfNeeded();
     const images = page.locator('.showcase-preview img');
-    await expect(images).toHaveCount(2);
-    for (let index = 0; index < 2; index += 1) {
+    await expect(images).toHaveCount(1);
+    for (let index = 0; index < await images.count(); index += 1) {
       await expect
         .poll(() => images.nth(index).evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0))
         .toBe(true);

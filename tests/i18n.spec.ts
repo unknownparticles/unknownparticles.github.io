@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const routes = ['/', '/projects/', '/about/', '/tags/'];
+const routes = ['/', '/projects/', '/about/', '/tags/', '/projects/jpeg-info/', '/projects/photo/', '/projects/this-site/'];
 
 test.describe('internationalisation', () => {
   test.use({ locale: 'zh-CN' });
@@ -30,8 +30,8 @@ test.describe('internationalisation', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.locator('[data-i18n="nav.home"]').first()).toHaveText('Home');
     await expect(page.locator('[data-i18n="home.ctaWork"]')).toHaveText('See the work');
-    await expect(page.locator('[data-i18n="home.lede"]')).toContainText('Flutter, image processing, front-end interaction and build automation');
-    await expect(page.locator('.showcase-kicker').first()).toHaveText('What I work on');
+    await expect(page.locator('[data-i18n="home.lede"]')).toContainText('Image processing and product engineering');
+    await expect(page.locator('.showcase-kicker').first()).toHaveText('Selected work');
     await expect(page.locator('[data-i18n="footer.builtWith"]')).toContainText('Built with Astro');
   });
 
@@ -52,10 +52,13 @@ test.describe('internationalisation', () => {
     await page.locator('[data-lang-target]').first().click();
 
     const expectations: Record<string, Array<[string, string]>> = {
-      '/': [['nav.home', 'Home'], ['home.lede', 'Flutter, image processing, front-end interaction and build automation. Projects I finished and problems I ran into, written down here.']],
+      '/': [['nav.home', 'Home'], ['home.lede', 'Image processing and product engineering. From JPEG file structure to pixels in the browser, documented through source code, technical notes and reproducible checks.']],
       '/projects/': [['work.technical', 'Open source'], ['work.source', 'Source']],
       '/about/': [['about.title', 'Alun'], ['about.stackTitle', 'Stack I use']],
       '/tags/': [['archive.title', 'Writing'], ['archive.all', 'All']],
+      '/projects/jpeg-info/': [['case.jpeg-info.title', 'JPEG metadata parser']],
+      '/projects/photo/': [['case.photo.title', 'Photo Lab']],
+      '/projects/this-site/': [['case.this-site.title', 'This site: static content engineering']],
     };
 
     for (const route of routes) {
@@ -67,6 +70,8 @@ test.describe('internationalisation', () => {
         [...document.querySelectorAll('[data-i18n]')].filter((element) => /[一-龥]/.test(element.textContent ?? '')).length,
       );
       expect(leftover, `no Chinese left on ${route}`).toBe(0);
+      const showcase = page.locator('.showcase-card, .case-page');
+      for (const text of await showcase.allTextContents()) expect(text).not.toMatch(/[一-龥]/);
     }
   });
 

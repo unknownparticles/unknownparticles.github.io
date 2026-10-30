@@ -2,7 +2,6 @@
 import { SITE } from '../config';
 import { portfolio } from '../data/portfolio';
 import { zh } from '../i18n/zh';
-import { en } from '../i18n/en';
 ---
 
 <footer class="site-footer">
@@ -21,6 +20,6 @@ import { en } from '../i18n/en';
   <div class="shell site-footer__bottom">
     <p>© {new Date().getFullYear()} Alun · <span data-i18n="footer.rights">{zh.footer.rights}</span></p>
     <p data-i18n="footer.builtWith">{zh.footer.builtWith}</p>
-    <p data-i18n="footer.verified">{zh.footer.verified} {portfolio.verifiedAt}</p>
+    <p><span data-i18n="footer.verified">{zh.footer.verified}</span> {portfolio.verifiedAt}</p>
   </div>
 </footer>

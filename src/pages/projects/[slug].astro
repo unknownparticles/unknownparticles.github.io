@@ -1,0 +1,56 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { technicalCases, type TechnicalCase } from '../../data/cases';
+import { technicalProjects, type TechnicalProject } from '../../data/showcase';
+import { zh } from '../../i18n/zh';
+
+export const getStaticPaths = (() => technicalCases.map((study) => ({
+  params: { slug: study.slug },
+  props: { study, project: technicalProjects.find((project) => project.caseSlug === study.slug)! },
+}))) satisfies GetStaticPaths;
+
+interface Props { study: TechnicalCase; project: TechnicalProject }
+const { study, project } = Astro.props;
+---
+
+<BaseLayout i18nTitle={{ zh: `${project.title} · 技术案例`, en: `${project.titleEn} · Engineering case` }} i18nDescription={{ zh: project.summary, en: project.summaryEn }}>
+  <main id="main-content" class="case-page">
+    <header class="shell case-hero">
+      <a href="/projects/" data-i18n="case.back" data-zh="← 全部项目" data-en="← All projects">← 全部项目</a>
+      <p class="showcase-kicker" data-i18n="case.kicker" data-zh="技术案例" data-en="Engineering case">技术案例</p>
+      <p class="case-repo">{project.name}</p>
+      <h1 data-i18n={`case.${study.slug}.title`} data-zh={project.title} data-en={project.titleEn}>{project.title}</h1>
+      <p class="case-lead" data-i18n={`case.${study.slug}.focus`} data-zh={study.focus.zh} data-en={study.focus.en}>{study.focus.zh}</p>
+      <nav class="case-actions" aria-label="Project links">
+        <a href={project.repoUrl} target="_blank" rel="noopener" data-i18n="work.source">{zh.work.source}</a>
+        {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener" data-i18n="work.demo">{zh.work.demo}</a>}
+        <a href="#case-evidence" data-i18n="case.evidenceLink" data-zh="查看实现依据 ↓" data-en="Explore the evidence ↓">查看实现依据 ↓</a>
+      </nav>
+      <ol class="case-flow" aria-label="Implementation flow">
+        {study.flow.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><code>{step}</code></li>)}
+      </ol>
+    </header>
+    <div class="shell case-layout">
+      <nav class="case-toc" aria-label="Case contents">
+        <p data-i18n="case.contents" data-zh="阅读路径" data-en="In this case">阅读路径</p>
+        {study.sections.map((section) => <a href={`#${section.id}`} data-i18n={`case.${study.slug}.${section.id}.nav`} data-zh={section.title.zh} data-en={section.title.en}>{section.title.zh}</a>)}
+      </nav>
+      <div class="case-body">
+        {study.sections.map((section, index) => (
+          <section id={section.id} class="case-section" aria-labelledby={`heading-${section.id}`}>
+            <span class="case-number">{String(index + 1).padStart(2, '0')}</span>
+            <h2 id={`heading-${section.id}`} data-i18n={`case.${study.slug}.${section.id}.title`} data-zh={section.title.zh} data-en={section.title.en}>{section.title.zh}</h2>
+            <p data-i18n={`case.${study.slug}.${section.id}.body`} data-zh={section.body.zh} data-en={section.body.en}>{section.body.zh}</p>
+          </section>
+        ))}
+        <section id="case-evidence" class="case-evidence" aria-labelledby="evidence-title">
+          <h2 id="evidence-title" data-i18n="case.evidenceTitle" data-zh="实现依据" data-en="Implementation evidence">实现依据</h2>
+          <p data-i18n="case.evidenceNote" data-zh="从这些具体文件继续查看实现与验证范围。外部项目链接固定到审阅版本。" data-en="Follow the concrete files behind this walkthrough. External project links point to the reviewed revision.">从这些具体文件继续查看实现与验证范围。外部项目链接固定到审阅版本。</p>
+          <ul>{study.evidence.map((item, index) => <li><a href={item.href} target="_blank" rel="noopener" data-i18n={`case.${study.slug}.evidence.${index}`} data-zh={item.label.zh} data-en={item.label.en}>{item.label.zh}</a></li>)}</ul>
+        </section>
+        <a class="case-return" href="/#selected-work" data-i18n="case.home" data-zh="← 继续看精选项目" data-en="← More selected work">← 继续看精选项目</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

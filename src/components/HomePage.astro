@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkShowcase from './WorkShowcase.astro';
+import SelectedWriting from './SelectedWriting.astro';
 import Capabilities from './Capabilities.astro';
 import { portfolio } from '../data/portfolio';
 import { zh } from '../i18n/zh';
@@ -19,13 +20,7 @@ const { posts, allPosts, pageNumber, totalPages } = Astro.props;
 const previousUrl = pageNumber === 2 ? '/' : `/page${pageNumber - 1}/`;
 const nextUrl = `/page${pageNumber + 1}/`;
 
-const blocks = [
-  { key: 'b1', title: { zh: '图形与图像', en: 'Graphics & imaging' }, note: 'OpenGL · OpenCV · JPEG', color: 'var(--pop-red)', shape: 'circle', span: '' },
-  { key: 'b2', title: { zh: '跨端产品', en: 'Cross-platform' }, note: 'Flutter · Dart', color: 'var(--pop-yellow)', shape: 'pill', span: 'mondrian__cell--tall' },
-  { key: 'b3', title: { zh: '前端体验', en: 'Web experience' }, note: 'TypeScript · Canvas', color: 'var(--pop-mint)', shape: 'square', span: '' },
-  { key: 'b4', title: { zh: '工程自动化', en: 'Automation' }, note: 'CI/CD · MCP', color: 'var(--pop-sky)', shape: 'blob', span: 'mondrian__cell--wide' },
-  { key: 'b5', title: { zh: '开源仓库', en: 'Open source' }, note: `${portfolio.ownRepositoryCount} repos`, color: 'var(--pop-violet)', shape: 'circle', span: '' },
-];
+
 ---
 
 <BaseLayout i18nTitle={{ zh: zh.meta.title, en: en.meta.title }} i18nDescription={{ zh: zh.meta.description, en: en.meta.description }}>
@@ -64,32 +59,8 @@ const blocks = [
           </div>
         </section>
 
-        <section class="mondrian" aria-labelledby="mondrian-title">
-          <div class="shell">
-            <div class="showcase-heading">
-              <div>
-                <p class="showcase-kicker" data-i18n="home.capabilityTitle" data-zh="我在做的事" data-en="What I work on">我在做的事</p>
-                <h2 id="mondrian-title" data-i18n="home.capabilityTitle">{zh.home.capabilityTitle}</h2>
-              </div>
-              <p data-i18n="home.capabilityLede">{zh.home.capabilityLede}</p>
-            </div>
-            <div class="mondrian__grid">
-              {blocks.map((block) => (
-                <div
-                  class:list={['mondrian__cell', `mondrian__cell--${block.shape}`, block.span]}
-                  style={`background: ${block.color}`}
-                >
-                  <div>
-                    <strong data-i18n={`blk.${block.key}`} data-zh={block.title.zh} data-en={block.title.en}>{block.title.zh}</strong>
-                    <span>{block.note}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <div id="selected-work"><WorkShowcase /></div>
+        <SelectedWriting posts={allPosts} />
         <Capabilities />
       </>
     )}

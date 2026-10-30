@@ -1,0 +1,33 @@
+---
+import type { Post } from '../lib/posts';
+import { getPostUrl } from '../lib/posts';
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+const selections = [
+  { match: 'EXIF 信息', en: 'Reading JPEG metadata without an imaging library', note: { zh: '从文件结构理解元数据', en: 'Understand metadata through file structure' } },
+  { match: '全景图', en: 'Rendering panoramas with OpenGL', note: { zh: '纹理、球面与渲染过程', en: 'Textures, spheres and the rendering path' } },
+  { match: 'C++性能', en: 'C++ performance: correctness before measurement', note: { zh: '附可运行的等价性校验', en: 'Includes executable equivalence checks' } },
+];
+const selected = selections.map((selection) => ({ ...selection, post: posts.find((post) => post.data.title.includes(selection.match)) })).filter((item) => item.post);
+---
+<section class="selected-writing" aria-labelledby="selected-writing-title">
+  <div class="shell">
+    <div class="showcase-heading">
+      <div>
+        <p class="showcase-kicker" data-i18n="writing.kicker" data-zh="技术笔记" data-en="Technical notes">技术笔记</p>
+        <h2 id="selected-writing-title" data-i18n="writing.selected" data-zh="从问题到实现" data-en="From problem to implementation">从问题到实现</h2>
+      </div>
+      <p data-i18n="writing.note" data-zh="文件格式、渲染与性能。精选三篇，了解具体的实现过程；文章正文为中文。" data-en="File formats, rendering and performance. Three notes on concrete implementation details; article bodies are in Chinese.">文件格式、渲染与性能。精选三篇，了解具体的实现过程；文章正文为中文。</p>
+    </div>
+    <ol class="selected-writing__list">
+      {selected.map((item, index) => (
+        <li><a href={getPostUrl(item.post!)}>
+          <span class="case-number">{String(index + 1).padStart(2, '0')}</span>
+          <h3 data-i18n={`writing.selected.${index}`} data-zh={item.post!.data.title} data-en={item.en}>{item.post!.data.title}</h3>
+          <p data-i18n={`writing.note.${index}`} data-zh={item.note.zh} data-en={item.note.en}>{item.note.zh}</p>
+          <span class="selected-writing__arrow" aria-hidden="true">↗</span>
+        </a></li>
+      ))}
+    </ol>
+  </div>
+</section>

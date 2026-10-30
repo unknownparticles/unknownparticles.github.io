@@ -38,15 +38,18 @@ import { technicalProjects, demoGroups } from '../data/showcase';
             ) : (
               <div class="engineering-card__signal" aria-hidden="true">
                 <span>{project.language}</span>
-                <strong>{String(index + 1).padStart(2, '0')}</strong>
+                <div>{(project.signal ?? project.evidence).map((item, signalIndex) => (
+                  <code data-i18n={`signal.${project.name}.${signalIndex}`} data-zh={item} data-en={project.signal ? item : project.evidenceEn[signalIndex]}>{item}</code>
+                ))}</div>
               </div>
             )}
             <div class="engineering-card__body">
               <p class="engineering-card__repo">{project.name}</p>
               <h3 data-i18n={`tech.${project.name}`} data-zh={project.title} data-en={project.titleEn}>{project.title}</h3>
               <p data-i18n={`tech.${project.name}Summary`} data-zh={project.summary} data-en={project.summaryEn}>{project.summary}</p>
-              <ul>{project.evidence.map((item) => <li>{item}</li>)}</ul>
+              <ul>{project.evidence.map((item, index) => <li data-i18n={`tech.${project.name}.tag.${index}`} data-zh={item} data-en={project.evidenceEn[index]}>{item}</li>)}</ul>
               <nav aria-label={project.title}>
+                {project.caseSlug && <a href={`/projects/${project.caseSlug}/`} data-i18n="work.caseStudy">{zh.work.caseStudy}</a>}
                 <a href={project.repoUrl} target="_blank" rel="noopener" data-i18n="work.source">{zh.work.source}</a>
                 {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener" data-i18n="work.demo">{zh.work.demo}</a>}
               </nav>

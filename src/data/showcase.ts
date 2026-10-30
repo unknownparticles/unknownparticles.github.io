@@ -5,6 +5,10 @@ export type TechnicalProject = {
   summary: string;
   summaryEn: string;
   evidence: string[];
+  evidenceEn: string[];
+  caseSlug?: string;
+  featured?: boolean;
+  signal?: string[];
   language: string;
   repoUrl: string;
   demoUrl?: string;
@@ -39,6 +43,10 @@ export const technicalProjects: TechnicalProject[] = [
     summary: '不用图像框架，直接读取 JPEG 标记段，解析 JFIF、EXIF、XMP 与 ICC Profile。',
     summaryEn: 'Reads JPEG marker segments directly, with no image framework: JFIF, EXIF, XMP and ICC Profile.',
     evidence: ['C++17', '二进制格式解析', 'EXIF / XMP / ICC'],
+    evidenceEn: ['C++17', 'Binary parsing', 'EXIF / XMP / ICC'],
+    caseSlug: 'jpeg-info',
+    featured: true,
+    signal: ['FF D8 · SOI', 'APPn · metadata', 'FF DA · SOS'],
     language: 'C++',
     repoUrl: 'https://github.com/unknownparticles/jpeg-info',
     accent: 'coral',
@@ -47,9 +55,10 @@ export const technicalProjects: TechnicalProject[] = [
     name: 'ImageQualityAnalyzer',
     title: '图像质量分析器',
     titleEn: 'Image quality analyser',
-    summary: '使用 Python 与 OpenCV 评估清晰度、人脸、光照，并查找相似图片。',
-    summaryEn: 'Uses Python and OpenCV to assess sharpness, faces and lighting, and to find similar images.',
-    evidence: ['OpenCV', '图像指标', '相似度检索'],
+    summary: '图像质量分析的项目说明；公开仓库目前仅包含 README，算法实践另见本站笔记。',
+    summaryEn: 'An image quality project outline. The public repository currently contains a README; algorithm experiments are documented in the notes.',
+    evidence: ['项目说明', 'OpenCV', '图像指标'],
+    evidenceEn: ['Project outline', 'OpenCV', 'Image metrics'],
     language: 'Python',
     repoUrl: 'https://github.com/unknownparticles/ImageQualityAnalyzer',
     accent: 'blue',
@@ -61,6 +70,7 @@ export const technicalProjects: TechnicalProject[] = [
     summary: 'Flutter iOS-first 专注应用，用专注获得能量并养成像素角色。',
     summaryEn: 'A Flutter, iOS-first focus app that turns attention into energy and grows a pixel companion.',
     evidence: ['Flutter', '状态管理', 'iOS-first UI'],
+    evidenceEn: ['Flutter', 'State management', 'iOS-first UI'],
     language: 'Dart',
     repoUrl: 'https://github.com/unknownparticles/pixpet',
     accent: 'violet',
@@ -69,9 +79,12 @@ export const technicalProjects: TechnicalProject[] = [
     name: 'photo',
     title: 'Photo Lab',
     titleEn: 'Photo Lab',
-    summary: '浏览器端完成图片裁剪、压缩与批量导出，数据保持在本地。',
-    summaryEn: 'Crop, compress and batch export images in the browser, with the data staying local.',
-    evidence: ['TypeScript', '本地文件处理', '批量任务'],
+    summary: '以浏览器本地图片处理为核心，将降噪与锐化放入 Worker，并为图像方向和裁剪保留测试。',
+    summaryEn: 'Browser image processing with a worker for denoising and sharpening, plus tests for orientation and cropping.',
+    evidence: ['TypeScript', '像素处理线程', '图像测试'],
+    evidenceEn: ['TypeScript', 'Pixel processing worker', 'Image tests'],
+    caseSlug: 'photo',
+    featured: true,
     language: 'TypeScript',
     repoUrl: 'https://github.com/unknownparticles/photo',
     demoUrl: 'https://alunapp.cn/photo/',
@@ -85,6 +98,7 @@ export const technicalProjects: TechnicalProject[] = [
     summary: '本地优先的健身训练与饮食记录应用，包含日历、训练量和饮食追踪。',
     summaryEn: 'A local-first fitness and diet log with a calendar, volume tracking and meal records.',
     evidence: ['TypeScript', 'Local-first', '复杂状态界面'],
+    evidenceEn: ['TypeScript', 'Local-first', 'Stateful interfaces'],
     language: 'TypeScript',
     repoUrl: 'https://github.com/unknownparticles/RepLog',
     demoUrl: 'https://alunapp.cn/RepLog/',
@@ -98,11 +112,28 @@ export const technicalProjects: TechnicalProject[] = [
     summary: '记录和检索个人经验的 MCP 工具，给 AI 当外部记忆用。',
     summaryEn: 'An MCP server that stores and searches personal notes, used as external memory for AI.',
     evidence: ['MCP', 'TypeScript', '知识工作流'],
+    evidenceEn: ['MCP', 'TypeScript', 'Knowledge workflows'],
     language: 'TypeScript',
     repoUrl: 'https://github.com/unknownparticles/life-mcp',
     demoUrl: 'https://alunapp.cn/life-mcp/',
     accent: 'slate',
   },
+  {
+    name: 'unknownparticles.github.io',
+    title: '本站：静态内容工程',
+    titleEn: 'This site: static content engineering',
+    summary: '用 Astro 在构建时校验内容、生成静态页面，以浏览器回归覆盖双语、主题与离线阅读。',
+    summaryEn: 'Astro validates content and generates static pages at build time. Browser regression checks cover language, themes and offline reading.',
+    evidence: ['Astro', '内容模型', '浏览器回归'],
+    evidenceEn: ['Astro', 'Content schemas', 'Browser regression'],
+    caseSlug: 'this-site',
+    featured: true,
+    signal: ['Markdown → schema', 'Astro → static HTML', 'Playwright → checks'],
+    language: 'TypeScript',
+    repoUrl: 'https://github.com/unknownparticles/unknownparticles.github.io',
+    accent: 'slate',
+  },
+
 ];
 
 export const demoGroups: DemoGroup[] = [

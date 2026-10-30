@@ -11,6 +11,7 @@ import '../styles/site.css';
 import '../styles/portfolio.css';
 import '../styles/profile.css';
 import '../styles/dopamine.css';
+import '../styles/engineering.css';
 
 interface Props {
   title?: string;
@@ -52,7 +53,7 @@ const enDescription = i18nDescription?.en ?? description ?? en.meta.description;
     />
     <meta name="theme-color" data-i18n-attr="content" data-zh="#ffffff" data-en="#ffffff" />
     <meta name="color-scheme" content="light dark" />
-    <title data-i18n="meta.title">{zhTitle}</title>
+    <title data-i18n="page.title" data-zh={zhTitle} data-en={enTitle}>{zhTitle}</title>
     <link rel="canonical" href={canonical} />
     <link rel="manifest" href="/pwa/manifest.json" />
     <link rel="icon" href="/img/favicon.ico" />
