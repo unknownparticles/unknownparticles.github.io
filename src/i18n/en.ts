@@ -32,7 +32,7 @@ export const en: Dict = {
     lede: 'Flutter, image processing, front-end interaction and build automation. Projects I finished and problems I ran into, written down here.',
     ctaWork: 'See the work',
     ctaGithub: 'GitHub',
-    ctaMail: 'Email me',
+    ctaMail: 'Get in touch',
     repos: 'Repos',
     live: 'Live',
     writing: 'Posts',
@@ -48,7 +48,7 @@ export const en: Dict = {
     page: 'Page',
     pageOf: 'of',
     contactTitle: 'Got a question or an idea?',
-    contactTail: 'Just email me.',
+    contactTail: "Let's talk.",
   },
   work: {
     index: 'Projects',
@@ -110,6 +110,7 @@ export const en: Dict = {
   },
   footer: {
     lede: 'Writing down what I built.',
+    mail: 'Email',
     builtWith: 'Built with Astro · Hosted on GitHub Pages',
     verified: 'Repository data updated',
     rights: 'Content and code, rights reserved',

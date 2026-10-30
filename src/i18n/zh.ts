@@ -45,7 +45,7 @@ export const zh: Dict = {
     lede: 'Flutter、图像处理、前端交互和工程自动化。做过的项目、踩过的坑，都写在这里。',
     ctaWork: '看项目',
     ctaGithub: 'GitHub',
-    ctaMail: '写信给我',
+    ctaMail: '联系我',
     repos: '仓库',
     live: '已上线',
     writing: '文章',
@@ -61,7 +61,7 @@ export const zh: Dict = {
     page: '第',
     pageOf: '页 / 共',
     contactTitle: '有问题或者想法，',
-    contactTail: '直接写信。',
+    contactTail: '欢迎交流。',
   },
   work: {
     index: 'Projects',
@@ -123,6 +123,7 @@ export const zh: Dict = {
   },
   footer: {
     lede: '把做过的项目记下来。',
+    mail: '邮件',
     builtWith: 'Astro 构建 · GitHub Pages 托管',
     verified: '仓库数据更新于',
     rights: '内容与代码保留权利',
