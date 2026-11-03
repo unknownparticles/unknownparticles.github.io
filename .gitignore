@@ -22,3 +22,7 @@ playwright-report/
 .hallmark/
 test-results/
 playwright-report/
+
+# Python article tooling
+__pycache__/
+*.py[cod]

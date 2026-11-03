@@ -31,6 +31,8 @@ jobs:
         run: npm run check
       - name: Build site
         run: npm run build
+      - name: Check article content and local assets
+        run: npm run check:content
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

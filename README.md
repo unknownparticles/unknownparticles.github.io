@@ -63,3 +63,20 @@ npm run preview
 本轮改进使用 OpenSpec 管理，规范与提案保存在 `openspec/`。案例通过源码与相关笔记说明具体取舍，不以仓库数量代替技术证据。
 
 性能文章示例可运行 `npm run test:article` 校验；需要支持 C++17 与 AddressSanitizer/UndefinedBehaviorSanitizer 的编译器，可用 `CXX` 指定。`npm run test:article -- --bench` 另以优化构建运行微基准，结果仅适用于本机本次运行。
+
+## 文章内容与配图回归
+
+正文图片存放在 `public/img/posts/`，使用本站路径与具体的替代文本。算法示意图、受控合成样本和真实应用截图应明确区分，不把示意图描述成实测结果。
+
+```bash
+npm run build
+npm run check:content
+npm run test:post-examples
+npx playwright test tests/articles.spec.ts
+```
+
+`check:content` 检查所有文章的代码围栏、JSON/YAML、JavaScript/Python 语法、封面、正文图片和构建后的本站链接，并测试 Fetch 示例的错误路径。`test:post-examples` 直接提取正文代码验证 EAR、清晰度和二十种混合模式，包含图层偏移回归；需要 Python 3、NumPy、OpenCV，以及 C++17、UndefinedBehaviorSanitizer 和可通过 `pkg-config opencv4` 发现的 OpenCV Core 开发库。浏览器测试需先安装 Playwright Chromium。
+
+修改矢量图解后运行 `python3 scripts/generate-article-figures.py`；重建模糊检测合成图运行 `python3 scripts/generate-blur-samples.py`。后者也会打印样本分数。两项生成命令会更新对应文章资源，应在修改配图时显式执行。
+
+本轮逐篇记录见 [文章校订记录](docs/content-audit-2026-11-03.md)。
