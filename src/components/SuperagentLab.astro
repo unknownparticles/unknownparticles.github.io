@@ -1,0 +1,70 @@
+<section class="agent-lab" id="superagent-lab" aria-labelledby="agent-lab-title">
+  <header>
+    <p class="agent-lab__kicker">原创可运行模型</p>
+    <h2 id="agent-lab-title">把系统走一遍</h2>
+    <p>按步骤回放固定事件，观察任务、代次和结果。浏览器执行的逻辑与下载文件一致；没有真实模型调用、后台命令或对外发送。</p>
+  </header>
+  <noscript><p>动画需要 JavaScript；正文、示意图和下载代码仍可直接阅读。</p></noscript>
+  <superagent-replay>
+    <label class="agent-lab__label">选择场景
+      <select data-scenario><option value="routing">事件过滤与订阅直通</option><option value="recovery">重启与迟到结果</option></select>
+    </label>
+    <div class="agent-lab__controls">
+      <button type="button" data-step>下一步</button><button type="button" data-play aria-pressed="false">播放</button><button type="button" data-reset>重置</button>
+    </div>
+    <div class="agent-lab__nodes" aria-label="当前处理环节">
+      <span data-node="intake">事件入口</span><span data-node="gate">准入／结果核对</span><span data-node="router">全局协调</span>
+      <span data-node="worker">订阅直通</span><span data-node="store">状态快照</span><span data-node="watchdog">恢复控制</span><span data-node="outbox">结果登记</span>
+    </div>
+    <p data-current class="agent-lab__current">点击下一步接收第一条事件。</p>
+    <dl class="agent-lab__metrics"><div><dt>见过的事件</dt><dd data-seen>0</dd></div><div><dt>协调决定</dt><dd data-router>0</dd></div><div><dt>结果登记</dt><dd data-results>0</dd></div></dl>
+    <h3>任务状态</h3><div class="agent-lab__tasks" data-tasks><p>还没有任务。</p></div>
+    <details><summary>查看本步状态 JSON</summary><pre data-state></pre></details>
+    <p class="agent-lab__status" role="status" data-status>进度 0 / 8</p>
+  </superagent-replay>
+  <superagent-context>
+    <h3>上下文预算：短内容与稳定引用</h3>
+    <p>预算先留给三组引用，再填入正文片段。这里按 JavaScript 字符串长度计数，不等同于模型 token，也没有进行模型检索。</p>
+    <label class="agent-lab__label">字符预算 <input data-budget type="range" min="120" max="600" step="20" value="180" /><output data-budget-value>180</output></label>
+    <p data-used class="agent-lab__current"></p><pre data-context></pre>
+    <div class="agent-lab__controls"><button type="button" data-read aria-expanded="false">读取完整资料</button></div>
+    <div data-documents hidden></div>
+  </superagent-context>
+  <footer><a href="/examples/superagent-runtime.mjs" download>下载完整模型：Node.js 直接运行</a><p>本地演示只登记结果；任务代次保护不了已发生的外部写入，生产系统还需额外的并发与投递控制。</p></footer>
+</section>
+
+<script>
+  import '../scripts/superagent-lab';
+</script>
+
+<style>
+  .agent-lab { background: var(--color-paper-2); border: 2px solid var(--color-line); border-radius: var(--radius-card); padding: clamp(16px,3vw,28px); margin-block: 3rem; scroll-margin-top: 100px; }
+  .agent-lab header h2 { font-family: var(--font-body); font-size: clamp(26px,4vw,34px); margin: .5rem 0 1rem; line-height: 1.4; }
+  .agent-lab h3 { font-size: 20px; line-height: 1.5; margin: 1.5rem 0 .8rem; }
+  .agent-lab p { font-size: 15px; line-height: 1.8; color: var(--color-ink-2); }
+  .agent-lab .agent-lab__kicker { font-family: var(--font-body); font-size: 12px; }
+  superagent-replay, superagent-context { display: block; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-rule); }
+  .agent-lab__label { display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; color: var(--color-ink); font-size: 14px; }
+  .agent-lab select { max-width: 100%; min-height: 44px; padding: 8px; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-surface); color: var(--color-ink); font-size: 14px; }
+  .agent-lab input { width: min(200px,50%); min-height: 44px; accent-color: var(--color-accent); }
+  .agent-lab__controls { display: flex; flex-wrap: wrap; gap: .7rem; margin-block: 1rem; }
+  .agent-lab button { min-height: 44px; padding: .5rem .9rem; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-surface); color: var(--color-ink); cursor: pointer; font-size: 14px; }
+  .agent-lab button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-paper); }
+  .agent-lab button:disabled { opacity: .5; cursor: default; }
+  .agent-lab__nodes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+  .agent-lab__nodes span { padding: 10px 7px; border: 1px solid var(--color-rule); border-radius: 8px; font-size: 13px; background: var(--color-surface); color: var(--color-ink); text-align: center; transition: background-color 180ms ease; }
+  .agent-lab__nodes [data-active="true"] { background: var(--color-ink); color: var(--color-paper); border: 2px solid var(--color-line); font-weight: 700; }
+  .agent-lab__current { padding: 12px; min-height: 4em; border-left: 3px solid var(--color-accent); background: var(--color-surface); }
+  .agent-lab__metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 1rem 0; }
+  .agent-lab__metrics div { border-top: 1px solid var(--color-rule); padding-top: 8px; }
+  .agent-lab__metrics dt { font-size: 12px; color: var(--color-muted); }
+  .agent-lab__metrics dd { margin: 4px 0 0; font-family: var(--font-outlier); font-size: 24px; color: var(--color-ink); }
+  .agent-lab details { margin-block: 1rem; }
+  .agent-lab summary { min-height: 44px; cursor: pointer; padding-block: 10px; font-size: 14px; }
+  .agent-lab pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.8; padding: 12px; max-height: 420px; overflow-y: auto; border: 1px solid var(--color-rule); background: var(--color-surface); color: var(--color-ink); box-shadow: none; }
+  .agent-lab__tasks { display: grid; gap: 8px; }
+  .agent-lab__status { font-family: var(--font-outlier); font-size: 12px !important; }
+  .agent-lab footer { border-top: 1px solid var(--color-rule); padding-top: 1rem; margin-top: 1.5rem; font-size: 14px; }
+  @media(max-width: 500px) { .agent-lab__nodes { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+  @media(prefers-reduced-motion: reduce) { .agent-lab__nodes span { transition: none; } }
+</style>

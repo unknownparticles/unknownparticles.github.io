@@ -94,7 +94,7 @@ test.describe('work and archive', () => {
 
   test('tag archive filters without navigating', async ({ page }) => {
     await page.goto('/tags/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.archive-list li')).toHaveCount(12);
+    await expect(page.locator('.archive-list li')).toHaveCount(13);
     await page.locator('[data-filter="OpenGL"]').click();
     await expect(page.locator('.archive-list li:not([hidden])')).toHaveCount(3);
   });

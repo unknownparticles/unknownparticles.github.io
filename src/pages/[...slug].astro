@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PerformanceLab from '../components/PerformanceLab.astro';
+import SuperagentLab from '../components/SuperagentLab.astro';
 import { SITE } from '../config';
 import { zh } from '../i18n/zh';
 import { formatDate, getAllPosts, getExcerpt, getPostPath, getPostUrl, type Post } from '../lib/posts';
@@ -66,6 +67,7 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
     <div class:list={['post-layout', !post.data.catalog && 'post-layout--single']}>
       <article class="post-container prose">
         <Content />
+        {getPostPath(post) === '2026/11/04/superagent工程拆解' && <SuperagentLab />}
         {getPostPath(post) === '2024/08/14/浅谈c性能优化' && <PerformanceLab />}
 
         <nav class="post-navigation" aria-label="Posts">
@@ -108,6 +110,7 @@ const catalogHeadings = headings.filter((heading) => heading.depth >= 2 && headi
             <span class="catalog-title" data-i18n="article.catalog">{zh.article.catalog}</span>
             <ol class="catalog-list">
               {getPostPath(post) === '2024/08/14/浅谈c性能优化' && <li><a href="#performance-lab">交互实验：单步与播放</a></li>}
+              {getPostPath(post) === '2026/11/04/superagent工程拆解' && <li><a href="#superagent-lab">交互实验：路由、恢复与上下文</a></li>}
               {catalogHeadings.map((heading) => (
                 <li class={`h${heading.depth}_nav`}><a href={`#${heading.slug}`}>{heading.text}</a></li>
               ))}

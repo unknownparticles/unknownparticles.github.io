@@ -82,3 +82,7 @@ npx playwright test tests/articles.spec.ts
 本轮逐篇记录见 [文章校订记录](docs/content-audit-2026-11-03.md)。
 
 性能文章的交互回归：`npx playwright test tests/performance-lab.spec.ts`。覆盖窗口计数、边界结果、地址步长、暂停／重置、键盘调整窗口、减少动画偏好与窄屏。修改正文 C++ 片段时，需同步更新可下载文件；校验脚本会拒绝两者不一致的修改。
+
+## Super-agent 教学文章
+
+`npm run test:superagent` 验证原创事件运行时、快照恢复、代次检查与上下文预算；`node public/examples/superagent-runtime.mjs` 打印两个示例场景。文章的动画与 Node.js 共用同一份模型，没有真实模型调用或外部发送。浏览器回归为 `npx playwright test tests/superagent.spec.ts`。
