@@ -62,7 +62,7 @@ npm run preview
 
 本轮改进使用 OpenSpec 管理，规范与提案保存在 `openspec/`。案例通过源码与相关笔记说明具体取舍，不以仓库数量代替技术证据。
 
-性能文章示例可运行 `npm run test:article` 校验；需要支持 C++17 与 AddressSanitizer/UndefinedBehaviorSanitizer 的编译器，可用 `CXX` 指定。`npm run test:article -- --bench` 另以优化构建运行微基准，结果仅适用于本机本次运行。
+性能文章包含三个浏览器单步／播放演示，以及 `public/examples/` 下的两份独立 C++17 用例（多方法套件、矩阵与字符串对照）。可运行 `npm run test:article` 校验文章提取代码、下载文件一致性和正确性；需要支持 C++17 与 AddressSanitizer/UndefinedBehaviorSanitizer 的编译器，可用 `CXX` 指定。`npm run test:article -- --bench` 另以优化构建运行微基准，结果仅适用于本机本次运行。
 
 ## 文章内容与配图回归
 
@@ -80,3 +80,5 @@ npx playwright test tests/articles.spec.ts
 修改矢量图解后运行 `python3 scripts/generate-article-figures.py`；重建模糊检测合成图运行 `python3 scripts/generate-blur-samples.py`。后者也会打印样本分数。两项生成命令会更新对应文章资源，应在修改配图时显式执行。
 
 本轮逐篇记录见 [文章校订记录](docs/content-audit-2026-11-03.md)。
+
+性能文章的交互回归：`npx playwright test tests/performance-lab.spec.ts`。覆盖窗口计数、边界结果、地址步长、暂停／重置、键盘调整窗口、减少动画偏好与窄屏。修改正文 C++ 片段时，需同步更新可下载文件；校验脚本会拒绝两者不一致的修改。

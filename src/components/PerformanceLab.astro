@@ -1,0 +1,78 @@
+<section class="performance-lab" id="performance-lab" aria-labelledby="performance-lab-title">
+  <header>
+    <p class="performance-lab__eyebrow">看见每一步</p>
+    <h2 id="performance-lab-title">性能优化小实验</h2>
+    <p>先选一种方法，再点“下一步”或播放。颜色表示本步访问，数字与结果跟着实际算法更新；这是原理演示，操作次数不等于 CPU 耗时。</p>
+  </header>
+  <noscript><p>交互演示需要 JavaScript。下方文章与可下载的 C++ 用例可直接阅读。</p></noscript>
+  <performance-demo data-mode="window">
+    <h3>① 滑动窗口：保留上一轮的和</h3>
+    <p>同一组数，左边每次重新读取整个窗口，右边只读取离开和进入的数。改变窗口大小，观察重复工作。</p>
+    <div class="performance-lab__controls">
+      <label>窗口大小 <input type="range" min="2" max="6" value="5" data-size /><output data-size-value>5</output></label>
+      <button type="button" data-step>下一步</button><button type="button" data-play aria-pressed="false">播放</button><button type="button" data-reset>重置</button>
+    </div>
+    <div class="performance-lab__panes">
+      <div><h4>每次重新累加</h4><div class="performance-lab__array" data-first></div><p data-first-info></p></div>
+      <div><h4>增量更新</h4><div class="performance-lab__array" data-second></div><p data-second-info></p></div>
+    </div>
+    <p class="performance-lab__explain" data-explain></p>
+    <p class="performance-lab__status" role="status" aria-live="polite" data-status>尚未开始</p>
+  </performance-demo>
+  <performance-demo data-mode="boundary">
+    <h3>② 减少边界判断：先分区，再更新</h3>
+    <p>6×8 的零矩阵，边界减一，内部加一。两边每步各处理一个元素，最后应得到同一张矩阵。</p>
+    <div class="performance-lab__controls">
+      <button type="button" data-step>下一步</button><button type="button" data-play aria-pressed="false">播放</button><button type="button" data-reset>重置</button>
+    </div>
+    <div class="performance-lab__panes">
+      <div><h4>逐点判断边界</h4><div class="performance-lab__matrix" data-first></div><p data-first-info></p></div>
+      <div><h4>先边缘，后内部</h4><div class="performance-lab__matrix" data-second></div><p data-second-info></p></div>
+    </div>
+    <p class="performance-lab__explain" data-explain></p>
+    <p class="performance-lab__status" role="status" aria-live="polite" data-status>尚未开始</p>
+  </performance-demo>
+  <performance-demo data-mode="locality">
+    <h3>③ 访存顺序：沿着地址读，还是跨行跳</h3>
+    <p>同一块按行存储的 6×8 数据，编号就是线性下标。两边都求总和，比较相邻两次访问的地址间隔。</p>
+    <div class="performance-lab__controls">
+      <button type="button" data-step>下一步</button><button type="button" data-play aria-pressed="false">播放</button><button type="button" data-reset>重置</button>
+    </div>
+    <div class="performance-lab__panes">
+      <div><h4>按列访问</h4><div class="performance-lab__matrix" data-first></div><p data-first-info></p></div>
+      <div><h4>按行访问</h4><div class="performance-lab__matrix" data-second></div><p data-second-info></p></div>
+    </div>
+    <p class="performance-lab__explain" data-explain></p>
+    <p class="performance-lab__status" role="status" aria-live="polite" data-status>尚未开始</p>
+  </performance-demo>
+  <footer><a href="/examples/cpp-optimization.cpp" download>下载完整 C++17 用例</a><span>浏览器运行演示算法；真实本机计时见正文复现命令。</span></footer>
+</section>
+
+<script>
+  import '../scripts/performance-lab';
+</script>
+
+<style>
+  .performance-lab { margin-block: 2rem 4rem; padding: clamp(16px, 3vw, 28px); border: 2px solid var(--color-line); border-radius: var(--radius-card); background: var(--color-paper-2); scroll-margin-top: 100px; }
+  .performance-lab header h2 { margin: .5rem 0 1rem; font-size: clamp(26px, 4vw, 34px); line-height: 1.3; }
+  .performance-lab header p { margin: .5rem 0; }
+  .performance-lab .performance-lab__eyebrow { font-size: 12px; color: var(--color-ink-2); }
+  performance-demo { display: block; padding-block: 1.5rem; border-top: 1px solid var(--color-rule); margin-top: 1.5rem; }
+  .performance-lab h3 { font-size: 22px; line-height: 1.45; margin: 0 0 .8rem; }
+  .performance-lab h4 { font-family: var(--font-body); font-size: 16px; margin: 0 0 .8rem; }
+  .performance-lab p { font-size: 15px; line-height: 1.8; color: var(--color-ink-2); }
+  .performance-lab__controls { display: flex; flex-wrap: wrap; gap: .6rem; margin-block: 1rem; align-items: center; }
+  .performance-lab__controls label { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; width: 100%; font-size: 14px; }
+  .performance-lab input { width: min(140px, 45%); min-height: 44px; accent-color: var(--color-accent); }
+  .performance-lab button { min-height: 44px; padding: .4rem .9rem; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-surface); color: var(--color-ink); cursor: pointer; font-size: 14px; }
+  .performance-lab button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-paper); }
+  .performance-lab button:disabled { opacity: .5; cursor: default; }
+  .performance-lab__panes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .performance-lab__panes > div { min-width: 0; background: var(--color-surface); border: 1px solid var(--color-rule); border-radius: 8px; padding: 12px; }
+  .performance-lab__array, .performance-lab__matrix { display: grid; gap: 3px; grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .performance-lab__explain { padding: 12px; border-left: 3px solid var(--color-accent); background: var(--color-surface); min-height: 5em; }
+  .performance-lab__status { font-family: var(--font-outlier); font-size: 12px !important; }
+  .performance-lab footer { display: grid; gap: .8rem; padding-top: 1rem; border-top: 1px solid var(--color-rule); font-size: 14px; }
+  .performance-lab footer span { color: var(--color-muted); }
+  @media (max-width: 1050px) { .performance-lab__panes { grid-template-columns: minmax(0, 1fr); } }
+</style>
